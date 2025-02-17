@@ -1,6 +1,8 @@
-
-<div id="countdown-timer" style="font-size: 1.5rem; font-weight: bold; color: #dc2626;">
-  ⏳ 剩余计算中...
+<div class="countdown-container">
+  <div class="title">南昌赛马娘only2.0 倒计时</div>
+  <div id="countdown-timer" class="timer">
+    <div class="loading">🏁 赛道准备中...</div>
+  </div>
 </div>
 
 <script>
@@ -8,35 +10,153 @@
     const targetDate = new Date('2025-07-19T00:00:00');
     const timerElement = document.getElementById('countdown-timer');
     
+    function formatTime(unit) {
+      return unit < 10 ? `0${unit}` : unit;
+    }
+
     function updateTimer() {
       const now = new Date();
       const diff = targetDate - now;
       
       if(diff <= 0) {
-        timerElement.innerHTML = '🎉 活动已开始！';
+        timerElement.innerHTML = `
+          <div class="finished">
+            <div>🎉 活动火热进行中！</div>
+            <div class="sub">✦ ウマ娘たちが待っています ✦</div>
+          </div>`;
         clearInterval(intervalId);
         return;
       }
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      
-      timerElement.innerHTML = `⏳ 剩余 ${days}天 ${hours}小时`;
+      const hours = Math.floor((diff % (86400000)) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+
+      timerElement.innerHTML = `
+        <div class="time-block">
+          <div class="number">${days}</div>
+          <div class="label">DAYS</div>
+        </div>
+        <div class="colon">:</div>
+        <div class="time-block">
+          <div class="number">${formatTime(hours)}</div>
+          <div class="label">HOURS</div>
+        </div>
+        <div class="colon">:</div>
+        <div class="time-block">
+          <div class="number">${formatTime(minutes)}</div>
+          <div class="label">MINUTES</div>
+        </div>`;
     }
 
-    // 立即执行一次避免初始延迟
-    updateTimer();
-    // 每秒更新
-    const intervalId = setInterval(updateTimer, 1000);
+    // 初始化加载效果
+    setTimeout(() => {
+      timerElement.classList.add('loaded');
+      updateTimer();
+      const intervalId = setInterval(updateTimer, 1000);
+    }, 800);
   })();
 </script>
 
 <style>
-  /* 移动端适配 */
+  .countdown-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f9f3ff 0%, #e8d3ff 100%);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(149, 88, 202, 0.15);
+    border: 2px solid #ffffff;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    color: #6b21a8;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-family: 'Microsoft YaHei', sans-serif;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+  }
+
+  .timer {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+  }
+
+  .timer.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .time-block {
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    min-width: 90px;
+    box-shadow: 0 4px 6px rgba(107, 33, 168, 0.1);
+  }
+
+  .number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #7e22ce;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .label {
+    font-size: 0.9rem;
+    color: #9333ea;
+    text-align: center;
+    margin-top: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .colon {
+    font-size: 2rem;
+    color: #9333ea;
+    align-self: center;
+    margin: 0 -0.5rem;
+  }
+
+  .finished {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #10b981;
+    padding: 2rem;
+  }
+
+  .finished .sub {
+    font-size: 1.2rem;
+    color: #6b21a8;
+    margin-top: 1rem;
+  }
+
   @media (max-width: 640px) {
-    #countdown-timer {
-      font-size: 1.25rem;
-      padding: 8px;
+    .countdown-container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+
+    .title {
+      font-size: 1.4rem;
+    }
+
+    .time-block {
+      padding: 0.8rem;
+      min-width: 70px;
+    }
+
+    .number {
+      font-size: 2rem;
+    }
+
+    .label {
+      font-size: 0.75rem;
     }
   }
 </style>
