@@ -1,9 +1,42 @@
-export function CountdownTimer() {
-  const targetDate = new Date('2025-07-19T00:00:00')
-  // 实现倒计时逻辑...
-  return (
-    <div className="text-2xl font-bold text-red-600">
-      ⏳ 剩余 {days}天 {hours}小时
-    </div>
-  )
-}
+
+<div id="countdown-timer" style="font-size: 1.5rem; font-weight: bold; color: #dc2626;">
+  ⏳ 剩余计算中...
+</div>
+
+<script>
+  (function() {
+    const targetDate = new Date('2025-07-19T00:00:00');
+    const timerElement = document.getElementById('countdown-timer');
+    
+    function updateTimer() {
+      const now = new Date();
+      const diff = targetDate - now;
+      
+      if(diff <= 0) {
+        timerElement.innerHTML = '🎉 活动已开始！';
+        clearInterval(intervalId);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      
+      timerElement.innerHTML = `⏳ 剩余 ${days}天 ${hours}小时`;
+    }
+
+    // 立即执行一次避免初始延迟
+    updateTimer();
+    // 每秒更新
+    const intervalId = setInterval(updateTimer, 1000);
+  })();
+</script>
+
+<style>
+  /* 移动端适配 */
+  @media (max-width: 640px) {
+    #countdown-timer {
+      font-size: 1.25rem;
+      padding: 8px;
+    }
+  }
+</style>
