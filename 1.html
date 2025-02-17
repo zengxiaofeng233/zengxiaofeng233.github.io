@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ένδειξη</title>
-</head>
-<body>
-    <p>JiM0OTsmIzQ5OyYjNTQ7JiM0NjsmIzQ4OyYjNTI7JiM1NTsmIzUxOyYjNDg7JiM1NDsmIzQ0OyYjNTA7JiM1NjsmIzQ2OyYjNTQ7JiM1NjsmIzQ5OyYjNTI7JiM1MTsmIzUwOw==</p>
-    <p>JiM0OTsmIzQ5OyYjNTM7JiM0NjsmIzU3OyYjNDk7JiM1NzsmIzQ5OyYjNTU7JiM1NDsmIzQ0OyYjNTA7JiM1NjsmIzQ2OyYjNTQ7JiM0OTsmIzUyOyYjNTA7JiM0OTsmIzUyOw==</p>
-    <p>JiM0OTsmIzQ5OyYjNTM7JiM0NjsmIzU3OyYjNDk7JiM1MjsmIzU3OyYjNTc7JiM1MzsmIzQ0OyYjNTA7JiM1NjsmIzQ2OyYjNTQ7JiM1NTsmIzQ4OyYjNTc7JiM0ODsmIzU2Ow==</p>
-</body>
-</html>
+export function CountdownTimer() {
+  const targetDate = new Date('2025-07-19T00:00:00')
+  // 实现倒计时逻辑...
+  return (
+    <div className="text-2xl font-bold text-red-600">
+      ⏳ 剩余 {days}天 {hours}小时
+    </div>
+  )
+}
