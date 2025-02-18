@@ -1,162 +1,114 @@
-<div class="countdown-container">
-  <div class="title">南昌赛马娘only2.0 倒计时</div>
-  <div id="countdown-timer" class="timer">
-    <div class="loading">🏁 赛道准备中...</div>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    :root {
+      --neon-blue: #0ff;
+      --glitch-duration: 1.2s;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 0.05em 0 0 rgba(255,0,0,.8); }
+      25% { transform: skew(0.8deg); }
+      50% { text-shadow: -0.05em -0.025em 0 rgba(0,255,0,.8); }
+      75% { transform: skew(-0.6deg); }
+      100% { text-shadow: 0.025em 0.05em 0 rgba(0,0,255,.8); }
+    }
+
+    .cipher-text {
+      font-family: 'Courier New', monospace;
+      color: var(--neon-blue);
+      background: #000;
+      padding: 1rem;
+      border: 1px dashed #4d4d4d;
+      animation: glitch var(--glitch-duration) infinite;
+    }
+
+    .quantum-key:hover {
+      cursor: pointer;
+      filter: hue-rotate(90deg);
+    }
+
+    .hidden-layer {
+      display: none;
+      position: absolute;
+      background: #111;
+      padding: 1rem;
+      border: 2px solid var(--neon-blue);
+    }
+
+    .key-block:hover + .hidden-layer {
+      display: block;
+    }
+  </style>
+</head>
+<body style="background: #000; color: #fff; max-width: 800px; margin: 0 auto;">
+  <div class="cipher-text">
+    01010011 01000101 01000011 01001111 01001110 01000100...
   </div>
-</div>
 
-<script>
-  (function() {
-    const targetDate = new Date('2025-07-19T00:00:00');
-    const timerElement = document.getElementById('countdown-timer');
-    
-    function formatTime(unit) {
-      return unit < 10 ? `0${unit}` : unit;
+  <div style="text-align: center; margin: 2rem 0;">
+    <img src="encrypted-wave.png" alt="量子波形" width="200" 
+         class="quantum-key" onclick="revealFrequency()">
+    <div class="hidden-layer" id="waveform-clue">
+      波形频率: 17.76kHz<br>
+      对应坐标: 35.68°N, 139.76°E
+    </div>
+  </div>
+
+  <div class="security-alert">
+    <h2>〘特雷森学园安全委员会通知〙</h2>
+    <p>检测到<redacted>██级协议突破事件</redacted></p>
+  </div>
+
+  <hr style="border: 1px dashed #444;">
+
+  <div class="phase-info">
+    <h3>◈ 相位迁移公告 ◈</h3>
+    <ul>
+      <li>量子纠缠效验系统 <span class="countdown" data-end="2025-03-01"></span></li>
+      <li>反制协议β：<span id="error-counter">0/3</span> 次错误</li>
+    </ul>
+  </div>
+
+  <div class="key-interface" style="position: relative;">
+    <div class="key-block">1F23 8A9C ████ QWE5</div>
+    <div class="hidden-layer">
+      <form onsubmit="validateKey(event)">
+        <input type="text" placeholder="输入恢复密钥" 
+               pattern="[0-9A-F]{4}" maxlength="4"
+               style="background: #222; color: var(--neon-blue);">
+        <button type="submit">提交</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function revealFrequency() {
+      const coord = document.getElementById('waveform-clue');
+      coord.style.display = coord.style.display === 'block' ? 'none' : 'block';
     }
 
-    function updateTimer() {
-      const now = new Date();
-      const diff = targetDate - now;
-      
-      if(diff <= 0) {
-        timerElement.innerHTML = `
-          <div class="finished">
-            <div>🎉 活动火热进行中！</div>
-            <div class="sub">✦ ウマ娘たちが待っています ✦</div>
-          </div>`;
-        clearInterval(intervalId);
-        return;
+    function validateKey(e) {
+      e.preventDefault();
+      const input = e.target.querySelector('input');
+      if (/^[A-F0-9]{4}$/.test(input.value)) {
+        alert('量子签名验证中...');
+        // 实际应调用API校验
+      } else {
+        const counter = document.getElementById('error-counter');
+        counter.textContent = `${Math.min(parseInt(counter.textContent)+1, 3)}/3`;
       }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (86400000)) / 3600000);
-      const minutes = Math.floor((diff % 3600000) / 60000);
-
-      timerElement.innerHTML = `
-        <div class="time-block">
-          <div class="number">${days}</div>
-          <div class="label">DAYS</div>
-        </div>
-        <div class="colon">:</div>
-        <div class="time-block">
-          <div class="number">${formatTime(hours)}</div>
-          <div class="label">HOURS</div>
-        </div>
-        <div class="colon">:</div>
-        <div class="time-block">
-          <div class="number">${formatTime(minutes)}</div>
-          <div class="label">MINUTES</div>
-        </div>`;
     }
 
-    // 初始化加载效果
-    setTimeout(() => {
-      timerElement.classList.add('loaded');
-      updateTimer();
-      const intervalId = setInterval(updateTimer, 1000);
-    }, 800);
-  })();
-</script>
-
-<style>
-  .countdown-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: linear-gradient(135deg, #f9f3ff 0%, #e8d3ff 100%);
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(149, 88, 202, 0.15);
-    border: 2px solid #ffffff;
-  }
-
-  .title {
-    font-size: 1.8rem;
-    color: #6b21a8;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-family: 'Microsoft YaHei', sans-serif;
-    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
-  }
-
-  .timer {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-  }
-
-  .timer.loaded {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .time-block {
-    background: white;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-    min-width: 90px;
-    box-shadow: 0 4px 6px rgba(107, 33, 168, 0.1);
-  }
-
-  .number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #7e22ce;
-    text-align: center;
-    line-height: 1;
-  }
-
-  .label {
-    font-size: 0.9rem;
-    color: #9333ea;
-    text-align: center;
-    margin-top: 0.5rem;
-    letter-spacing: 1px;
-  }
-
-  .colon {
-    font-size: 2rem;
-    color: #9333ea;
-    align-self: center;
-    margin: 0 -0.5rem;
-  }
-
-  .finished {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #10b981;
-    padding: 2rem;
-  }
-
-  .finished .sub {
-    font-size: 1.2rem;
-    color: #6b21a8;
-    margin-top: 1rem;
-  }
-
-  @media (max-width: 640px) {
-    .countdown-container {
-      margin: 1rem;
-      padding: 1.5rem;
-    }
-
-    .title {
-      font-size: 1.4rem;
-    }
-
-    .time-block {
-      padding: 0.8rem;
-      min-width: 70px;
-    }
-
-    .number {
-      font-size: 2rem;
-    }
-
-    .label {
-      font-size: 0.75rem;
-    }
-  }
-</style>
+    // 倒计时自动更新
+    setInterval(() => {
+      const end = new Date('2025-03-01');
+      const diff = end - new Date();
+      document.querySelector('.countdown').textContent = 
+        `${Math.floor(diff/86400000)}天${Math.floor((diff%86400000)/3600000)}时`;
+    }, 1000);
+  </script>
+</body>
+</html>
