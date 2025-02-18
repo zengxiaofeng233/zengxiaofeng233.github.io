@@ -3,173 +3,168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>■ verify ■</title>
+  <title>■ 零知识协议激活 ■</title>
   <style>
     :root {
-      --scan-line: #0ff3;
-      --terminal-green: #00ff9f;
+      --neon-purple: #bc13fe;
+      --cipher-text: #0f0;
     }
 
     body {
-      background: url('https://pic1.imgdb.cn/item/67b42a11d0e0a243d400700d.png') no-repeat center/cover,
-                  linear-gradient(45deg, #001100 0%, #000000 100%);
-      color: var(--terminal-green);
-      font-family: 'Microsoft Yahei Mono', monospace;
-      min-height: 100vh;
-      padding: 20px;
-      position: relative;
-    }
-
-    .crt-effect::after {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent 0px,
-        var(--scan-line) 1px,
-        transparent 2px
-      );
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .container {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      margin: 0 auto;
-      background: #000000cc;
+      background: radial-gradient(black 60%, #1a001a);
+      color: var(--cipher-text);
+      font-family: '等距更纱黑体 SC', monospace;
       padding: 2rem;
-      border: 1px solid #00ff9f55;
     }
 
-    .puzzle-box {
-      margin: 2rem 0;
-      padding: 1.5rem;
-      border-left: 3px solid #00ff9f;
+    .protocol-layer {
+      border: 1px solid var(--neon-purple);
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      background: rgba(0, 0, 0, 0.9);
     }
 
-    input[type="text"] {
-      background: #000;
-      color: var(--terminal-green);
-      border: 1px solid #00ff9f;
-      padding: 0.8rem;
-      font-size: 1.1rem;
-      width: 300px;
-      margin: 1rem 0;
-    }
-
-    button {
-      background: #002200;
-      color: var(--terminal-green);
-      border: 1px solid #00ff9f;
-      padding: 0.8rem 1.5rem;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .hidden-content {
+    #zkpSection {
       display: none;
-      margin-top: 2rem;
-      border-top: 2px dashed #00ff9f;
-      padding-top: 2rem;
+      border: 2px dashed var(--neon-purple);
+      padding: 1.5rem;
     }
   </style>
 </head>
-<body class="crt-effect">
-  <div class="container">
-    <h1>■ 赛马密码解析系统 ■</h1>
-    
-    <div class="puzzle-box">
-      <p id="timeTag"></p>
-      <div id="puzzleContent"></div>
-      <input type="text" id="answerInput" placeholder="输入解密答案">
-      <button onclick="checkAnswer()">验证答案</button>
-    </div>
+<body>
+  <div class="protocol-layer">
+    <h2>■ 初级协议：矩阵脱壳 ■</h2>
+    <pre>
+4pml44CQ5Y2D5LiN5piv5Zyo6K+75Y+W5LqG5LiA56eN44CR
+4pml4pmo4pmo4pmo4pmo4pmo4pmo4pmo4pmo4pmo4pmo4pmo
+    </pre>
+    <input type="text" id="phase1" placeholder="输入SHA-256哈希值">
+  </div>
 
-    <div class="hidden-content" id="secretContent">
-      <h2>■ 封印解除 ■</h2>
-      <table>
-        <tr><td>朝日杯３歳Ｓ</td><td>3-1/2马位</td></tr>
-        <tr><td>皐月赏</td><td>3-1/2马位（破中山马场纪录）</td></tr>
-        <tr><td>日本ダービー</td><td>5马位</td></tr>
-        <tr><td>菊花赏</td><td>7马位（破京都马场纪录）</td></tr>
-        <tr><td>有馬記念</td><td>3马位</td></tr>
-      </table>
-      
-      <div style="margin-top:2rem; border-left:2px solid #00ff9f; padding-left:1rem;">
-        <p>Revvin' up your engine</p>
-        <p>Listen to her howlin' roar</p>
-        <p>Metal under tension</p>
-        <p>Beggin' you to touch and go</p>
-      </div>
-    </div>
+  <div class="protocol-layer" id="phase2" style="display:none">
+    <h2>■ 中级协议：离散对数挑战 ■</h2>
+    <pre id="dlpParams"></pre>
+    <input type="text" id="dlpProof" placeholder="输入知识证明（格式：c,s）">
+  </div>
+
+  <div id="zkpSection">
+    <h3>■ 最终协议：Schnorr零知识证明 ■</h3>
+    <div id="zkpChallenge"></div>
+    <input type="text" id="zkpResponse" placeholder="输入证明响应（十六进制）">
+    <button onclick="validateZKP()">最终验证</button>
+  </div>
+
+  <div id="finalArchive" style="display:none">
+    <!-- 档案数据 -->
   </div>
 
   <script>
-    // 每两小时更换的谜题库
-    const puzzleSet = [
-      {
-        type: '凯撒密码',
-        generate: (h) => {
-          const shift = h % 25 + 1;
-          const cipher = caesarShift('三冠马', shift);
-          return `凯撒密码（位移量${shift}）：${cipher} → 明文是？`;
-        },
-        answer: (h) => '三冠马'
-      },
-      {
-        type: '数学谜题',
-        generate: (h) => `当前小时数（${getHour()}）的平方减去${h}：`,
-        answer: (h) => (getHour()**2 - h).toString()
-      },
-      {
-        type: '年份解密',
-        generate: (h) => `昭和${50 + h}年对应的西元年份是？`,
-        answer: (h) => (1925 + 50 + h).toString()
-      },
-      {
-        type: '歌词解密',
-        generate: (h) => {
-          const encrypted = caesarShift('Revvin', h%5+1);
-          return `解密歌词：${encrypted}（凯撒位移${h%5+1}）`;
-        },
-        answer: (h) => 'Revvin'
+    // 第一层：Base64 -> SHA256
+    const phase1 = {
+      cipher: '4pml44CQ5Y2D5LiN5piv5Zyo6K+75Y+W5LqG5LiA56eN44CR4pml4pmo4pmo4pmo4pmo4pmo4pmo4pmo4pmo4pmo4pmo4pmo',
+      secret: '平成三冠达成密钥'
+    }
+
+    // 第二层：离散对数参数
+    const dlpConfig = {
+      p: 0x8df64a8f4d96f6d5ecbe45c5b721fc47e46a1b2932cd6b9f334a0,
+      g: 0x2,
+      y: null
+    }
+
+    // ZKP参数
+    let zkp = {
+      secret: null,
+      public: null,
+      challenge: null
+    }
+
+    document.getElementById('phase1').addEventListener('change', function(e) {
+      if(CryptoJS.SHA256(atob(phase1.cipher)) === e.target.value) {
+        document.getElementById('phase2').style.display = 'block'
+        initDLPChallenge()
       }
-    ];
+    })
 
-    function caesarShift(str, shift) {
-      return str.replace(/[a-z]/gi, c => 
-        String.fromCharCode((c.charCodeAt() - 65 + shift + 26) % 26 + 65)
-      );
-    }
-
-    function getHour() {
-      return new Date().getHours();
-    }
-
-    function updatePuzzle() {
-      const slot = Math.floor(getHour() / 2);
-      const puzzle = puzzleSet[slot % puzzleSet.length];
+    function initDLPChallenge() {
+      // 生成动态离散对数问题
+      const hour = new Date().getHours()
+      dlpConfig.x = (hour % 12) * 0xbeef + 0xdead
+      dlpConfig.y = BigInt(dlpConfig.g) ** BigInt(dlpConfig.x) % BigInt(dlpConfig.p)
       
-      document.getElementById('puzzleContent').innerHTML = puzzle.generate(slot);
-      document.getElementById('timeTag').innerHTML = 
-        `⌚ 当前时段谜题（有效期：${slot*2}:00 - ${slot*2+2}:00）`;
+      document.getElementById('dlpParams').textContent = 
+        `p = ${dlpConfig.p.toString(16)}\n` +
+        `g = ${dlpConfig.g}\n` +
+        `y = ${dlpConfig.y.toString(16)}`
       
-      currentAnswer = puzzle.answer(slot);
+      console.debug('[DLP提示] 当前小时数模12的值影响私钥x')
     }
 
-    function checkAnswer() {
-      const input = document.getElementById('answerInput').value.trim();
-      if(input.toLowerCase() === currentAnswer.toLowerCase()) {
-        document.getElementById('secretContent').style.display = 'block';
-      } else {
-        alert('❌ 答案错误，请重新解密');
-        document.getElementById('answerInput').value = '';
+    document.getElementById('dlpProof').addEventListener('change', function(e) {
+      const [c, s] = e.target.value.split(',').map(n => BigInt(n))
+      const left = (BigInt(dlpConfig.g) ** s) % BigInt(dlpConfig.p)
+      const right = (BigInt(dlpConfig.y) ** c * BigInt(dlpConfig.g) ** s) % BigInt(dlpConfig.p)
+      
+      if(left === right) {
+        document.getElementById('zkpSection').style.display = 'block'
+        initZKPChallenge()
+      }
+    })
+
+    function initZKPChallenge() {
+      // 初始化Schnorr协议参数
+      zkp.secret = new Date().getDate().toString(16).repeat(3)
+      zkp.public = CryptoJS.SHA256(zkp.secret).toString()
+      zkp.challenge = CryptoJS.lib.WordArray.random(16).toString()
+      
+      document.getElementById('zkpChallenge').innerHTML = `
+        <p>公开参数：${zkp.public}</p>
+        <p>挑战值：${zkp.challenge}</p>
+        <p>使用工具计算响应：response = hash(secret + challenge)</p>
+      `
+    }
+
+    function validateZKP() {
+      const expected = CryptoJS.SHA256(zkp.secret + zkp.challenge).toString()
+      if(document.getElementById('zkpResponse').value === expected) {
+        document.getElementById('finalArchive').innerHTML = `
+          <h3>■ 平成三冠完全解密 ■</h3>
+          <pre>
+朝日杯３歳Ｓ　－　3-1/2马位
+皐月赏　－　3-1/2马位（中山记录）
+日本ダービー　－　5马位差
+菊花赏　－　7马位（京都记录）
+有马记念　－　3马位决胜
+
+\x52\x65\x76\x76\x69\x6e\'\x20\x75\x70\x20\x79\x6f\x75\x72\x20\x65\x6e\x67\x69\x6e\x65
+\x4c\x69\x73\x74\x65\x6e\x20\x74\x6f\x20\x68\x65\x72\x20\x68\x6f\x77\x6c\x69\x6e\'\x20\x72\x6f\x61\x72
+\x4d\x65\x74\x61\x6c\x20\x75\x6e\x64\x65\x72\x20\x74\x65\x6e\x73\x69\x6f\x6e
+\x42\x65\x67\x67\x69\x6e\'\x20\x79\x6f\x75\x20\x74\x6f\x20\x74\x6f\x75\x63\x68\x20\x61\x6e\x64\x20\x67\x6f
+          </pre>
+        `
+        document.getElementById('finalArchive').style.display = 'block'
       }
     }
 
+    // 开发者工具检测
+    const consoleWatcher = new Event('devtools')
+    setInterval(() => {
+      if(window.outerWidth - window.innerWidth > 200) {
+        document.dispatchEvent(consoleWatcher)
+      }
+    }, 1000)
+
+    document.addEventListener('devtools', () => {
+      console.info(
+        '%c[零知识提示] Schnorr协议需要：\n'+
+        '1. 使用Chrome控制台执行 crypto.subtle.digest\n'+
+        '2. 当前日期影响秘密种子\n'+
+        '3. 响应值格式：HEX(SHA256(secret + challenge))', 
+        'color: #ff00ff;'
+      )
+    })
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</body>
+</html>
