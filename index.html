@@ -2,144 +2,174 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>〘特雷森设施监控〙</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>■ verify ■</title>
   <style>
     :root {
-      --neon-blue: #0ff;
-      --cyber-red: #ff003c;
+      --scan-line: #0ff3;
       --terminal-green: #00ff9f;
     }
 
-    /* 动态天气面板 */
-    .weather-panel {
-      border: 1px solid var(--neon-blue);
-      background: linear-gradient(45deg, #001919, #000);
-      padding: 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .weather-panel::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(
-        transparent 135deg,
-        var(--neon-blue) 180deg,
-        transparent 225deg
-      );
-      animation: radar 6s linear infinite;
-    }
-
-    @keyframes radar {
-      100% { transform: rotate(360deg); }
-    }
-
-    /* 加密输入样式 */
-    .cipher-input {
-      background: #111;
+    body {
+      background: url('https://pic1.imgdb.cn/item/67b42a11d0e0a243d400700d.png') no-repeat center/cover,
+                  linear-gradient(45deg, #001100 0%, #000000 100%);
       color: var(--terminal-green);
-      border: 1px dashed #4d4d4d;
+      font-family: 'Microsoft Yahei Mono', monospace;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+    }
+
+    .crt-effect::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        var(--scan-line) 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      background: #000000cc;
+      padding: 2rem;
+      border: 1px solid #00ff9f55;
+    }
+
+    .puzzle-box {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      border-left: 3px solid #00ff9f;
+    }
+
+    input[type="text"] {
+      background: #000;
+      color: var(--terminal-green);
+      border: 1px solid #00ff9f;
       padding: 0.8rem;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 0.1em;
+      font-size: 1.1rem;
+      width: 300px;
+      margin: 1rem 0;
+    }
+
+    button {
+      background: #002200;
+      color: var(--terminal-green);
+      border: 1px solid #00ff9f;
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .hidden-content {
+      display: none;
+      margin-top: 2rem;
+      border-top: 2px dashed #00ff9f;
+      padding-top: 2rem;
     }
   </style>
 </head>
-<body style="background: #000; color: #fff; max-width: 800px; margin: 0 auto; padding: 20px;">
-  
-  <!-- 主监控面板 -->
-  <div class="cyber-frame">
-    <h1 style="color: var(--cyber-red); border-bottom: 2px solid var(--neon-blue);">
-      〘东京竞马场安全协议v3〙
-    </h1>
-
-    <!-- 坐标验证模块 -->
-    <div class="cipher-box">
-      <p>当前坐标锁定：35.662575°N, 139.486114°E</p>
-      <button onclick="verifyLocation()" class="glitch-btn">
-        坐标量子验证
-      </button>
-      <div id="coordStatus"></div>
+<body class="crt-effect">
+  <div class="container">
+    <h1>■ 赛马密码解析系统 ■</h1>
+    
+    <div class="puzzle-box">
+      <p id="timeTag"></p>
+      <div id="puzzleContent"></div>
+      <input type="text" id="answerInput" placeholder="输入解密答案">
+      <button onclick="checkAnswer()">验证答案</button>
     </div>
 
-    <!-- 天气监控模块 -->
-    <div class="weather-panel">
-      <h3>赛道环境监测</h3>
-      <div id="weatherData">
-        <p>地表温度：<span id="temp">--</span>°C</p>
-        <p>风速：<span id="wind">--</span>m/s</p>
-        <p>降水概率：<span id="precip">--</span>%</p>
+    <div class="hidden-content" id="secretContent">
+      <h2>■ 封印解除 ■</h2>
+      <table>
+        <tr><td>朝日杯３歳Ｓ</td><td>3-1/2马位</td></tr>
+        <tr><td>皐月赏</td><td>3-1/2马位（破中山马场纪录）</td></tr>
+        <tr><td>日本ダービー</td><td>5马位</td></tr>
+        <tr><td>菊花赏</td><td>7马位（破京都马场纪录）</td></tr>
+        <tr><td>有馬記念</td><td>3马位</td></tr>
+      </table>
+      
+      <div style="margin-top:2rem; border-left:2px solid #00ff9f; padding-left:1rem;">
+        <p>Revvin' up your engine</p>
+        <p>Listen to her howlin' roar</p>
+        <p>Metal under tension</p>
+        <p>Beggin' you to touch and go</p>
       </div>
-    </div>
-
-    <!-- 密钥输入接口 -->
-    <div class="cipher-input" onclick="showAuthPanel()">
-      █████ 安全协议激活接口 █████
     </div>
   </div>
 
   <script>
-    // API 密钥安全存储方案
-    const apiKeyStorage = {
-      public: btoa('PEX3yxvrDvpADmFo_').split('').reverse().join(''),
-      private: btoa('SatYrAVv11t1cQU3Z').split('').reverse().join('')
+    // 每两小时更换的谜题库
+    const puzzleSet = [
+      {
+        type: '凯撒密码',
+        generate: (h) => {
+          const shift = h % 25 + 1;
+          const cipher = caesarShift('三冠马', shift);
+          return `凯撒密码（位移量${shift}）：${cipher} → 明文是？`;
+        },
+        answer: (h) => '三冠马'
+      },
+      {
+        type: '数学谜题',
+        generate: (h) => `当前小时数（${getHour()}）的平方减去${h}：`,
+        answer: (h) => (getHour()**2 - h).toString()
+      },
+      {
+        type: '年份解密',
+        generate: (h) => `昭和${50 + h}年对应的西元年份是？`,
+        answer: (h) => (1925 + 50 + h).toString()
+      },
+      {
+        type: '歌词解密',
+        generate: (h) => {
+          const encrypted = caesarShift('Revvin', h%5+1);
+          return `解密歌词：${encrypted}（凯撒位移${h%5+1}）`;
+        },
+        answer: (h) => 'Revvin'
+      }
+    ];
+
+    function caesarShift(str, shift) {
+      return str.replace(/[a-z]/gi, c => 
+        String.fromCharCode((c.charCodeAt() - 65 + shift + 26) % 26 + 65)
+      );
     }
 
-    // 动态解密函数
-    const decryptKey = (encrypted) => {
-      return atob(encrypted.split('').reverse().join(''))
+    function getHour() {
+      return new Date().getHours();
     }
 
-    // 获取天气数据
-    async function fetchWeather() {
-      try {
-        const publicKey = decryptKey(apiKeyStorage.public)
-        const privateKey = decryptKey(apiKeyStorage.private)
-        
-        const response = await fetch(
-          `https://api.weather.com/v3/wx/forecast/daily/5day?geocode=35.66,139.48&format=json&apiKey=${publicKey}`,
-          {
-            headers: {
-              'X-Signature': generateSignature(privateKey)
-            }
-          }
-        )
+    function updatePuzzle() {
+      const slot = Math.floor(getHour() / 2);
+      const puzzle = puzzleSet[slot % puzzleSet.length];
+      
+      document.getElementById('puzzleContent').innerHTML = puzzle.generate(slot);
+      document.getElementById('timeTag').innerHTML = 
+        `⌚ 当前时段谜题（有效期：${slot*2}:00 - ${slot*2+2}:00）`;
+      
+      currentAnswer = puzzle.answer(slot);
+    }
 
-        const data = await response.json()
-        updateWeatherDisplay(data)
-      } catch (error) {
-        console.error('气象数据获取失败:', error)
-        document.getElementById('weatherData').innerHTML = 
-          '<p style="color: var(--cyber-red);">气象卫星连接中断</p>'
+    function checkAnswer() {
+      const input = document.getElementById('answerInput').value.trim();
+      if(input.toLowerCase() === currentAnswer.toLowerCase()) {
+        document.getElementById('secretContent').style.display = 'block';
+      } else {
+        alert('❌ 答案错误，请重新解密');
+        document.getElementById('answerInput').value = '';
       }
     }
 
-    // 生成请求签名
-    function generateSignature(privateKey) {
-      const timestamp = Date.now()
-      const raw = `${timestamp}${privateKey}`
-      return btoa(raw).slice(0, 32)
-    }
-
-    // 更新天气显示
-    function updateWeatherDisplay(data) {
-      document.getElementById('temp').textContent = 
-        data.daypart[0].temperature[0] || '--'
-      document.getElementById('wind').textContent = 
-        data.daypart[0].windSpeed[0] || '--'
-      document.getElementById('precip').textContent = 
-        data.daypart[0].precipChance[0] || '--'
-    }
-
-    // 初始化加载
-    window.onload = () => {
-      fetchWeather()
-      setInterval(fetchWeather, 3000000) // 5分钟更新
-    }
-  </script>
-</body>
-</html>
