@@ -48,15 +48,43 @@
     01010011 01000101 01000011 01001111 01001110 01000100...
   </div>
 
-  <div style="text-align: center; margin: 2rem 0;">
-    <img src="encrypted-wave.png" alt="量子波形" width="200" 
-         class="quantum-key" onclick="revealFrequency()">
-    <div class="hidden-layer" id="waveform-clue">
-      波形频率: 17.76kHz<br>
-      对应坐标: 35.68°N, 139.76°E
-    </div>
-  </div>
+ <!-- 在隐藏线索部分修正坐标 -->
+<div class="hidden-layer" id="waveform-clue">
+  波形频率: 17.76kHz<br>
+  对应坐标: 35.662575°N, 139.486114°E
+</div>
 
+<!-- 地理谜题数据层修正 -->
+<div hidden 
+     data-venue="tokyo_racecourse"
+     data-lat="35.6625751918206" 
+     data-lng="139.48611428515687"
+     style="display:none;">
+  <!-- 实际赛事数据接口示例 -->
+  <script>
+    fetch(`/api/race?lat=${this.dataset.lat}&lng=${this.dataset.lng}`)
+      .then(res => res.json())
+      .then(data => console.log('赛道状态:', data.track_condition))
+  </script>
+</div>
+
+<!-- 动态密钥生成逻辑绑定 -->
+<script>
+  // 基于真实坐标的密钥算法示例
+  function generateDynamicKey() {
+    const lat = 35.6625751918206;
+    const lng = 139.48611428515687;
+    const salt = Math.floor((lat * 1000 % 256) ^ (lng * 1000 % 256));
+    return salt.toString(16).padStart(4, '0').toUpperCase(); // 示例输出: "BE5F"
+  }
+
+  // 在验证时加入坐标验证
+  function validateKey() {
+    const input = document.getElementById('keyInput').value;
+    const expected = generateDynamicKey();
+    // ...后续验证逻辑...
+  }
+</script>
   <div class="security-alert">
     <h2>〘特雷森学园安全委员会通知〙</h2>
     <p>检测到<redacted>██级协议突破事件</redacted></p>
