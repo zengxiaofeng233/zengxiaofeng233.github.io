@@ -2,141 +2,144 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <title>〘特雷森设施监控〙</title>
   <style>
     :root {
       --neon-blue: #0ff;
-      --glitch-duration: 1.2s;
+      --cyber-red: #ff003c;
+      --terminal-green: #00ff9f;
     }
 
-    @keyframes glitch {
-      0% { text-shadow: 0.05em 0 0 rgba(255,0,0,.8); }
-      25% { transform: skew(0.8deg); }
-      50% { text-shadow: -0.05em -0.025em 0 rgba(0,255,0,.8); }
-      75% { transform: skew(-0.6deg); }
-      100% { text-shadow: 0.025em 0.05em 0 rgba(0,0,255,.8); }
-    }
-
-    .cipher-text {
-      font-family: 'Courier New', monospace;
-      color: var(--neon-blue);
-      background: #000;
+    /* 动态天气面板 */
+    .weather-panel {
+      border: 1px solid var(--neon-blue);
+      background: linear-gradient(45deg, #001919, #000);
       padding: 1rem;
-      border: 1px dashed #4d4d4d;
-      animation: glitch var(--glitch-duration) infinite;
+      position: relative;
+      overflow: hidden;
     }
 
-    .quantum-key:hover {
-      cursor: pointer;
-      filter: hue-rotate(90deg);
-    }
-
-    .hidden-layer {
-      display: none;
+    .weather-panel::before {
+      content: '';
       position: absolute;
-      background: #111;
-      padding: 1rem;
-      border: 2px solid var(--neon-blue);
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(
+        transparent 135deg,
+        var(--neon-blue) 180deg,
+        transparent 225deg
+      );
+      animation: radar 6s linear infinite;
     }
 
-    .key-block:hover + .hidden-layer {
-      display: block;
+    @keyframes radar {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 加密输入样式 */
+    .cipher-input {
+      background: #111;
+      color: var(--terminal-green);
+      border: 1px dashed #4d4d4d;
+      padding: 0.8rem;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.1em;
     }
   </style>
 </head>
-<body style="background: #000; color: #fff; max-width: 800px; margin: 0 auto;">
-  <div class="cipher-text">
-    01010011 01000101 01000011 01001111 01001110 01000100...
-  </div>
+<body style="background: #000; color: #fff; max-width: 800px; margin: 0 auto; padding: 20px;">
+  
+  <!-- 主监控面板 -->
+  <div class="cyber-frame">
+    <h1 style="color: var(--cyber-red); border-bottom: 2px solid var(--neon-blue);">
+      〘东京竞马场安全协议v3〙
+    </h1>
 
- <!-- 在隐藏线索部分修正坐标 -->
-<div class="hidden-layer" id="waveform-clue">
-  波形频率: 17.76kHz<br>
-  对应坐标: 35.662575°N, 139.486114°E
-</div>
+    <!-- 坐标验证模块 -->
+    <div class="cipher-box">
+      <p>当前坐标锁定：35.662575°N, 139.486114°E</p>
+      <button onclick="verifyLocation()" class="glitch-btn">
+        坐标量子验证
+      </button>
+      <div id="coordStatus"></div>
+    </div>
 
-<!-- 地理谜题数据层修正 -->
-<div hidden 
-     data-venue="tokyo_racecourse"
-     data-lat="35.6625751918206" 
-     data-lng="139.48611428515687"
-     style="display:none;">
-  <!-- 实际赛事数据接口示例 -->
-  <script>
-    fetch(`/api/race?lat=${this.dataset.lat}&lng=${this.dataset.lng}`)
-      .then(res => res.json())
-      .then(data => console.log('赛道状态:', data.track_condition))
-  </script>
-</div>
+    <!-- 天气监控模块 -->
+    <div class="weather-panel">
+      <h3>赛道环境监测</h3>
+      <div id="weatherData">
+        <p>地表温度：<span id="temp">--</span>°C</p>
+        <p>风速：<span id="wind">--</span>m/s</p>
+        <p>降水概率：<span id="precip">--</span>%</p>
+      </div>
+    </div>
 
-<!-- 动态密钥生成逻辑绑定 -->
-<script>
-  // 基于真实坐标的密钥算法示例
-  function generateDynamicKey() {
-    const lat = 35.6625751918206;
-    const lng = 139.48611428515687;
-    const salt = Math.floor((lat * 1000 % 256) ^ (lng * 1000 % 256));
-    return salt.toString(16).padStart(4, '0').toUpperCase(); // 示例输出: "BE5F"
-  }
-
-  // 在验证时加入坐标验证
-  function validateKey() {
-    const input = document.getElementById('keyInput').value;
-    const expected = generateDynamicKey();
-    // ...后续验证逻辑...
-  }
-</script>
-  <div class="security-alert">
-    <h2>〘特雷森学园安全委员会通知〙</h2>
-    <p>检测到<redacted>██级协议突破事件</redacted></p>
-  </div>
-
-  <hr style="border: 1px dashed #444;">
-
-  <div class="phase-info">
-    <h3>◈ 相位迁移公告 ◈</h3>
-    <ul>
-      <li>量子纠缠效验系统 <span class="countdown" data-end="2025-03-01"></span></li>
-      <li>反制协议β：<span id="error-counter">0/3</span> 次错误</li>
-    </ul>
-  </div>
-
-  <div class="key-interface" style="position: relative;">
-    <div class="key-block">1F23 8A9C ████ QWE5</div>
-    <div class="hidden-layer">
-      <form onsubmit="validateKey(event)">
-        <input type="text" placeholder="输入恢复密钥" 
-               pattern="[0-9A-F]{4}" maxlength="4"
-               style="background: #222; color: var(--neon-blue);">
-        <button type="submit">提交</button>
-      </form>
+    <!-- 密钥输入接口 -->
+    <div class="cipher-input" onclick="showAuthPanel()">
+      █████ 安全协议激活接口 █████
     </div>
   </div>
 
   <script>
-    function revealFrequency() {
-      const coord = document.getElementById('waveform-clue');
-      coord.style.display = coord.style.display === 'block' ? 'none' : 'block';
+    // API 密钥安全存储方案
+    const apiKeyStorage = {
+      public: btoa('PEX3yxvrDvpADmFo_').split('').reverse().join(''),
+      private: btoa('SatYrAVv11t1cQU3Z').split('').reverse().join('')
     }
 
-    function validateKey(e) {
-      e.preventDefault();
-      const input = e.target.querySelector('input');
-      if (/^[A-F0-9]{4}$/.test(input.value)) {
-        alert('量子签名验证中...');
-        // 实际应调用API校验
-      } else {
-        const counter = document.getElementById('error-counter');
-        counter.textContent = `${Math.min(parseInt(counter.textContent)+1, 3)}/3`;
+    // 动态解密函数
+    const decryptKey = (encrypted) => {
+      return atob(encrypted.split('').reverse().join(''))
+    }
+
+    // 获取天气数据
+    async function fetchWeather() {
+      try {
+        const publicKey = decryptKey(apiKeyStorage.public)
+        const privateKey = decryptKey(apiKeyStorage.private)
+        
+        const response = await fetch(
+          `https://api.weather.com/v3/wx/forecast/daily/5day?geocode=35.66,139.48&format=json&apiKey=${publicKey}`,
+          {
+            headers: {
+              'X-Signature': generateSignature(privateKey)
+            }
+          }
+        )
+
+        const data = await response.json()
+        updateWeatherDisplay(data)
+      } catch (error) {
+        console.error('气象数据获取失败:', error)
+        document.getElementById('weatherData').innerHTML = 
+          '<p style="color: var(--cyber-red);">气象卫星连接中断</p>'
       }
     }
 
-    // 倒计时自动更新
-    setInterval(() => {
-      const end = new Date('2025-03-01');
-      const diff = end - new Date();
-      document.querySelector('.countdown').textContent = 
-        `${Math.floor(diff/86400000)}天${Math.floor((diff%86400000)/3600000)}时`;
-    }, 1000);
+    // 生成请求签名
+    function generateSignature(privateKey) {
+      const timestamp = Date.now()
+      const raw = `${timestamp}${privateKey}`
+      return btoa(raw).slice(0, 32)
+    }
+
+    // 更新天气显示
+    function updateWeatherDisplay(data) {
+      document.getElementById('temp').textContent = 
+        data.daypart[0].temperature[0] || '--'
+      document.getElementById('wind').textContent = 
+        data.daypart[0].windSpeed[0] || '--'
+      document.getElementById('precip').textContent = 
+        data.daypart[0].precipChance[0] || '--'
+    }
+
+    // 初始化加载
+    window.onload = () => {
+      fetchWeather()
+      setInterval(fetchWeather, 3000000) // 5分钟更新
+    }
   </script>
 </body>
 </html>
