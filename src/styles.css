@@ -313,7 +313,7 @@ button {
 
 .event-card {
   display: grid;
-  grid-template-columns: 96px 1fr;
+  grid-template-columns: 84px 1fr;
   gap: 12px;
   width: 100%;
   padding: 8px;
@@ -333,9 +333,10 @@ button {
 }
 
 .event-card-cover {
-  width: 96px;
-  height: 96px;
+  width: 84px;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
+  object-position: center top;
   background: var(--surface-low);
 }
 
@@ -714,9 +715,11 @@ button {
 
 .detail-cover {
   display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
+  width: min(100%, 300px);
+  aspect-ratio: 3 / 4;
+  margin: 0 auto;
   object-fit: cover;
+  object-position: center top;
   background: var(--surface-low);
   border: 1px solid var(--line);
 }
