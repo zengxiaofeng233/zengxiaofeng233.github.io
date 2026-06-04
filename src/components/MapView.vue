@@ -57,6 +57,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   select: [event: EventItem]
+  zoomChange: [zoom: number]
 }>()
 
 const mapEl = ref<HTMLDivElement | null>(null)
@@ -135,6 +136,7 @@ async function initMap() {
     map.addEventListener('dragend', stopTrackingAfterUpdate)
 
     mapInstance.value = map
+    emitZoomChange()
     await nextTick()
     updateMarkerDomPositions()
 
@@ -192,6 +194,7 @@ function stopTrackingAfterUpdate() {
     window.cancelAnimationFrame(rafId)
     rafId = 0
   }
+  emitZoomChange()
   requestMarkerUpdate()
 }
 
@@ -205,8 +208,19 @@ function requestMarkerUpdate() {
 
 function selectMarker(point: MapPoint) {
   const event = point.events[0]
+  const map = mapInstance.value
+  if (point.events.length > 1 && map && map.getZoom?.() < 10) {
+    focusPoint(point, 10)
+    return
+  }
+
   emit('select', event)
   focusPoint(point, 12)
+}
+
+function emitZoomChange() {
+  const zoom = mapInstance.value?.getZoom?.()
+  if (typeof zoom === 'number') emit('zoomChange', zoom)
 }
 
 function focusPoint(point: MapPoint, zoom = 11) {

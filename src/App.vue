@@ -26,6 +26,7 @@
           :selected-event-id="selectedEvent?.id"
           :baidu-map-ak="baiduMapAk"
           @select="selectEvent"
+          @zoom-change="mapZoom = $event"
         />
       </section>
 
@@ -85,6 +86,8 @@ const { events, communities, communityById, loading, error, load } = useEventDat
 const { searchQuery, regionFilter, typeFilter, filteredEvents, resetFilters } = useFilters(events, communities)
 
 const selectedEvent = ref<EventItem | null>(null)
+const mapZoom = ref(5)
+const splitMarkerZoom = 10
 
 const selectedCommunities = computed(() => {
   if (!selectedEvent.value) return []
@@ -95,9 +98,12 @@ const selectedCommunities = computed(() => {
 
 const mapPoints = computed<MapPoint[]>(() => {
   const grouped = new Map<string, EventItem[]>()
+  const splitByVenue = mapZoom.value >= splitMarkerZoom
 
   for (const event of filteredEvents.value) {
-    const key = `${event.region}-${event.city}-${event.venue}-${event.lat.toFixed(5)}-${event.lng.toFixed(5)}`
+    const key = splitByVenue
+      ? `${event.region}-${event.city}-${event.venue}-${event.lat.toFixed(5)}-${event.lng.toFixed(5)}`
+      : `${event.region}-${event.city}`
     const group = grouped.get(key) ?? []
     group.push(event)
     grouped.set(key, group)
@@ -110,7 +116,7 @@ const mapPoints = computed<MapPoint[]>(() => {
 
     return {
       id,
-      name: first.venue || first.title,
+      name: splitByVenue ? first.venue || first.title : first.city,
       city: first.city,
       region: first.region,
       lat,
