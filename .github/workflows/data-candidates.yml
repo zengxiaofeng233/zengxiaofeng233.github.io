@@ -21,10 +21,10 @@ jobs:
         run: npm install --include=dev --no-audit --no-fund
 
       - name: Fetch public event candidates
-        run: npm run data:fetch
+        run: npm run data:auto
 
       - name: Upload review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: events-pending
-          path: data/review/events.pending.json
+          name: events-auto
+          path: data/review/events.auto.json
