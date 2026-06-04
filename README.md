@@ -99,21 +99,21 @@ npm run preview
 
 1. 将代码推送到 GitHub 仓库的 `main` 分支。
 2. 在仓库 Settings -> Pages 中选择 GitHub Actions 作为部署来源。
-3. Actions 会执行 `npm ci`、`npm run build`，并把 `dist` 部署到 GitHub Pages。
+3. Actions 会执行 `npm install --include=dev --no-audit --no-fund`、`npm run build`，并把 `dist` 部署到 GitHub Pages。
 
 `vite.config.ts` 使用 `base: './'`，适合部署到 GitHub Pages 的仓库子路径。
 
-## 地图底图合规注意事项
+## 地图服务说明
 
-本项目没有手绘中国地图，也没有 AI 生成中国地图边界。底图来自用户提供的自然资源部标准地图 EPS，并转换为 `public/map/china-standard-map-gs2023-2767.png`；页面使用 `public/map/china-standard-map-display-gs2023-2767.png` 作为仅去除空白边距的 Web 展示版本。
+当前页面使用百度地图 JavaScript API GL 作为可缩放、可拖拽地图底图，不手绘中国地图边界，也不使用 AI 生成地图边界。活动点位、城市标签、tooltip、详情卡片均为项目自己的前端覆盖层。
 
-当前底图合规信息：
+百度地图配置注意事项：
 
-- 地图来源：自然资源部标准地图服务。
-- 审图号：GS（2023）2767号。
-- EPS 仅做格式转换；展示版本只去除空白边距，不修改地图边界、行政区划界线、海岸线、港澳台、南海诸岛等内容。
-- 网页只通过 CSS 对整张底图做透明度、亮度、灰度、对比度和黑色遮罩适配。
-- 活动点位、城市标签、tooltip、详情卡片均为独立前端覆盖层，不写入地图底图。
+- 浏览器端 AK 会出现在前端构建产物中，这是 Web 地图 SDK 的正常使用方式。
+- 必须在百度地图开放平台为 AK 设置 Referer 白名单，例如：`*zengxiaofeng233.github.io*,*umamap.pro*`。
+- 不要把服务端 AK、管理员凭证、账号 Cookie、登录态或其他私密凭证写入前端。
+- 页面只保存活动经纬度和公开活动信息，不调用下单、实名、订单等非公开接口。
+- 地图服务标注以百度地图 SDK 自带展示和开放平台要求为准。
 
 ## 安全边界
 

@@ -24,7 +24,7 @@
           v-else
           :points="mapPoints"
           :selected-event-id="selectedEvent?.id"
-          :map-background-url="mapBackgroundUrl"
+          :baidu-map-ak="baiduMapAk"
           @select="selectEvent"
         />
       </section>
@@ -54,9 +54,8 @@
 
     <footer class="site-footer" id="about">
       <span>数据来源：B站会员购公开信息、同好会公开投稿信息</span>
-      <span>地图来源：自然资源部标准地图服务</span>
-      <span>审图号：GS（2023）2767号</span>
-      <span>底图边界无修改，仅用于活动与同好会点位展示。</span>
+      <span>地图服务：百度地图开放平台</span>
+      <span>点位仅用于活动与同好会信息展示</span>
       <a :href="githubUrl" target="_blank" rel="noreferrer">GitHub 开源链接</a>
       <a :href="submitEventUrl" target="_blank" rel="noreferrer">投稿 / 纠错入口</a>
     </footer>
@@ -79,7 +78,7 @@ const issueBaseUrl = `${githubUrl}/issues/new`
 const submitEventUrl = `${issueBaseUrl}?template=submit-event.yml`
 const submitCommunityUrl = `${issueBaseUrl}?template=submit-community.yml`
 const reportUrl = `${issueBaseUrl}?template=report-error.yml`
-const mapBackgroundUrl = `${import.meta.env.BASE_URL}map/china-standard-map-display-gs2023-2767.png`
+const baiduMapAk = 'AT2zbiPhYUfipYvjYMZH7AOAHFaiNpjc'
 
 const { events, communities, communityById, loading, error, load } = useEventData()
 const { searchQuery, regionFilter, typeFilter, filteredEvents, resetFilters } = useFilters(events, communities)
