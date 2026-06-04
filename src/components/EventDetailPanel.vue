@@ -32,12 +32,6 @@
           <dd>{{ event.source }}</dd>
         </div>
       </dl>
-
-      <section class="detail-section">
-        <h3>简介</h3>
-        <p>{{ event.description }}</p>
-      </section>
-
       <section class="detail-section" id="communities">
         <div class="section-title-row compact">
           <h3>相关同好会 / QQ群</h3>

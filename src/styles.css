@@ -449,6 +449,7 @@ button {
 
 .map-canvas {
   position: relative;
+  height: 100%;
   overflow: hidden;
   background:
     radial-gradient(circle at 52% 42%, rgba(0, 240, 255, 0.08), transparent 34rem),
@@ -467,7 +468,7 @@ button {
   inset: 0;
   z-index: 0;
   background: #000;
-  filter: grayscale(0.86) brightness(0.6) contrast(1.16);
+  filter: grayscale(0.76) brightness(0.76) contrast(1.08);
 }
 
 .baidu-map-shade {
@@ -476,8 +477,8 @@ button {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 44%, transparent 0 46%, rgba(0, 0, 0, 0.2) 76%, rgba(0, 0, 0, 0.42) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.24));
+    radial-gradient(circle at 50% 44%, transparent 0 50%, rgba(0, 0, 0, 0.12) 78%, rgba(0, 0, 0, 0.28) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.14));
 }
 
 .map-canvas::after {

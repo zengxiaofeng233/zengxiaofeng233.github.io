@@ -28,9 +28,6 @@
           <dd>{{ event.venue }}</dd>
         </div>
       </dl>
-
-      <p class="sheet-description">{{ event.description }}</p>
-
       <div class="section-title-row compact">
         <h3>相关同好会 / QQ群</h3>
         <span>{{ relatedCommunities.length }} 个</span>
