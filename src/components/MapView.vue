@@ -6,7 +6,10 @@
       <button type="button" aria-label="回到全国视图">⌖</button>
     </div>
 
-    <div class="map-canvas" :style="backgroundStyle">
+    <div class="map-canvas">
+      <div class="map-image-layer" aria-hidden="true">
+        <img :src="mapBackgroundUrl" alt="" />
+      </div>
       <div class="map-grid" aria-hidden="true"></div>
       <div class="map-notice">
         <strong>标准地图底图</strong>
@@ -72,10 +75,6 @@ const projectedPoints = computed(() => {
     }
   })
 })
-
-const backgroundStyle = computed(() => ({
-  '--map-background-url': `url(${props.mapBackgroundUrl})`
-}))
 
 const tooltipStyle = computed(() => {
   if (!hoveredPoint.value) return {}
