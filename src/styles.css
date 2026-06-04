@@ -443,8 +443,6 @@ button {
 .map-shell {
   position: sticky;
   top: 76px;
-  display: grid;
-  grid-template-rows: 1fr auto;
   height: calc(100vh - 76px);
   min-height: 640px;
 }
@@ -498,30 +496,6 @@ button {
     linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(circle at center, black, transparent 78%);
-}
-
-.map-notice {
-  position: absolute;
-  z-index: 6;
-  left: 24px;
-  top: 24px;
-  display: grid;
-  gap: 4px;
-  max-width: 280px;
-  padding: 12px;
-  color: var(--muted);
-  background: rgba(0, 0, 0, 0.52);
-  border: 1px solid var(--line);
-}
-
-.map-notice strong {
-  color: var(--text);
-  font-size: 13px;
-}
-
-.map-notice span {
-  font-size: 12px;
-  line-height: 1.5;
 }
 
 .map-marker {
@@ -656,7 +630,6 @@ button {
   color: var(--cyan);
 }
 
-.map-footer,
 .site-footer {
   display: flex;
   flex-wrap: wrap;
@@ -988,16 +961,9 @@ button {
     min-height: 0;
   }
 
-  .map-notice,
   .map-tooltip,
   .marker-city {
     display: none;
-  }
-
-  .map-footer {
-    padding: 8px 12px;
-    font-size: 10px;
-    line-height: 1.35;
   }
 
   .map-toolbar {

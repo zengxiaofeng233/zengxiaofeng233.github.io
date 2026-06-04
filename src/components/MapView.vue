@@ -10,10 +10,6 @@
       <div ref="mapEl" class="baidu-map" aria-label="百度地图"></div>
       <div class="baidu-map-shade" aria-hidden="true"></div>
       <div class="map-grid" aria-hidden="true"></div>
-      <div class="map-notice">
-        <strong>百度地图底图</strong>
-        <span>点位为独立前端覆盖层，可缩放查看城市活动</span>
-      </div>
 
       <div class="baidu-marker-layer" aria-label="活动点位">
         <button
@@ -45,11 +41,6 @@
       </div>
     </div>
 
-    <footer class="map-footer">
-      <span>数据来源：B站会员购公开信息、同好会公开投稿信息</span>
-      <span>地图服务：百度地图开放平台</span>
-      <span>点位仅用于活动与同好会信息展示</span>
-    </footer>
   </section>
 </template>
 
