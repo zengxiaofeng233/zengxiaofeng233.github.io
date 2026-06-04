@@ -11,6 +11,14 @@
       <div class="baidu-map-shade" aria-hidden="true"></div>
       <div class="map-grid" aria-hidden="true"></div>
 
+      <svg class="map-connector-layer" aria-hidden="true">
+        <line
+          v-for="(line, idx) in connectorLines"
+          :key="idx"
+          :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2"
+        />
+      </svg>
+
       <div class="baidu-marker-layer" aria-label="活动点位">
         <button
           v-for="point in points"
@@ -23,7 +31,7 @@
           @mouseenter="hoveredPoint = point"
           @mouseleave="hoveredPoint = null"
         >
-          <span class="marker-dot">{{ point.events.length }}</span>
+          <span class="marker-dot" :class="{ single: point.events.length === 1 }">{{ point.events.length }}</span>
           <span class="marker-city">{{ point.city }}</span>
         </button>
       </div>
@@ -66,6 +74,7 @@ const mapInstance = ref<any>(null)
 const hoveredPoint = ref<MapPoint | null>(null)
 const loadError = ref('')
 const markerRefs = new Map<string, HTMLElement>()
+const connectorLayerEl = ref<SVGSVGElement | null>(null)
 let skipInitialFocus = true
 let resizeObserver: ResizeObserver | null = null
 let rafId = 0
@@ -78,6 +87,8 @@ function setMarkerRef(id: string, el: unknown) {
     markerRefs.set(id, el)
   }
 }
+
+const connectorLines = ref<{ x1: number; y1: number; x2: number; y2: number }[]>([])
 
 onBeforeUpdate(() => {
   markerRefs.clear()
@@ -160,12 +171,30 @@ function updateMarkerDomPositions() {
   const map = mapInstance.value
   if (!map) return
 
+  const pixels: { id: string; x: number; y: number }[] = []
+
   for (const point of props.points) {
     const el = markerRefs.get(point.id)
     const pixel = projectPoint(point)
     if (!el || !pixel) continue
     el.style.transform = `translate3d(${pixel.x}px, ${pixel.y}px, 0) translate(-50%, -50%)`
+    pixels.push({ id: point.id, x: pixel.x, y: pixel.y })
   }
+
+  // Update connector lines between nearby markers
+  const thresholdPx = 160
+  const lines: { x1: number; y1: number; x2: number; y2: number }[] = []
+  for (let i = 0; i < pixels.length; i++) {
+    for (let j = i + 1; j < pixels.length; j++) {
+      const dx = pixels[i].x - pixels[j].x
+      const dy = pixels[i].y - pixels[j].y
+      const dist = Math.sqrt(dx * dx + dy * dy)
+      if (dist < thresholdPx) {
+        lines.push({ x1: pixels[i].x, y1: pixels[i].y, x2: pixels[j].x, y2: pixels[j].y })
+      }
+    }
+  }
+  connectorLines.value = lines
 
   if (hoveredPoint.value && tooltipEl.value) {
     const pixel = projectPoint(hoveredPoint.value)

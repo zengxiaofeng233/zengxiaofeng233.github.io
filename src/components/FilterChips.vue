@@ -8,9 +8,8 @@
     </div>
     <div class="chip-row" aria-label="类型筛选">
       <button :class="chipClass(typeFilter === 'all')" type="button" @click="$emit('update:typeFilter', 'all')">全部</button>
-      <button :class="chipClass(typeFilter === 'event')" type="button" @click="$emit('update:typeFilter', 'event')">展会 / Only</button>
+      <button :class="chipClass(typeFilter === 'event')" type="button" @click="$emit('update:typeFilter', 'event')">Only</button>
       <button :class="chipClass(typeFilter === 'community')" type="button" @click="$emit('update:typeFilter', 'community')">同好会</button>
-      <button :class="chipClass(typeFilter === 'temporary')" type="button" @click="$emit('update:typeFilter', 'temporary')">临时群</button>
     </div>
   </section>
 </template>
