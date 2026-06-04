@@ -1,6 +1,13 @@
 <template>
   <button class="event-card" :class="{ selected }" type="button" @click="$emit('select', event)">
-    <img class="event-card-cover" :src="event.coverUrl" :alt="event.title" loading="lazy" />
+    <img
+      class="event-card-cover"
+      :src="event.coverUrl"
+      :alt="event.title"
+      loading="lazy"
+      referrerpolicy="no-referrer"
+      @error="setFallbackCover"
+    />
     <span class="event-card-body">
       <span class="event-card-top">
         <StatusBadge :status="event.status" />
@@ -19,6 +26,7 @@
 <script setup lang="ts">
 import type { EventItem } from '../types'
 import { formatDateRange, formatNumber, regionLabel } from '../utils/format'
+import { setFallbackCover } from '../utils/image'
 import StatusBadge from './StatusBadge.vue'
 
 defineProps<{

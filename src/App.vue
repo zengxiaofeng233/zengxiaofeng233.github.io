@@ -97,7 +97,7 @@ const mapPoints = computed<MapPoint[]>(() => {
   const grouped = new Map<string, EventItem[]>()
 
   for (const event of filteredEvents.value) {
-    const key = `${event.region}-${event.city}`
+    const key = `${event.region}-${event.city}-${event.venue}-${event.lat.toFixed(5)}-${event.lng.toFixed(5)}`
     const group = grouped.get(key) ?? []
     group.push(event)
     grouped.set(key, group)
@@ -110,7 +110,7 @@ const mapPoints = computed<MapPoint[]>(() => {
 
     return {
       id,
-      name: first.city,
+      name: first.venue || first.title,
       city: first.city,
       region: first.region,
       lat,

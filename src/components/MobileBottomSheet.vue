@@ -8,7 +8,13 @@
       </div>
       <h2>{{ event.title }}</h2>
       <p class="detail-location">{{ event.city }} · {{ event.venue }}</p>
-      <img class="detail-cover" :src="event.coverUrl" :alt="event.title" />
+      <img
+        class="detail-cover"
+        :src="event.coverUrl"
+        :alt="event.title"
+        referrerpolicy="no-referrer"
+        @error="setFallbackCover"
+      />
 
       <dl class="detail-meta mobile">
         <div>
@@ -49,6 +55,7 @@
 <script setup lang="ts">
 import type { CommunityItem, EventItem } from '../types'
 import { formatDateRange, formatNumber } from '../utils/format'
+import { setFallbackCover } from '../utils/image'
 import CommunityCard from './CommunityCard.vue'
 import StatusBadge from './StatusBadge.vue'
 
