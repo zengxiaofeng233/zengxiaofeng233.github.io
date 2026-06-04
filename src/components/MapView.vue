@@ -17,26 +17,26 @@
 
       <div class="baidu-marker-layer" aria-label="活动点位">
         <button
-          v-for="marker in markerPositions"
-          :key="marker.point.id"
+          v-for="point in points"
+          :key="point.id"
+          :ref="(el) => setMarkerRef(point.id, el)"
           class="map-marker baidu-html-marker"
-          :class="{ selected: marker.point.events.some((event) => event.id === selectedEventId) }"
+          :class="{ selected: point.events.some((event) => event.id === selectedEventId) }"
           type="button"
-          :style="markerStyle(marker)"
-          @click="selectMarker(marker.point)"
-          @mouseenter="hoveredPoint = marker.point"
+          @click="selectMarker(point)"
+          @mouseenter="hoveredPoint = point"
           @mouseleave="hoveredPoint = null"
         >
-          <span class="marker-dot">{{ marker.point.events.length }}</span>
-          <span class="marker-city">{{ marker.point.city }}</span>
+          <span class="marker-dot">{{ point.events.length }}</span>
+          <span class="marker-city">{{ point.city }}</span>
         </button>
       </div>
 
-      <div v-if="hoveredMarker" class="map-tooltip" :style="tooltipStyle">
-        <strong>{{ hoveredMarker.point.events[0].title }}</strong>
-        <span>{{ hoveredMarker.point.city }} · {{ hoveredMarker.point.events[0].venue }}</span>
-        <span>{{ formatDateRange(hoveredMarker.point.events[0].startDate, hoveredMarker.point.events[0].endDate) }}</span>
-        <span>{{ formatNumber(hoveredMarker.point.events[0].wantToGoCount) }} 人想去</span>
+      <div ref="tooltipEl" v-if="hoveredPoint" class="map-tooltip">
+        <strong>{{ hoveredPoint.events[0].title }}</strong>
+        <span>{{ hoveredPoint.city }} · {{ hoveredPoint.events[0].venue }}</span>
+        <span>{{ formatDateRange(hoveredPoint.events[0].startDate, hoveredPoint.events[0].endDate) }}</span>
+        <span>{{ formatNumber(hoveredPoint.events[0].wantToGoCount) }} 人想去</span>
       </div>
 
       <div v-if="loadError" class="map-load-error">
@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { nextTick, onBeforeUpdate, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { EventItem, MapPoint } from '../types'
 import { formatDateRange, formatNumber } from '../utils/format'
 
@@ -68,41 +68,28 @@ const emit = defineEmits<{
   select: [event: EventItem]
 }>()
 
-interface MarkerPosition {
-  point: MapPoint
-  x: number
-  y: number
-}
-
 const mapEl = ref<HTMLDivElement | null>(null)
+const tooltipEl = ref<HTMLDivElement | null>(null)
 const mapInstance = ref<any>(null)
-const markerPositions = ref<MarkerPosition[]>([])
 const hoveredPoint = ref<MapPoint | null>(null)
 const loadError = ref('')
+const markerRefs = new Map<string, HTMLElement>()
 let skipInitialFocus = true
 let resizeObserver: ResizeObserver | null = null
+let rafId = 0
+let tracking = false
 
 const defaultCenter = { lng: 104.1954, lat: 35.8617, zoom: 5 }
 
-const hoveredMarker = computed(() => {
-  if (!hoveredPoint.value) return null
-  return markerPositions.value.find((marker) => marker.point.id === hoveredPoint.value?.id) ?? null
-})
-
-const tooltipStyle = computed(() => {
-  if (!hoveredMarker.value) return {}
-  return {
-    left: `${hoveredMarker.value.x}px`,
-    top: `${hoveredMarker.value.y}px`
-  }
-})
-
-function markerStyle(marker: MarkerPosition) {
-  return {
-    left: `${marker.x}px`,
-    top: `${marker.y}px`
+function setMarkerRef(id: string, el: unknown) {
+  if (el instanceof HTMLElement) {
+    markerRefs.set(id, el)
   }
 }
+
+onBeforeUpdate(() => {
+  markerRefs.clear()
+})
 
 function loadBaiduMapScript(ak: string) {
   if (window.BMapGL) return Promise.resolve()
@@ -149,16 +136,20 @@ async function initMap() {
     map.setMinZoom(4)
     map.setMaxZoom(18)
 
-    map.addEventListener('moving', updateMarkerPositions)
-    map.addEventListener('moveend', updateMarkerPositions)
-    map.addEventListener('zoomend', updateMarkerPositions)
+    map.addEventListener('moving', startTracking)
+    map.addEventListener('zooming', startTracking)
+    map.addEventListener('moveend', stopTrackingAfterUpdate)
+    map.addEventListener('zoomend', stopTrackingAfterUpdate)
+    map.addEventListener('dragstart', startTracking)
+    map.addEventListener('dragend', stopTrackingAfterUpdate)
 
     mapInstance.value = map
-    updateMarkerPositions()
+    await nextTick()
+    updateMarkerDomPositions()
 
     resizeObserver = new ResizeObserver(() => {
       mapInstance.value?.checkResize?.()
-      updateMarkerPositions()
+      requestMarkerUpdate()
     })
     resizeObserver.observe(mapEl.value)
   } catch (error) {
@@ -166,17 +157,58 @@ async function initMap() {
   }
 }
 
-function updateMarkerPositions() {
+function projectPoint(point: MapPoint) {
+  const map = mapInstance.value
+  if (!map) return null
+  return map.pointToOverlayPixel(new window.BMapGL.Point(point.lng, point.lat))
+}
+
+function updateMarkerDomPositions() {
   const map = mapInstance.value
   if (!map) return
 
-  markerPositions.value = props.points.map((point) => {
-    const pixel = map.pointToOverlayPixel(new window.BMapGL.Point(point.lng, point.lat))
-    return {
-      point,
-      x: pixel.x,
-      y: pixel.y
+  for (const point of props.points) {
+    const el = markerRefs.get(point.id)
+    const pixel = projectPoint(point)
+    if (!el || !pixel) continue
+    el.style.transform = `translate3d(${pixel.x}px, ${pixel.y}px, 0) translate(-50%, -50%)`
+  }
+
+  if (hoveredPoint.value && tooltipEl.value) {
+    const pixel = projectPoint(hoveredPoint.value)
+    if (pixel) {
+      tooltipEl.value.style.transform = `translate3d(${pixel.x + 18}px, ${pixel.y - 52}px, 0)`
     }
+  }
+}
+
+function animationLoop() {
+  updateMarkerDomPositions()
+  if (tracking) {
+    rafId = window.requestAnimationFrame(animationLoop)
+  }
+}
+
+function startTracking() {
+  if (tracking) return
+  tracking = true
+  rafId = window.requestAnimationFrame(animationLoop)
+}
+
+function stopTrackingAfterUpdate() {
+  tracking = false
+  if (rafId) {
+    window.cancelAnimationFrame(rafId)
+    rafId = 0
+  }
+  requestMarkerUpdate()
+}
+
+function requestMarkerUpdate() {
+  if (rafId) window.cancelAnimationFrame(rafId)
+  rafId = window.requestAnimationFrame(() => {
+    rafId = 0
+    updateMarkerDomPositions()
   })
 }
 
@@ -189,37 +221,47 @@ function selectMarker(point: MapPoint) {
 function focusPoint(point: MapPoint, zoom = 11) {
   const map = mapInstance.value
   if (!map) return
+  startTracking()
   map.centerAndZoom(new window.BMapGL.Point(point.lng, point.lat), zoom)
-  window.setTimeout(updateMarkerPositions, 80)
+  window.setTimeout(stopTrackingAfterUpdate, 220)
 }
 
 function zoomIn() {
+  startTracking()
   mapInstance.value?.zoomIn()
+  window.setTimeout(stopTrackingAfterUpdate, 220)
 }
 
 function zoomOut() {
+  startTracking()
   mapInstance.value?.zoomOut()
+  window.setTimeout(stopTrackingAfterUpdate, 220)
 }
 
 function resetView() {
   const map = mapInstance.value
   if (!map) return
+  startTracking()
   map.centerAndZoom(new window.BMapGL.Point(defaultCenter.lng, defaultCenter.lat), defaultCenter.zoom)
-  window.setTimeout(updateMarkerPositions, 80)
+  window.setTimeout(stopTrackingAfterUpdate, 220)
 }
 
 onMounted(initMap)
 
 onBeforeUnmount(() => {
+  tracking = false
+  if (rafId) window.cancelAnimationFrame(rafId)
   resizeObserver?.disconnect()
   resizeObserver = null
 })
 
 watch(
   () => props.points,
-  () => nextTick(updateMarkerPositions),
+  () => nextTick(requestMarkerUpdate),
   { deep: true }
 )
+
+watch(hoveredPoint, () => nextTick(requestMarkerUpdate))
 
 watch(
   () => props.selectedEventId,
@@ -231,7 +273,7 @@ watch(
 
     if (skipInitialFocus) {
       skipInitialFocus = false
-      updateMarkerPositions()
+      requestMarkerUpdate()
       return
     }
 
