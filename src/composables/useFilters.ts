@@ -43,7 +43,7 @@ export function useFilters(events: Ref<EventItem[]>, communities: Ref<CommunityI
       const searchMatches = query.length === 0 || searchable.includes(query)
 
       return regionMatches && typeMatches && searchMatches
-    })
+    }).sort((a, b) => b.startDate.localeCompare(a.startDate) || b.endDate.localeCompare(a.endDate))
   })
 
   function resetFilters() {
