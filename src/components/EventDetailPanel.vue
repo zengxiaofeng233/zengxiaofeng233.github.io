@@ -1,5 +1,5 @@
 <template>
-  <aside class="detail-panel" :class="{ open: Boolean(event) }">
+  <aside class="detail-panel" :class="{ open }" aria-live="polite">
     <template v-if="event">
       <div class="detail-header">
         <StatusBadge :status="event.status" />
@@ -58,10 +58,6 @@
       </div>
     </template>
 
-    <div v-else class="detail-placeholder">
-      <strong>选择地图点位或活动卡片</strong>
-      <span>这里会显示展会详情、相关 QQ 群和来源链接。</span>
-    </div>
   </aside>
 </template>
 
@@ -75,6 +71,7 @@ const props = defineProps<{
   event: EventItem | null
   relatedCommunities: CommunityItem[]
   reportUrl: string
+  open: boolean
 }>()
 
 defineEmits<{

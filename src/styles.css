@@ -64,7 +64,7 @@ button {
   top: 0;
   z-index: 40;
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) auto minmax(48px, 1fr);
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: 24px;
   height: 76px;
@@ -79,6 +79,36 @@ button {
   align-items: center;
   gap: 12px;
   width: max-content;
+}
+
+.logo-brand img {
+  display: block;
+  width: min(360px, 44vw);
+  height: 52px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.submit-link {
+  display: grid;
+  place-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  color: var(--cyan);
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  background: rgba(0, 240, 255, 0.06);
+  font-size: 13px;
+}
+
+.submit-link:hover {
+  border-color: rgba(0, 240, 255, 0.58);
+  background: rgba(0, 240, 255, 0.1);
 }
 
 .brand-mark {
@@ -158,9 +188,10 @@ button {
 }
 
 .app-layout {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--panel-width);
+  position: relative;
+  display: block;
   min-height: calc(100vh - 76px);
+  overflow: hidden;
 }
 
 .sidebar,
@@ -171,12 +202,16 @@ button {
 }
 
 .sidebar {
-  position: sticky;
+  position: absolute;
   top: 76px;
+  left: 0;
+  z-index: 24;
+  width: var(--sidebar-width);
   height: calc(100vh - 76px);
   padding: 20px 18px;
   overflow: auto;
   border-right: 1px solid var(--line);
+  transform: translateX(0);
 }
 
 .search-box {
@@ -647,12 +682,21 @@ button {
 }
 
 .detail-panel {
-  position: sticky;
+  position: absolute;
+  right: 0;
   top: 76px;
+  z-index: 28;
+  width: var(--panel-width);
   height: calc(100vh - 76px);
   padding: 20px;
   overflow: auto;
   border-left: 1px solid var(--line);
+  transform: translateX(calc(100% + 24px));
+  transition: transform 0.24s ease;
+}
+
+.detail-panel.open {
+  transform: translateX(0);
 }
 
 .detail-header,
@@ -877,12 +921,12 @@ button {
 }
 
 @media (max-width: 1120px) {
-  .app-layout {
-    grid-template-columns: 320px minmax(0, 1fr);
+  .sidebar {
+    width: 320px;
   }
 
   .detail-panel {
-    display: none;
+    display: block;
   }
 }
 
@@ -899,12 +943,18 @@ button {
     font-size: 10px;
   }
 
+  .logo-brand img {
+    width: 48px;
+    height: 48px;
+  }
+
   .brand strong {
     font-size: 14px;
   }
 
   .brand small,
-  .header-nav {
+  .header-nav,
+  .submit-link {
     display: none;
   }
 
@@ -919,8 +969,11 @@ button {
   }
 
   .sidebar,
-  .detail-panel,
   .site-footer {
+    display: none;
+  }
+
+  .detail-panel {
     display: none;
   }
 

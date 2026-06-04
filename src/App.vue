@@ -33,6 +33,7 @@
         :event="selectedEvent"
         :related-communities="selectedCommunities"
         :report-url="reportUrl"
+        :open="Boolean(selectedEvent)"
         @close="selectedEvent = null"
       />
     </main>
@@ -128,7 +129,7 @@ onMounted(async () => {
   await load()
   const hashId = window.location.hash.replace('#', '')
   const fromHash = events.value.find((event) => event.id === hashId)
-  selectedEvent.value = fromHash ?? filteredEvents.value[0] ?? null
+  selectedEvent.value = fromHash ?? null
 })
 
 watch(filteredEvents, (nextEvents) => {
@@ -137,8 +138,8 @@ watch(filteredEvents, (nextEvents) => {
     return
   }
 
-  if (!selectedEvent.value || !nextEvents.some((event) => event.id === selectedEvent.value?.id)) {
-    selectedEvent.value = nextEvents[0]
+  if (selectedEvent.value && !nextEvents.some((event) => event.id === selectedEvent.value?.id)) {
+    selectedEvent.value = null
   }
 })
 </script>
