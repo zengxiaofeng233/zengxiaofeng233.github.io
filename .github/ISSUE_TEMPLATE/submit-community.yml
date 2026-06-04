@@ -1,0 +1,44 @@
+name: 投稿新群
+description: 提交公开 QQ 群 / 同好会信息
+title: "[群投稿] "
+labels: ["data", "community"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        QQ 群号需为公开可展示信息。请不要提交任何私密凭证。
+  - type: input
+    id: name
+    attributes:
+      label: 群名 / 同好会名称
+      placeholder: 上海赛马娘同好会
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: 类型
+      options:
+        - 同好会
+        - 临时群
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: QQ 群号
+      placeholder: "123456789"
+    validations:
+      required: true
+  - type: input
+    id: city
+    attributes:
+      label: 城市 / 地区
+      placeholder: 上海
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 简介 / 公开来源
+      placeholder: 简要介绍社群范围，并附公开来源或管理者公开确认信息。

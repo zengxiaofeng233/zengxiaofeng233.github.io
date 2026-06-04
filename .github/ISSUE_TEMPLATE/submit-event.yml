@@ -1,0 +1,49 @@
+name: 投稿新活动
+description: 提交公开漫展 / Only / 茶会活动信息
+title: "[活动投稿] "
+labels: ["data", "event"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请只提交公开信息。不要提交登录态、Cookie、Token、管理员凭证或抓包数据。
+  - type: input
+    id: title
+    attributes:
+      label: 活动名称
+      placeholder: 上海赛马娘 Only 第3届
+    validations:
+      required: true
+  - type: input
+    id: city
+    attributes:
+      label: 城市 / 地区
+      placeholder: 上海
+    validations:
+      required: true
+  - type: input
+    id: venue
+    attributes:
+      label: 场馆
+      placeholder: 国家会展中心（上海）
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: 活动日期
+      placeholder: 2026-07-12 至 2026-07-13
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: 公开来源链接
+      placeholder: https://mall.bilibili.com/
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 简介 / 备注
+      placeholder: 简要说明活动内容、届数、公开想去人数等。

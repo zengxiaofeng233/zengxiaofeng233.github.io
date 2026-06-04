@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img" aria-label="可替换地图底图占位">
+  <defs>
+    <radialGradient id="glow" cx="52%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#182325" stop-opacity="0.72"/>
+      <stop offset="0.58" stop-color="#0c0f0f" stop-opacity="0.78"/>
+      <stop offset="1" stop-color="#000000"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#2a3334" stroke-width="1" opacity="0.22"/>
+    </pattern>
+    <pattern id="minor" width="12" height="12" patternUnits="userSpaceOnUse">
+      <path d="M 12 0 L 0 0 0 12" fill="none" stroke="#849495" stroke-width="0.5" opacity="0.06"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="820" fill="#000"/>
+  <rect width="1200" height="820" fill="url(#glow)"/>
+  <rect width="1200" height="820" fill="url(#grid)"/>
+  <rect width="1200" height="820" fill="url(#minor)"/>
+  <g fill="none" stroke="#00dbe9" stroke-opacity="0.08" stroke-width="1">
+    <circle cx="620" cy="390" r="220"/>
+    <circle cx="620" cy="390" r="360"/>
+    <path d="M120 640 C280 520 380 680 540 560 S850 440 1080 520"/>
+    <path d="M180 190 C340 260 420 120 600 210 S820 280 1040 180"/>
+  </g>
+  <text x="48" y="760" fill="#849495" font-family="Geist, Arial, sans-serif" font-size="18" opacity="0.62">MAP PLACEHOLDER · replace with licensed standard map tiles/static image and fill review number</text>
+</svg>

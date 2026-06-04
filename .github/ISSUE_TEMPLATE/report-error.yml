@@ -1,0 +1,32 @@
+name: 举报信息有误
+description: 报告活动或 QQ 群信息失效、错误、侵权或需要下架
+title: "[纠错] "
+labels: ["data", "report"]
+body:
+  - type: input
+    id: item
+    attributes:
+      label: 相关条目
+      placeholder: 活动 ID、群 ID、活动名或群名
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: 问题类型
+      options:
+        - 信息错误
+        - QQ 群失效
+        - 活动取消或延期
+        - 来源链接失效
+        - 请求下架
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: 具体说明
+      placeholder: 请说明需要修改或下架的内容，并提供公开来源链接。
+    validations:
+      required: true
