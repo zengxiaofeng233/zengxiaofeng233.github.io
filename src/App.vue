@@ -45,15 +45,6 @@
       :report-url="reportUrl"
       @close="selectedEvent = null"
     />
-
-    <nav class="mobile-bottom-nav" aria-label="移动端导航">
-      <a href="#map" class="active">地图</a>
-      <a href="#communities">同好会</a>
-      <a href="#events">漫展活动</a>
-      <a :href="submitCommunityUrl" target="_blank" rel="noreferrer">投稿</a>
-      <a href="#about">关于</a>
-    </nav>
-
     <footer class="site-footer" id="about">
       <span>数据来源：B站会员购公开信息、同好会公开投稿信息</span>
       <span>地图服务：百度地图开放平台</span>

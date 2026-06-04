@@ -892,8 +892,7 @@ button {
   color: var(--muted);
 }
 
-.mobile-sheet,
-.mobile-bottom-nav {
+.mobile-sheet {
   display: none;
 }
 
@@ -955,7 +954,7 @@ button {
   }
 
   .main-map-column {
-    height: calc(100vh - 58px - 62px);
+    height: calc(100vh - 58px);
   }
 
   .map-shell {
@@ -984,11 +983,11 @@ button {
   .mobile-sheet {
     position: fixed;
     right: 0;
-    bottom: 62px;
+    bottom: 0;
     left: 0;
     z-index: 35;
     display: block;
-    max-height: min(72vh, 620px);
+    max-height: min(78vh, 620px);
     padding: 10px 14px 18px;
     overflow: auto;
     background: rgba(18, 20, 20, 0.97);
@@ -1035,29 +1034,4 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .mobile-bottom-nav {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 45;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    height: 62px;
-    background: rgba(0, 0, 0, 0.94);
-    border-top: 1px solid var(--line);
-    backdrop-filter: blur(16px);
-  }
-
-  .mobile-bottom-nav a {
-    display: grid;
-    place-items: center;
-    color: var(--muted);
-    font-size: 12px;
-  }
-
-  .mobile-bottom-nav a.active,
-  .mobile-bottom-nav a:hover {
-    color: var(--cyan);
-  }
 }
