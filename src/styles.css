@@ -533,14 +533,14 @@ body::before {
 
 /* Single-event markers: minimal 4px dot */
 .marker-dot.single {
-  min-width: 8px;
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  font-size: 0;
-  border: none;
+  min-width: 20px;
+  width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  font-size: 10px;
+  border: 1px solid rgba(219, 252, 255, 0.7);
   background: var(--cyan);
-  box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.08), 0 0 12px rgba(0, 240, 255, 0.24);
+  box-shadow: 0 0 0 5px rgba(0, 240, 255, 0.08), 0 0 14px rgba(0, 240, 255, 0.28);
 }
 
 /* Hover / selected: 8px glow */
@@ -1026,7 +1026,7 @@ body::before {
 
   .marker-dot { min-width: 24px; height: 24px; font-size: 11px; }
 
-  .marker-dot.single { min-width: 6px; width: 6px; height: 6px; }
+  .marker-dot.single { min-width: 18px; width: 18px; height: 18px; font-size: 10px; }
 
   .mobile-sheet {
     position: fixed;
