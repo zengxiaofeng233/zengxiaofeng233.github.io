@@ -29,16 +29,7 @@ jobs:
           node-version: 24
           cache: npm
       - name: Install dependencies
-        shell: bash
-        run: |
-          set +e
-          npm ci --no-audit --no-fund 2>&1 | tee npm-ci.log
-          status=${PIPESTATUS[0]}
-          if [ "$status" -ne 0 ]; then
-            message="$(tail -n 40 npm-ci.log | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%0A", $0}')"
-            echo "::error title=npm ci failed::$message"
-            exit "$status"
-          fi
+        run: npm install --include=dev --no-audit --no-fund
       - name: Build
         run: npm run build
       - name: Setup Pages
