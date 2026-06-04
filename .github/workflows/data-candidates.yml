@@ -1,0 +1,30 @@
+name: Generate data candidates
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * 1'
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --include=dev --no-audit --no-fund
+
+      - name: Fetch public event candidates
+        run: npm run data:fetch
+
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: events-pending
+          path: data/review/events.pending.json

@@ -1,0 +1,16 @@
+[
+  {
+    "url": "https://show.bilibili.com/platform/detail.html?id=1001421&from=pc_search&msource=pc_web",
+    "keywords": ["赛马娘", "马娘", "Uma Musume", "umamusume"],
+    "overrides": {
+      "region": "mainland",
+      "province": "",
+      "city": "",
+      "venue": "",
+      "lat": 0,
+      "lng": 0,
+      "edition": 1,
+      "relatedCommunityIds": []
+    }
+  }
+]

@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "data:fetch": "node scripts/fetch-bilibili-events.mjs",
+    "data:approve": "node scripts/apply-reviewed-data.mjs",
+    "data:validate": "node scripts/validate-data.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "latest",

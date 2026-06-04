@@ -10,3 +10,7 @@ dist
 *.tsbuildinfo
 dist
 
+data/review/*.pending.json
+data/review/*.approved.json
+!data/review/.gitkeep
+
