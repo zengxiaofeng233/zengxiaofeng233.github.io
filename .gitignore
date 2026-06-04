@@ -12,5 +12,6 @@ dist
 
 data/review/*.pending.json
 data/review/*.approved.json
+data/review/*.auto.json
 !data/review/.gitkeep
 

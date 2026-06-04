@@ -12,7 +12,65 @@
 6. `npm run data:validate` 校验正式数据。
 7. `npm run build` 确认页面可构建，再提交推送。
 
-## 抓取会员购公开活动
+## 更自动的会员购流程
+
+优先使用这个流程。你只需要维护 URL 列表：
+
+`data/sources/bilibili-event-urls.json`
+
+```json
+[
+  "https://show.bilibili.com/platform/detail.html?id=1001421&from=pc_search&msource=pc_web"
+]
+```
+
+运行：
+
+```bash
+npm run data:auto
+```
+
+脚本会输出：
+
+`data/review/events.auto.json`
+
+自动处理内容：
+
+- 自动生成 `id`
+- 自动保存 `sourceUrl`
+- 尝试从公开 HTML/JSON 中提取标题、场馆、日期、封面、想去人数
+- 自动识别常见城市
+- 如果识别到城市和场馆，调用百度地理编码接口，把点位定位到场馆附近
+- 百度地理编码失败时，回退到城市中心坐标
+- 生成 `_reviewNotes`，告诉你哪些字段还需要人工确认
+
+注意：百度地理编码使用的是公开 Web API 和已有地图 AK。它不使用登录态、Cookie、验证码、签名绕过或非公开接口。
+
+审核时，把 `data/review/events.auto.json` 里确认无误的条目复制到：
+
+`data/review/events.approved.json`
+
+并把：
+
+```json
+"_reviewStatus": "pending"
+```
+
+改成：
+
+```json
+"_reviewStatus": "approved"
+```
+
+然后运行：
+
+```bash
+npm run data:approve
+npm run data:validate
+npm run build
+```
+
+## 手动增强抓取会员购公开活动
 
 编辑 `data/sources/bilibili-events.json`：
 
