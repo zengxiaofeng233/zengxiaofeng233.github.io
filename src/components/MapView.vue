@@ -32,12 +32,6 @@
       </div>
     </div>
 
-    <footer class="map-footer">
-      <span>数据来源：B站会员购公开信息、同好会公开投稿信息</span>
-      <span>地图来源：自然资源部标准地图服务</span>
-      <span>审图号：GS（2023）2767号</span>
-      <span>底图边界无修改，仅用于活动与同好会点位展示。</span>
-    </footer>
   </section>
 </template>
 
@@ -61,9 +55,9 @@ const hoveredPoint = ref<MapPoint | null>(null)
 
 const bounds = {
   minLng: 72,
-  maxLng: 142,
-  minLat: 16,
-  maxLat: 54
+  maxLng: 128,
+  minLat: 17,
+  maxLat: 62
 }
 
 const projectedPoints = computed(() => {

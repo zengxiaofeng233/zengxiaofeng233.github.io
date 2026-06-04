@@ -436,15 +436,15 @@ button {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  filter: grayscale(1) brightness(0.42) contrast(1.18);
-  opacity: 0.82;
+  filter: grayscale(0.92) invert(1) brightness(0.68) contrast(1.18);
+  opacity: 0.72;
 }
 
 .map-canvas::after {
   z-index: 1;
   background:
-    radial-gradient(circle at 50% 44%, transparent 0 34%, rgba(0, 0, 0, 0.36) 72%, rgba(0, 0, 0, 0.72) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.46));
+    radial-gradient(circle at 50% 44%, transparent 0 48%, rgba(0, 0, 0, 0.18) 78%, rgba(0, 0, 0, 0.48) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.24));
 }
 
 .map-grid {

@@ -79,7 +79,7 @@ const issueBaseUrl = `${githubUrl}/issues/new`
 const submitEventUrl = `${issueBaseUrl}?template=submit-event.yml`
 const submitCommunityUrl = `${issueBaseUrl}?template=submit-community.yml`
 const reportUrl = `${issueBaseUrl}?template=report-error.yml`
-const mapBackgroundUrl = `${import.meta.env.BASE_URL}map/china-standard-map-gs2023-2767.png`
+const mapBackgroundUrl = `${import.meta.env.BASE_URL}map/china-standard-map-display-gs2023-2767.png`
 
 const { events, communities, communityById, loading, error, load } = useEventData()
 const { searchQuery, regionFilter, typeFilter, filteredEvents, resetFilters } = useFilters(events, communities)
