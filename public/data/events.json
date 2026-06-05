@@ -127,7 +127,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=76681&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [
+      "community-郑州-qq-731405879"
+    ]
   },
   {
     "id": "event-bilibili-78457",
@@ -147,7 +149,10 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=78457&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [
+      "community-武汉-qq-1046990241",
+      "community-武汉-qq-595080620"
+    ]
   },
   {
     "id": "event-bilibili-77966",
@@ -1355,7 +1360,10 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000026&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [
+      "community-上海-qq-1045580853",
+      "community-上海-qq-765886056"
+    ]
   },
   {
     "id": "event-bilibili-114346",
