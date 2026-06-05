@@ -17,7 +17,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=63095&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [781210163]
   },
   {
     "id": "event-bilibili-73456",
@@ -37,7 +37,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=73456&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [610755336]
   },
   {
     "id": "event-bilibili-74020",
@@ -50,14 +50,14 @@
     "lng": 113.24976397194841,
     "startDate": "2023-08-06",
     "endDate": "2023-08-06",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 1222,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202306/bqoXKePx1687171051540.jpeg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=74020&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [781210163]
   },
   {
     "id": "event-bilibili-75398",
@@ -77,7 +77,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=75398&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [262438744]
   },
   {
     "id": "event-bilibili-76949",
@@ -90,14 +90,14 @@
     "lng": 120.69150264424515,
     "startDate": "2023-10-03",
     "endDate": "2023-10-03",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 50,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202309/0yOdQbcX1695111081583.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=76949&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [610755336]
   },
   {
     "id": "event-bilibili-76681",
@@ -117,7 +117,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=76681&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": ["说实话我没找到"]
   },
   {
     "id": "event-bilibili-78457",
@@ -137,7 +137,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=78457&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": ["已查无此人"]
   },
   {
     "id": "event-bilibili-77966",
@@ -157,7 +157,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=77966&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [807399349]
   },
   {
     "id": "event-bilibili-77813",
@@ -177,7 +177,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=77813&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [813021646]
   },
   {
     "id": "event-bilibili-79030",
@@ -197,7 +197,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=79030&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [565502588]
   },
   {
     "id": "event-bilibili-80039",
@@ -217,7 +217,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=80039&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [751799960]
   },
   {
     "id": "event-bilibili-80184",
@@ -237,7 +237,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=80184&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [927232856]
   },
   {
     "id": "event-bilibili-81168",
@@ -257,7 +257,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=81168&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [938761131]
   },
   {
     "id": "event-bilibili-78286",
@@ -277,7 +277,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=78286&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [644741676]
   },
   {
     "id": "event-bilibili-81632",
@@ -290,14 +290,14 @@
     "lng": 113.29199140400092,
     "startDate": "2024-03-10",
     "endDate": "2024-03-10",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 507,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202402/svWCXpKm1706776489024.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=81632&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [781210163]
   },
   {
     "id": "event-bilibili-81767",
@@ -317,11 +317,11 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=81767&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [835891372]
   },
   {
     "id": "event-bilibili-87367",
-    "title": "南昌·赛马娘ONLY",
+    "title": "南昌·赛马娘ONLY·也够篇",
     "region": "mainland",
     "province": "江西",
     "city": "南昌",
@@ -337,7 +337,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=87367&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [755952970]
   },
   {
     "id": "event-bilibili-88472",
@@ -357,7 +357,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=88472&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [751799960]
   },
   {
     "id": "event-bilibili-85996",
@@ -377,7 +377,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=85996&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [610755336]
   },
   {
     "id": "event-bilibili-83021",
@@ -397,7 +397,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=83021&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [934587539]
   },
   {
     "id": "event-bilibili-85747",
@@ -417,7 +417,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=85747&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [646342248]
   },
   {
     "id": "event-bilibili-88516",
@@ -437,7 +437,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=88516&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [852291614]
   },
   {
     "id": "event-bilibili-87036",
@@ -450,14 +450,14 @@
     "lng": 113.24976397194841,
     "startDate": "2024-08-03",
     "endDate": "2024-08-03",
-    "edition": 1,
+    "edition": 3.5,
     "wantToGoCount": 649,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202406/SGOLSBKb1717581022213.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=87036&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [781210163]
   },
   {
     "id": "event-bilibili-86689",
@@ -477,7 +477,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=86689&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [262438744]
   },
   {
     "id": "event-bilibili-86529",
@@ -490,14 +490,14 @@
     "lng": 120.15459808878774,
     "startDate": "2024-08-17",
     "endDate": "2024-08-17",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 443,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202405/21d6moub1716799089058.jpeg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=86529&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [813021646]
   },
   {
     "id": "event-bilibili-86932",
@@ -517,7 +517,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=86932&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [670152354]
   },
   {
     "id": "event-bilibili-88412",
@@ -537,7 +537,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=88412&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [977466818]
   },
   {
     "id": "event-bilibili-89334",
@@ -550,14 +550,14 @@
     "lng": 116.4090173332084,
     "startDate": "2024-10-05",
     "endDate": "2024-10-05",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 322,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202408/30C9r9Qz1724639124911.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=89334&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [807399349]
   },
   {
     "id": "event-bilibili-92122",
@@ -570,14 +570,14 @@
     "lng": 113.31856092990742,
     "startDate": "2025-01-18",
     "endDate": "2025-01-18",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 595,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202409/8yabXjB11725534641357.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=92122&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [927232856]
   },
   {
     "id": "event-bilibili-94186",
@@ -590,14 +590,14 @@
     "lng": 120.15459808878774,
     "startDate": "2025-01-18",
     "endDate": "2025-01-18",
-    "edition": 1,
+    "edition": "我们依旧不知道有多少场浙马",
     "wantToGoCount": 319,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202411/ioJSPyr11730772684714.jpeg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=94186&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [813021646]
   },
   {
     "id": "event-bilibili-95857",
@@ -610,14 +610,14 @@
     "lng": 117.28694137827236,
     "startDate": "2025-02-08",
     "endDate": "2025-02-08",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 189,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202412/USeAg9i71733323221311.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=95857&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [644741676]
   },
   {
     "id": "event-bilibili-97073",
@@ -630,14 +630,14 @@
     "lng": 114.13706189703359,
     "startDate": "2025-02-09",
     "endDate": "2025-02-09",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 161,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202501/h4CH7hGt1735732852641.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=97073&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [938761131]
   },
   {
     "id": "event-bilibili-98452",
@@ -657,7 +657,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98452&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [765886056]
   },
   {
     "id": "event-bilibili-98095",
@@ -670,14 +670,14 @@
     "lng": 123.43743952755202,
     "startDate": "2025-04-05",
     "endDate": "2025-04-05",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 110,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202502/UoqFxMDu1739273490180.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98095&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [614156348]
   },
   {
     "id": "event-bilibili-97193",
@@ -690,14 +690,14 @@
     "lng": 120.16988070576022,
     "startDate": "2025-04-12",
     "endDate": "2025-04-12",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 197,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202501/io6lMQwi1736219451065.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=97193&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [835891372]
   },
   {
     "id": "event-bilibili-98309",
@@ -710,14 +710,14 @@
     "lng": 120.62659799768407,
     "startDate": "2025-05-03",
     "endDate": "2025-05-03",
-    "edition": 1,
+    "edition": 2.5,
     "wantToGoCount": 207,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202502/ZonmzPO01739788457173.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98309&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [610755336]
   },
   {
     "id": "event-bilibili-98904",
@@ -737,7 +737,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98904&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [795762021]
   },
   {
     "id": "event-bilibili-99288",
@@ -750,14 +750,14 @@
     "lng": 121.69815393377114,
     "startDate": "2025-06-01",
     "endDate": "2025-06-01",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 97,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202503/cugsFfeX1741761773081.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=99288&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [646342248]
   },
   {
     "id": "event-bilibili-100272",
@@ -770,14 +770,14 @@
     "lng": 115.89764499348996,
     "startDate": "2025-07-19",
     "endDate": "2025-07-19",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 146,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202504/CZTockxg1743860627550.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=100272&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [755952970]
   },
   {
     "id": "event-bilibili-98992",
@@ -790,14 +790,14 @@
     "lng": 119.3603634157538,
     "startDate": "2025-07-26",
     "endDate": "2025-07-26",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 219,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202505/6grocV8g1746781068074.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98992&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [966641895]
   },
   {
     "id": "event-bilibili-101380",
@@ -817,7 +817,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=101380&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [877648186]
   },
   {
     "id": "event-bilibili-103024",
@@ -837,7 +837,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=103024&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [961574158]
   },
   {
     "id": "event-bilibili-103018",
@@ -850,14 +850,14 @@
     "lng": 117.1756075799247,
     "startDate": "2025-08-09",
     "endDate": "2025-08-09",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 151,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202507/cNvWmiqu1752463601110.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=103018&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [670152354]
   },
   {
     "id": "event-bilibili-100458",
@@ -870,14 +870,14 @@
     "lng": 112.98681856735718,
     "startDate": "2025-08-10",
     "endDate": "2025-08-10",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 179,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202507/3uCqHGL31752577500842.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=100458&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [262438744]
   },
   {
     "id": "event-bilibili-104111",
@@ -897,7 +897,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=104111&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [768314492]
   },
   {
     "id": "event-bilibili-104686",
@@ -910,14 +910,14 @@
     "lng": 120.15459808878774,
     "startDate": "2025-08-16",
     "endDate": "2025-08-16",
-    "edition": 1,
+    "edition": "TBC",
     "wantToGoCount": 332,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202508/8PWRtde21754444801890.jpeg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=104686&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [813021646]
   },
   {
     "id": "event-bilibili-105703",
@@ -930,14 +930,14 @@
     "lng": 113.26801319745505,
     "startDate": "2025-08-16",
     "endDate": "2025-08-16",
-    "edition": 1,
+    "edition": 4,
     "wantToGoCount": 194,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202507/VzOPGIo01753426832351.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=105703&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [781210163]
   },
   {
     "id": "event-bilibili-98219",
@@ -957,7 +957,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98219&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [614185127]
   },
   {
     "id": "event-bilibili-105361",
@@ -970,14 +970,14 @@
     "lng": 117.26876164089818,
     "startDate": "2025-08-23",
     "endDate": "2025-08-23",
-    "edition": 1,
+    "edition": "4|SP",
     "wantToGoCount": 101,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202508/Wd01dfsq1754993205114.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=105361&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [644741676]
   },
   {
     "id": "event-bilibili-105958",
@@ -990,14 +990,14 @@
     "lng": 114.36286766056546,
     "startDate": "2025-10-02",
     "endDate": "2025-10-02",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 199,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202508/0B59YVYm1754035717760.jpeg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=105958&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [595080620]
   },
   {
     "id": "event-bilibili-103527",
@@ -1017,7 +1017,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=103527&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [938180304]
   },
   {
     "id": "event-bilibili-104019",
@@ -1030,14 +1030,14 @@
     "lng": 113.77704252028065,
     "startDate": "2025-10-04",
     "endDate": "2025-10-04",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 276,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202506/We4vCqKZ1750233345276.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=104019&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [731405879]
   },
   {
     "id": "event-bilibili-107703",
@@ -1057,7 +1057,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=107703&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [1045580853]
   },
   {
     "id": "event-bilibili-109504",
@@ -1070,14 +1070,14 @@
     "lng": 113.26936870707351,
     "startDate": "2025-12-07",
     "endDate": "2025-12-07",
-    "edition": 1,
+    "edition": 4.5,
     "wantToGoCount": 234,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202510/MBS3E0t61761298826727.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=109504&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [781210163]
   },
   {
     "id": "event-bilibili-110157",
@@ -1090,14 +1090,14 @@
     "lng": 116.45092665090509,
     "startDate": "2026-01-02",
     "endDate": "2026-01-02",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 177,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202511/j0cfDzEi1763020608004.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=110157&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [807399349]
   },
   {
     "id": "event-bilibili-111303",
@@ -1110,14 +1110,14 @@
     "lng": 121.44009779824391,
     "startDate": "2026-02-07",
     "endDate": "2026-02-07",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 380,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202601/nkfuyZ4z1767939917_1767939917662.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=111303&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [1045580853]
   },
   {
     "id": "event-bilibili-111544",
@@ -1130,14 +1130,14 @@
     "lng": 120.16267103509603,
     "startDate": "2026-02-08",
     "endDate": "2026-02-08",
-    "edition": 1,
+    "edition": "哈喽新酱你要是看得到这个的话对不起，我真算不过来了",
     "wantToGoCount": 320,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202512/Y5xQ9lga1766061364350.jpeg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=111544&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [813021646]
   },
   {
     "id": "event-bilibili-112530",
@@ -1150,14 +1150,14 @@
     "lng": 114.04850004427449,
     "startDate": "2026-02-08",
     "endDate": "2026-02-08",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 154,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202601/7iH1votk1768198607_1768198607456.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=112530&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [938761131]
   },
   {
     "id": "event-bilibili-113987",
@@ -1170,14 +1170,14 @@
     "lng": 104.11463513253248,
     "startDate": "2026-03-22",
     "endDate": "2026-03-22",
-    "edition": 1,
+    "edition": "SPECIAL",
     "wantToGoCount": 29,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202603/IMAcRoJ71772639766_1772639766137.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=113987&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [795762021]
   },
   {
     "id": "event-bilibili-112361",
@@ -1197,7 +1197,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=112361&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [1046990241]
   },
   {
     "id": "event-bilibili-115251",
@@ -1210,14 +1210,14 @@
     "lng": 104.11463513253248,
     "startDate": "2026-04-19",
     "endDate": "2026-04-19",
-    "edition": 1,
+    "edition": "SPECIAL",
     "wantToGoCount": 26,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202603/Se2seaAB1774969222_1774969222608.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=115251&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [795762021]
   },
   {
     "id": "event-bilibili-1000026",
@@ -1237,7 +1237,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000026&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": ["密码的这个是叔叔官方的"]
   },
   {
     "id": "event-bilibili-114346",
@@ -1250,14 +1250,14 @@
     "lng": 123.43743952755202,
     "startDate": "2026-05-02",
     "endDate": "2026-05-02",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 174,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202603/o35rQ3n71773627170_1773627170868.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=114346&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [614156348]
   },
   {
     "id": "event-bilibili-115315",
@@ -1270,14 +1270,14 @@
     "lng": 121.44009779824391,
     "startDate": "2026-05-02",
     "endDate": "2026-05-02",
-    "edition": 1,
+    "edition": "TBC",
     "wantToGoCount": 259,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202604/3EabeDaU1775789910_1775789910605.jpg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=115315&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [1045580853]
   },
   {
     "id": "event-bilibili-115341",
@@ -1290,14 +1290,14 @@
     "lng": 118.17825593810295,
     "startDate": "2026-05-04",
     "endDate": "2026-05-04",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 67,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202604/HU5U2Mj81775556404_1775556404050.jpg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=115341&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [907507826]
   },
   {
     "id": "event-bilibili-115565",
@@ -1310,14 +1310,14 @@
     "lng": 121.69815393377114,
     "startDate": "2026-06-20",
     "endDate": "2026-06-20",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 65,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202604/uQlbAA3Y1775988530_1775988530008.jpg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=115565&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [646342248]
   },
   {
     "id": "event-bilibili-1000672",
@@ -1330,14 +1330,14 @@
     "lng": 112.57558253674279,
     "startDate": "2026-07-18",
     "endDate": "2026-07-18",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 29,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202605/5DfmeMbI1778034276_1778034276367.jpg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000672&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [834598951]
   },
   {
     "id": "event-bilibili-1001421",
@@ -1350,14 +1350,14 @@
     "lng": 115.79557737365919,
     "startDate": "2026-07-18",
     "endDate": "2026-07-18",
-    "edition": 1,
+    "edition": 3,
     "wantToGoCount": 21,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202605/QmAHBIBD1779255525_1779255525807.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1001421&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [755952970]
   },
   {
     "id": "event-bilibili-1000729",
@@ -1370,14 +1370,14 @@
     "lng": 116.97810558405855,
     "startDate": "2026-08-02",
     "endDate": "2026-08-02",
-    "edition": 1,
+    "edition": 2,
     "wantToGoCount": 111,
     "coverUrl": "https://i0.hdslb.com/bfs/openplatform/202605/62lDfRNv1777639019_1777639019268.png",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000729&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [977466818]
   },
   {
     "id": "event-bilibili-1000404",
@@ -1397,7 +1397,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000404&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [1029729445]
   },
   {
     "id": "event-bilibili-1000448",
@@ -1410,14 +1410,14 @@
     "lng": 113.2415923424028,
     "startDate": "2026-08-15",
     "endDate": "2026-08-15",
-    "edition": 1,
+    "edition": 5,
     "wantToGoCount": 294,
     "coverUrl": "https://i2.hdslb.com/bfs/openplatform/202604/ZqOg6Wwp1777014929_1777014929411.jpg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000448&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [781210163]
   },
   {
     "id": "event-bilibili-1001492",
@@ -1430,13 +1430,13 @@
     "lng": 120.15459808878774,
     "startDate": "2026-08-15",
     "endDate": "2026-08-15",
-    "edition": 1,
+    "edition": 5,
     "wantToGoCount": 32,
     "coverUrl": "https://i1.hdslb.com/bfs/openplatform/202605/JzVVE13S1779365193_1779365193344.jpg",
     "description": "",
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1001492&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": []
+    "relatedCommunityIds": [813021646]
   }
 ]
