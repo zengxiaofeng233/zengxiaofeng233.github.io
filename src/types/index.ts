@@ -34,6 +34,7 @@ export interface CommunityItem {
   type: CommunityType
   contactType: ContactType
   contactValue: string
+  avatarUrl?: string
   memberCount: number
   status: CommunityStatus
   lastVerifiedAt: string

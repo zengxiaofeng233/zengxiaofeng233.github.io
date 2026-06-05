@@ -1,6 +1,9 @@
 <template>
   <article class="community-card">
-    <div class="community-icon" aria-hidden="true">群</div>
+    <div class="community-icon" aria-hidden="true">
+      <img v-if="community.avatarUrl" :src="community.avatarUrl" alt="" referrerpolicy="no-referrer" />
+      <span v-else>QQ</span>
+    </div>
     <div class="community-body">
       <div class="community-title-row">
         <strong>{{ community.name }}</strong>

@@ -10,7 +10,10 @@
     "data:fetch": "node scripts/fetch-bilibili-events.mjs",
     "data:auto": "node scripts/auto-bilibili-events.mjs",
     "data:approve": "node scripts/apply-reviewed-data.mjs",
-    "data:validate": "node scripts/validate-data.mjs"
+    "data:validate": "node scripts/validate-data.mjs",
+    "communities:avatar": "node scripts/enrich-community-avatars.mjs",
+    "communities:enrich": "node scripts/enrich-communities.mjs",
+    "communities:apply": "node scripts/apply-community-candidates.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "latest",
