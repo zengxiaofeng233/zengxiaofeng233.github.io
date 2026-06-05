@@ -780,7 +780,7 @@ body::before {
 
 .community-card {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 10px;
   align-items: center;
   padding: 10px;
@@ -789,45 +789,16 @@ body::before {
   border: 1px solid var(--line-strong);
 }
 
-.community-icon {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  overflow: hidden;
-  color: var(--text);
-  background: var(--surface-bright);
-  font: 700 13px/1 var(--font-mono);
-}
+.community-body { min-width: 0; }
 
-.community-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.community-body { display: grid; gap: 4px; min-width: 0; }
-
-.community-title-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.community-title-row strong {
+.community-body strong {
+  display: block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: var(--text);
   font-size: 13px;
-}
-
-.community-body span,
-.community-body small,
-.community-body p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.45;
+  font-weight: 600;
 }
 
 .copy-button {
@@ -1055,12 +1026,6 @@ body::before {
   .mobile-sheet h2 { font-size: 22px; }
 
   .detail-meta.mobile div { grid-template-columns: 76px 1fr; padding: 10px; }
-
-  .community-card { grid-template-columns: 34px minmax(0, 1fr); }
-
-  .community-icon { width: 34px; height: 34px; }
-
-  .copy-button { grid-column: 1 / -1; }
 
   .sheet-actions { grid-template-columns: 1fr; }
 }
