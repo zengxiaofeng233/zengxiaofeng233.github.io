@@ -17,7 +17,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=63095&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [781210163]
+    "relatedCommunityIds": [
+      "community-广州-qq-781210163"
+    ]
   },
   {
     "id": "event-bilibili-73456",
@@ -37,7 +39,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=73456&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [610755336]
+    "relatedCommunityIds": [
+      "community-南京-qq-610755336"
+    ]
   },
   {
     "id": "event-bilibili-74020",
@@ -57,7 +61,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=74020&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [781210163]
+    "relatedCommunityIds": [
+      "community-广州-qq-781210163"
+    ]
   },
   {
     "id": "event-bilibili-75398",
@@ -77,7 +83,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=75398&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [262438744]
+    "relatedCommunityIds": [
+      "community-长沙-qq-262438744"
+    ]
   },
   {
     "id": "event-bilibili-76949",
@@ -97,7 +105,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=76949&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [610755336]
+    "relatedCommunityIds": [
+      "community-南京-qq-610755336"
+    ]
   },
   {
     "id": "event-bilibili-76681",
@@ -117,7 +127,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=76681&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": ["说实话我没找到"]
+    "relatedCommunityIds": []
   },
   {
     "id": "event-bilibili-78457",
@@ -137,7 +147,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=78457&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": ["已查无此人"]
+    "relatedCommunityIds": []
   },
   {
     "id": "event-bilibili-77966",
@@ -157,7 +167,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=77966&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [807399349]
+    "relatedCommunityIds": [
+      "community-北京-qq-807399349"
+    ]
   },
   {
     "id": "event-bilibili-77813",
@@ -177,7 +189,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=77813&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [813021646]
+    "relatedCommunityIds": [
+      "community-宁波-qq-813021646"
+    ]
   },
   {
     "id": "event-bilibili-79030",
@@ -197,7 +211,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=79030&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [565502588]
+    "relatedCommunityIds": [
+      "community-成都-qq-565502588"
+    ]
   },
   {
     "id": "event-bilibili-80039",
@@ -217,7 +233,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=80039&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [751799960]
+    "relatedCommunityIds": [
+      "community-重庆-qq-751799960"
+    ]
   },
   {
     "id": "event-bilibili-80184",
@@ -237,7 +255,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=80184&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [927232856]
+    "relatedCommunityIds": [
+      "community-广州-qq-927232856"
+    ]
   },
   {
     "id": "event-bilibili-81168",
@@ -257,7 +277,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=81168&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [938761131]
+    "relatedCommunityIds": [
+      "community-深圳-qq-938761131"
+    ]
   },
   {
     "id": "event-bilibili-78286",
@@ -277,7 +299,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=78286&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [644741676]
+    "relatedCommunityIds": [
+      "community-合肥-qq-644741676"
+    ]
   },
   {
     "id": "event-bilibili-81632",
@@ -297,7 +321,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=81632&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [781210163]
+    "relatedCommunityIds": [
+      "community-广州-qq-781210163"
+    ]
   },
   {
     "id": "event-bilibili-81767",
@@ -317,7 +343,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=81767&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [835891372]
+    "relatedCommunityIds": [
+      "community-杭州-qq-835891372"
+    ]
   },
   {
     "id": "event-bilibili-87367",
@@ -337,7 +365,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=87367&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [755952970]
+    "relatedCommunityIds": [
+      "community-南昌-qq-755952970"
+    ]
   },
   {
     "id": "event-bilibili-88472",
@@ -357,7 +387,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=88472&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [751799960]
+    "relatedCommunityIds": [
+      "community-重庆-qq-751799960"
+    ]
   },
   {
     "id": "event-bilibili-85996",
@@ -377,7 +409,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=85996&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [610755336]
+    "relatedCommunityIds": [
+      "community-南京-qq-610755336"
+    ]
   },
   {
     "id": "event-bilibili-83021",
@@ -397,7 +431,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=83021&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [934587539]
+    "relatedCommunityIds": [
+      "community-海口-qq-934587539"
+    ]
   },
   {
     "id": "event-bilibili-85747",
@@ -417,7 +453,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=85747&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [646342248]
+    "relatedCommunityIds": [
+      "community-大连-qq-646342248"
+    ]
   },
   {
     "id": "event-bilibili-88516",
@@ -437,7 +475,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=88516&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [852291614]
+    "relatedCommunityIds": [
+      "community-福州-qq-852291614"
+    ]
   },
   {
     "id": "event-bilibili-87036",
@@ -457,7 +497,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=87036&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [781210163]
+    "relatedCommunityIds": [
+      "community-广州-qq-781210163"
+    ]
   },
   {
     "id": "event-bilibili-86689",
@@ -477,7 +519,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=86689&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [262438744]
+    "relatedCommunityIds": [
+      "community-长沙-qq-262438744"
+    ]
   },
   {
     "id": "event-bilibili-86529",
@@ -497,7 +541,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=86529&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [813021646]
+    "relatedCommunityIds": [
+      "community-宁波-qq-813021646"
+    ]
   },
   {
     "id": "event-bilibili-86932",
@@ -517,7 +563,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=86932&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [670152354]
+    "relatedCommunityIds": [
+      "community-天津-qq-670152354"
+    ]
   },
   {
     "id": "event-bilibili-88412",
@@ -537,7 +585,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=88412&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [977466818]
+    "relatedCommunityIds": [
+      "community-济南-qq-977466818"
+    ]
   },
   {
     "id": "event-bilibili-89334",
@@ -557,7 +607,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=89334&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [807399349]
+    "relatedCommunityIds": [
+      "community-北京-qq-807399349"
+    ]
   },
   {
     "id": "event-bilibili-92122",
@@ -577,7 +629,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=92122&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [927232856]
+    "relatedCommunityIds": [
+      "community-广州-qq-927232856"
+    ]
   },
   {
     "id": "event-bilibili-94186",
@@ -597,7 +651,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=94186&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [813021646]
+    "relatedCommunityIds": [
+      "community-宁波-qq-813021646"
+    ]
   },
   {
     "id": "event-bilibili-95857",
@@ -617,7 +673,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=95857&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [644741676]
+    "relatedCommunityIds": [
+      "community-合肥-qq-644741676"
+    ]
   },
   {
     "id": "event-bilibili-97073",
@@ -637,7 +695,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=97073&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [938761131]
+    "relatedCommunityIds": [
+      "community-深圳-qq-938761131"
+    ]
   },
   {
     "id": "event-bilibili-98452",
@@ -657,7 +717,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98452&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [765886056]
+    "relatedCommunityIds": [
+      "community-上海-qq-765886056"
+    ]
   },
   {
     "id": "event-bilibili-98095",
@@ -677,7 +739,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98095&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [614156348]
+    "relatedCommunityIds": [
+      "community-沈阳-qq-614156348"
+    ]
   },
   {
     "id": "event-bilibili-97193",
@@ -697,7 +761,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=97193&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [835891372]
+    "relatedCommunityIds": [
+      "community-杭州-qq-835891372"
+    ]
   },
   {
     "id": "event-bilibili-98309",
@@ -717,7 +783,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98309&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [610755336]
+    "relatedCommunityIds": [
+      "community-南京-qq-610755336"
+    ]
   },
   {
     "id": "event-bilibili-98904",
@@ -737,7 +805,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98904&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [795762021]
+    "relatedCommunityIds": [
+      "community-成都-qq-795762021"
+    ]
   },
   {
     "id": "event-bilibili-99288",
@@ -757,7 +827,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=99288&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [646342248]
+    "relatedCommunityIds": [
+      "community-大连-qq-646342248"
+    ]
   },
   {
     "id": "event-bilibili-100272",
@@ -777,7 +849,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=100272&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [755952970]
+    "relatedCommunityIds": [
+      "community-南昌-qq-755952970"
+    ]
   },
   {
     "id": "event-bilibili-98992",
@@ -797,7 +871,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98992&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [966641895]
+    "relatedCommunityIds": [
+      "community-福州-qq-966641895"
+    ]
   },
   {
     "id": "event-bilibili-101380",
@@ -817,7 +893,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=101380&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [877648186]
+    "relatedCommunityIds": [
+      "community-佛山-qq-877648186"
+    ]
   },
   {
     "id": "event-bilibili-103024",
@@ -837,7 +915,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=103024&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [961574158]
+    "relatedCommunityIds": [
+      "community-哈尔滨-qq-961574158"
+    ]
   },
   {
     "id": "event-bilibili-103018",
@@ -857,7 +937,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=103018&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [670152354]
+    "relatedCommunityIds": [
+      "community-天津-qq-670152354"
+    ]
   },
   {
     "id": "event-bilibili-100458",
@@ -877,7 +959,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=100458&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [262438744]
+    "relatedCommunityIds": [
+      "community-长沙-qq-262438744"
+    ]
   },
   {
     "id": "event-bilibili-104111",
@@ -897,7 +981,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=104111&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [768314492]
+    "relatedCommunityIds": [
+      "community-温州-qq-768314492"
+    ]
   },
   {
     "id": "event-bilibili-104686",
@@ -917,7 +1003,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=104686&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [813021646]
+    "relatedCommunityIds": [
+      "community-宁波-qq-813021646"
+    ]
   },
   {
     "id": "event-bilibili-105703",
@@ -937,7 +1025,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=105703&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [781210163]
+    "relatedCommunityIds": [
+      "community-广州-qq-781210163"
+    ]
   },
   {
     "id": "event-bilibili-98219",
@@ -957,7 +1047,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=98219&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [614185127]
+    "relatedCommunityIds": [
+      "community-徐州-qq-614185127"
+    ]
   },
   {
     "id": "event-bilibili-105361",
@@ -977,7 +1069,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=105361&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [644741676]
+    "relatedCommunityIds": [
+      "community-合肥-qq-644741676"
+    ]
   },
   {
     "id": "event-bilibili-105958",
@@ -997,7 +1091,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=105958&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [595080620]
+    "relatedCommunityIds": [
+      "community-武汉-qq-595080620"
+    ]
   },
   {
     "id": "event-bilibili-103527",
@@ -1017,7 +1113,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=103527&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [938180304]
+    "relatedCommunityIds": [
+      "community-西安-qq-938180304"
+    ]
   },
   {
     "id": "event-bilibili-104019",
@@ -1037,7 +1135,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=104019&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [731405879]
+    "relatedCommunityIds": [
+      "community-郑州-qq-731405879"
+    ]
   },
   {
     "id": "event-bilibili-107703",
@@ -1057,7 +1157,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=107703&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [1045580853]
+    "relatedCommunityIds": [
+      "community-上海-qq-1045580853"
+    ]
   },
   {
     "id": "event-bilibili-109504",
@@ -1077,7 +1179,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=109504&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [781210163]
+    "relatedCommunityIds": [
+      "community-广州-qq-781210163"
+    ]
   },
   {
     "id": "event-bilibili-110157",
@@ -1097,7 +1201,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=110157&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [807399349]
+    "relatedCommunityIds": [
+      "community-北京-qq-807399349"
+    ]
   },
   {
     "id": "event-bilibili-111303",
@@ -1117,7 +1223,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=111303&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [1045580853]
+    "relatedCommunityIds": [
+      "community-上海-qq-1045580853"
+    ]
   },
   {
     "id": "event-bilibili-111544",
@@ -1137,7 +1245,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=111544&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [813021646]
+    "relatedCommunityIds": [
+      "community-宁波-qq-813021646"
+    ]
   },
   {
     "id": "event-bilibili-112530",
@@ -1157,7 +1267,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=112530&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [938761131]
+    "relatedCommunityIds": [
+      "community-深圳-qq-938761131"
+    ]
   },
   {
     "id": "event-bilibili-113987",
@@ -1177,7 +1289,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=113987&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [795762021]
+    "relatedCommunityIds": [
+      "community-成都-qq-795762021"
+    ]
   },
   {
     "id": "event-bilibili-112361",
@@ -1197,7 +1311,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=112361&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [1046990241]
+    "relatedCommunityIds": [
+      "community-武汉-qq-1046990241"
+    ]
   },
   {
     "id": "event-bilibili-115251",
@@ -1217,7 +1333,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=115251&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [795762021]
+    "relatedCommunityIds": [
+      "community-成都-qq-795762021"
+    ]
   },
   {
     "id": "event-bilibili-1000026",
@@ -1237,7 +1355,7 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000026&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": ["密码的这个是叔叔官方的"]
+    "relatedCommunityIds": []
   },
   {
     "id": "event-bilibili-114346",
@@ -1257,7 +1375,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=114346&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [614156348]
+    "relatedCommunityIds": [
+      "community-沈阳-qq-614156348"
+    ]
   },
   {
     "id": "event-bilibili-115315",
@@ -1277,7 +1397,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=115315&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [1045580853]
+    "relatedCommunityIds": [
+      "community-上海-qq-1045580853"
+    ]
   },
   {
     "id": "event-bilibili-115341",
@@ -1297,7 +1419,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=115341&from=pc_search&msource=pc_web",
     "status": "ended",
-    "relatedCommunityIds": [907507826]
+    "relatedCommunityIds": [
+      "community-厦门-qq-907507826"
+    ]
   },
   {
     "id": "event-bilibili-115565",
@@ -1317,7 +1441,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=115565&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": [646342248]
+    "relatedCommunityIds": [
+      "community-大连-qq-646342248"
+    ]
   },
   {
     "id": "event-bilibili-1000672",
@@ -1337,7 +1463,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000672&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": [834598951]
+    "relatedCommunityIds": [
+      "community-太原-qq-834598951"
+    ]
   },
   {
     "id": "event-bilibili-1001421",
@@ -1357,7 +1485,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1001421&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": [755952970]
+    "relatedCommunityIds": [
+      "community-南昌-qq-755952970"
+    ]
   },
   {
     "id": "event-bilibili-1000729",
@@ -1377,7 +1507,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000729&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": [977466818]
+    "relatedCommunityIds": [
+      "community-济南-qq-977466818"
+    ]
   },
   {
     "id": "event-bilibili-1000404",
@@ -1397,7 +1529,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000404&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": [1029729445]
+    "relatedCommunityIds": [
+      "community-成都-qq-1029729445"
+    ]
   },
   {
     "id": "event-bilibili-1000448",
@@ -1417,7 +1551,9 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1000448&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": [781210163]
+    "relatedCommunityIds": [
+      "community-广州-qq-781210163"
+    ]
   },
   {
     "id": "event-bilibili-1001492",
@@ -1437,6 +1573,8 @@
     "source": "B站会员购",
     "sourceUrl": "https://show.bilibili.com/platform/detail.html?id=1001492&from=pc_search&msource=pc_web",
     "status": "upcoming",
-    "relatedCommunityIds": [813021646]
+    "relatedCommunityIds": [
+      "community-宁波-qq-813021646"
+    ]
   }
 ]
