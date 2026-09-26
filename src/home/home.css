@@ -3,7 +3,7 @@
 #loader-stage[hidden], #home[hidden] { display: none; }
 body.home-loading { overflow: hidden; }
 #home {
-  --paper: #f2f1ed;
+  --paper: #f5f5f1;
   --ink: #171715;
   --muted: #77776e;
   --rule: #d4d3cc;
@@ -34,28 +34,118 @@ body.home-loading { overflow: hidden; }
 .home-menu a:last-child { border-bottom: 0; }
 .home-menu span { font-size: 10px; color: #a3a39a; }
 .home-menu a:hover { color: #f07bae !important; }
-.home-hero { position: relative; min-height: 100svh; height: max(680px, 100svh); overflow: hidden; isolation: isolate; }
-.hero-cover { position: absolute; inset: 0; display: grid; place-items: center; }
-.giant-logo { width: 73vw; max-width: 1600px; }
-.racing-reveal { position: absolute; inset: 0; z-index: 2; background: #141413; pointer-events: none; opacity: 0; --mx: 50vw; --my: 50svh; --rw: 240px; --rh: 125px; --skew: 42px; clip-path: polygon(calc(var(--mx) - var(--rw) + var(--skew)) calc(var(--my) - var(--rh)), calc(var(--mx) + var(--rw) + var(--skew)) calc(var(--my) - var(--rh)), calc(var(--mx) + var(--rw) - var(--skew)) calc(var(--my) + var(--rh)), calc(var(--mx) - var(--rw) - var(--skew)) calc(var(--my) + var(--rh))); transition: opacity .18s ease; }
+
+/* ---------------------------------------------------------------- hero ---- */
+/* The wordmark is the aperture. Everything in the hero is derived from --logo-w
+   so the mark, the reveal window and the masked racing strip stay in step. */
+.home-hero {
+  position: relative;
+  min-height: 100svh;
+  height: max(680px, 100svh);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--paper);
+  --logo-w: min(73vw, 1600px);
+  --logo-h: calc(var(--logo-w) * 1136 / 3914);
+}
+.hero-cover { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; }
+.giant-logo { width: var(--logo-w); }
+
+/* The reveal: a paper-coloured sheet covering the letters, cut by two clips that
+   intersect. The mask is the wordmark's own alpha, so the sheet (and the cars on
+   it) simply cannot render anywhere the logo is not — no clamping bug can put a
+   panel in the page margin. The clip is a small skewed window around the cursor,
+   itself clamped in CSS into the mark's box. */
+.racing-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: var(--paper);
+  transition: opacity .16s ease-out;
+  --reveal-w: clamp(280px, 23vw, 360px);
+  --reveal-h: clamp(118px, 9.8vw, 158px);
+  --rw: calc(var(--reveal-w) / 2);
+  --rh: calc(var(--reveal-h) / 2);
+  --skew: calc(var(--reveal-h) * .19);
+  /* Safe defaults: a zero-width mask means nothing paints before reveal.js
+     publishes the measured geometry. */
+  --mask-x: 0px; --mask-y: 0px; --mask-w: 0px;
+  --logo-left: 0px; --logo-top: 0px; --logo-right: 0px; --logo-bottom: 0px;
+  --cursor-x: 50vw; --cursor-y: 50svh;
+  /* The centre is held inside the mark's box. The window may hang past an edge
+     there, but the mask above means the overhang cannot paint — the visible
+     reveal is still only ever the letters. Anything tighter would put the outer
+     cars out of reach, since they sit past the mark's own edges. */
+  --mx: clamp(var(--logo-left), var(--cursor-x), var(--logo-right));
+  --my: clamp(var(--logo-top), var(--cursor-y), var(--logo-bottom));
+  clip-path: polygon(
+    calc(var(--mx) - var(--rw) + var(--skew)) calc(var(--my) - var(--rh)),
+    calc(var(--mx) + var(--rw) + var(--skew)) calc(var(--my) - var(--rh)),
+    calc(var(--mx) + var(--rw) - var(--skew)) calc(var(--my) + var(--rh)),
+    calc(var(--mx) - var(--rw) - var(--skew)) calc(var(--my) + var(--rh))
+  );
+  mask-image: url(/awtc.png);
+  mask-repeat: no-repeat;
+  mask-size: var(--mask-w) auto;
+  mask-position: var(--mask-x) var(--mask-y);
+  -webkit-mask-image: url(/awtc.png);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: var(--mask-w) auto;
+  -webkit-mask-position: var(--mask-x) var(--mask-y);
+  will-change: clip-path;
+}
 .racing-reveal.is-active { opacity: 1; }
-.montage-label { position: absolute; top: 33%; left: 4%; right: 4%; display: flex; justify-content: space-between; color: #92928b; font-size: 10px; letter-spacing: .16em; }
-.racing-montage { position: absolute; top: 44%; left: -2%; width: 104%; height: min(14vw, 240px); transform: translateY(-50%); }
-.montage-car { position: absolute; left: var(--car-x); width: var(--car-width); height: 100%; overflow: hidden; background: #141413; clip-path: polygon(18% 0, 100% 0, 82% 100%, 0 100%); z-index: var(--car-order); }
-.montage-car:first-child { clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%); }
-.montage-car:last-child { clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%); }
-.montage-car img { position: absolute; bottom: 0; width: 100%; height: auto; object-position: var(--car-position); transform: translateY(calc(25% + var(--car-y))) scale(var(--car-scale)); clip-path: var(--silhouette); }
-.reveal-category { position: absolute; left: calc(var(--mx) - var(--rw) + 36px); top: calc(var(--my) + var(--rh) - 32px); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .18em; background: #141413; padding: 6px 10px; }
-.hero-caption { position: absolute; left: 13.5%; right: 13.5%; top: calc(50% + 12vw); display: flex; align-items: center; justify-content: space-between; gap: 24px; font-size: 10px; font-weight: 600; letter-spacing: .12em; }
+
+/* One continuous strip parked behind the mark — not five cards. The cutout edges
+   do the fusing (bodies overlap and interlock, so no seam is ever a straight
+   cut), and the overhang past the mark is masked away. */
+.racing-montage {
+  position: absolute;
+  top: calc(50% + var(--logo-h) * var(--montage-top));
+  left: calc(50% - var(--logo-w) * var(--montage-w) / 2);
+  width: calc(var(--logo-w) * var(--montage-w));
+}
+.montage-car {
+  position: absolute;
+  top: 0;
+  left: var(--car-x);
+  width: var(--car-w);
+  aspect-ratio: calc(16 / 9 / var(--crop-band));
+  background: transparent;
+  z-index: var(--car-order);
+}
+/* Crop is anchored on the tyre contact patch, so all five ground lines agree.
+   Outside that band the render is fully transparent, so nothing needs clipping —
+   the cell only carries the baseline the cars are aligned to.
+   The renders ship without a contact shadow, hence the filter. */
+.montage-car img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(calc(var(--car-y) - var(--crop-top) * 100%)) scale(var(--car-scale));
+  transform-origin: 50% 74%;
+  filter: drop-shadow(0 6px 7px rgb(23 23 21 / .15));
+}
+
+.hero-readout { position: absolute; z-index: 3; left: 0; right: 0; top: calc(50% + var(--logo-h) * .68); display: flex; justify-content: center; gap: 34px; font-size: 10px; font-weight: 700; letter-spacing: .24em; }
+.hero-readout span { color: var(--muted); opacity: .42; transition: opacity .16s, color .16s; }
+.hero-readout span.is-current { color: var(--ink); opacity: 1; }
+.hero-caption { position: absolute; z-index: 3; left: 13.5%; right: 13.5%; bottom: 104px; display: flex; align-items: center; justify-content: space-between; gap: 24px; font-size: 10px; font-weight: 600; letter-spacing: .12em; }
 .reveal-hint { display: flex; align-items: center; gap: 12px; color: var(--muted); }
 .reveal-hint i { display: inline-block; width: 19px; height: 9px; border: 1px solid currentColor; transform: skew(-24deg); }
 .touch-hint { display: none; }
-.scroll-cue { position: absolute; bottom: 40px; left: 3.5vw; right: 3.5vw; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; padding-top: 21px; font-size: 9px; letter-spacing: .16em; }
+.scroll-cue { position: absolute; z-index: 3; bottom: 34px; left: 3.5vw; right: 3.5vw; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; padding-top: 21px; font-size: 9px; letter-spacing: .16em; }
 .scroll-cue > span:last-child { font-size: 22px; line-height: 1; }
+
+/* ------------------------------------------------------------ sections ---- */
 .home-section { padding: 68px 6vw 110px; scroll-margin-top: 30px; }
 .section-meta { display: flex; justify-content: space-between; gap: 24px; font-size: 10px; font-weight: 600; letter-spacing: .1em; }
 .section-meta > :last-child { color: var(--muted); }
-.about-section { background: #e6e5df; }
+.about-section { background: #ebebe5; }
 .about-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 8vw; align-items: end; margin-top: 108px; }
 .about-layout h1 { font-size: clamp(64px, 7.8vw, 150px); font-weight: 700; line-height: .96; letter-spacing: -.065em; }
 .about-layout h1 em { font-style: normal; color: #7b7b72; }
@@ -73,34 +163,42 @@ body.home-loading { overflow: hidden; }
 .program-number { font-size: 11px; align-self: start; padding-top: 39px; color: var(--muted); }
 .program-name h3 { font-size: clamp(27px, 3.2vw, 60px); letter-spacing: -.045em; font-weight: 600; }
 .program-name p { margin-top: 15px !important; color: var(--muted); font-size: 11px; letter-spacing: .08em; }
-.program-image { height: 170px; overflow: hidden; clip-path: polygon(13% 0, 100% 0, 87% 100%, 0 100%); background: #efefef; }
-.program-image img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 66%; transform: scale(1.03); transition: transform .45s ease; }
-.program-row:hover .program-image img { transform: scale(1.08); }
+/* Same framing as the hero: the render's own alpha puts the car straight on the
+   page, and the crop only sets the baseline its tyres sit on. */
+.program-image { position: relative; aspect-ratio: calc(16 / 9 / var(--crop-band)); }
+.program-image img { position: absolute; top: 0; left: 0; width: 100%; height: auto; transform: translateY(calc(var(--crop-top) * -100%)) scale(var(--figure-scale, 1)); transform-origin: 50% 74%; filter: drop-shadow(0 7px 8px rgb(23 23 21 / .13)); transition: transform .45s ease; }
+.program-row:hover .program-image img { --figure-scale: 1.05; }
 .program-slash { font-size: 45px; font-weight: 300; justify-self: end; }
-.season-section { background: var(--ink); color: var(--paper); padding-bottom: 88px; }
-.season-section .section-meta > :last-child { color: #aaa99e; }
+
+.season-section { padding-bottom: 88px; border-top: 1px solid var(--rule); }
 .season-layout { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-top: 100px; }
-.season-overline { font-size: 10px; letter-spacing: .16em; color: #a9a89f; margin-bottom: 20px !important; }
+.season-overline { font-size: 10px; letter-spacing: .16em; color: var(--muted); margin-bottom: 20px !important; }
 .season-layout h2 { font-size: clamp(58px, 8.9vw, 170px); font-weight: 500; letter-spacing: -.065em; line-height: 1; white-space: nowrap; }
-.season-layout h2 em { font-style: normal; color: #ee74aa; }
-.season-entry { display: flex; align-items: center; gap: 55px; padding: 25px 0 15px; border-bottom: 1px solid #77766d; font-size: 13px; font-weight: 600; letter-spacing: .04em; white-space: nowrap; }
-.season-entry small { display: block; font-size: 10px; font-weight: 400; color: #a9a89f; margin-top: 10px; letter-spacing: .06em; }
-.entry-arrow { font-size: 42px; font-weight: 300; color: #ee74aa; transition: transform .2s; }
+.season-layout h2 em { font-style: normal; color: var(--accent); }
+.season-entry { display: flex; align-items: center; gap: 55px; padding: 25px 0 15px; border-bottom: 1px solid #8c8c82; font-size: 13px; font-weight: 600; letter-spacing: .04em; white-space: nowrap; }
+.season-entry small { display: block; font-size: 10px; font-weight: 400; color: var(--muted); margin-top: 10px; letter-spacing: .06em; }
+.entry-arrow { font-size: 42px; font-weight: 300; color: var(--accent); transition: transform .2s; }
 .season-entry:hover .entry-arrow { transform: translate(3px,-3px); }
 .home-footer { padding: 42px 6vw; display: flex; align-items: center; justify-content: space-between; gap: 25px; font-size: 9px; letter-spacing: .1em; }
 .home-footer .home-logo { width: 85px; }
 .home-footer > span { color: var(--muted); }
+
+/* The loader hands over; the hero only settles into place — no second brand
+   animation, nothing bouncy. */
 #home.is-entered .giant-logo { animation: hero-arrive .5s ease-out both; }
 #home.is-entered .home-brand { animation: header-arrive .45s .1s ease-out both; }
+#home.is-entered .hero-caption, #home.is-entered .scroll-cue { animation: hero-fade .45s .16s ease-out both; }
 @keyframes hero-arrive { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
 @keyframes header-arrive { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
 .load-error { position: fixed; bottom: 32px; left: 20px; right: 20px; z-index: 101; text-align: center; font: 13px/1.6 Arial, sans-serif; color: #777; }
+
 @media (max-width: 1000px) {
   .header-actions { gap: 22px; }
   .home-header { height: 94px; }
   .about-layout { gap: 6vw; }
   .program-row { min-height: 190px; gap: 12px; }
-  .program-image { height: 145px; }
+  .program-image { max-width: 420px; }
   .season-layout { align-items: start; flex-direction: column; }
   .season-entry { align-self: flex-end; }
 }
@@ -111,14 +209,12 @@ body.home-loading { overflow: hidden; }
   .entry-link { font-size: 9px; padding: 7px 0; gap: 14px; }
   .menu-toggle { font-size: 9px !important; }
   .home-menu { top: 116px; right: 6vw; width: 88vw; }
-  .home-hero { height: max(620px, 100svh); }
-  .giant-logo { width: 88vw; }
-  .hero-caption { top: 77%; left: 6vw; right: 6vw; font-size: 8px; letter-spacing: .06em; flex-direction: column; align-items: flex-start; gap: 24px; }
+  .home-hero { height: max(620px, 100svh); --logo-w: 88vw; }
+  /* Same window geometry, scaled down with the mark it has to stay inside. */
+  .racing-reveal { --reveal-w: 48vw; --reveal-h: 18vw; --skew: calc(var(--reveal-h) * .16); }
+  .hero-readout { top: calc(50% + var(--logo-h) * .78); gap: 18px; font-size: 8px; letter-spacing: .16em; }
+  .hero-caption { left: 6vw; right: 6vw; bottom: 96px; font-size: 8px; letter-spacing: .06em; flex-direction: column; align-items: flex-start; gap: 20px; }
   .reveal-hint { align-self: flex-end; font-size: 8px; }
-  .racing-reveal { --rw: 115px; --rh: 65px; --skew: 22px; }
-  .racing-montage { top: 61%; width: 270%; left: -85%; height: 125px; }
-  .montage-label { top: calc(50% - 160px); font-size: 8px; }
-  .reveal-category { font-size: 8px; top: calc(var(--my) + var(--rh) - 27px); left: calc(var(--mx) - var(--rw) + 25px); }
   .scroll-cue { left: 6vw; right: 6vw; bottom: 28px; font-size: 8px; }
   .home-section { padding: 44px 6vw 65px; }
   .section-meta { font-size: 8px; }
@@ -134,7 +230,7 @@ body.home-loading { overflow: hidden; }
   .program-number { padding-top: 5px; font-size: 9px; }
   .program-name h3 { font-size: 6.5vw; }
   .program-name p { font-size: 9px; margin-top: 10px !important; }
-  .program-image { grid-column: 2 / 4; grid-row: 2; height: 145px; }
+  .program-image { grid-column: 2 / 4; grid-row: 2; }
   .program-slash { grid-column: 3; grid-row: 1; font-size: 30px; }
   .season-layout { margin-top: 65px; gap: 35px; }
   .season-layout h2 { font-size: 16vw; }
