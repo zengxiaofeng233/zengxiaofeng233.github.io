@@ -5,10 +5,12 @@ export function logo(className = '') {
   return `<span class="home-logo ${className}"><img src="${site.logo}" alt="AWTC" width="4096" height="1608" decoding="async"></span>`;
 }
 
+// Kept deliberately spare: the mark, and the menu. The Season 6 entry lives in
+// the section further down the page, not in the first screen.
 export function header() {
   return `<header class="home-header">
     <a class="home-brand" href="/" aria-label="AWTC 主页">${logo()}</a>
-    <div class="header-actions"><a class="entry-link" href="${site.entryUrl}">${site.season} <span aria-hidden="true">↗</span></a>
+    <div class="header-actions">
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="home-menu">
         <span class="menu-word">MENU</span>
         <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
@@ -64,7 +66,7 @@ export function initHeader(root, onToggle) {
       stagger(CLOSE_STEP);
       menu.classList.remove('is-open');
       const last = (items.length - 1) * CLOSE_STEP;
-      hideTimer = setTimeout(() => { menu.hidden = true; }, last + TRAVEL + 60);
+      hideTimer = setTimeout(() => { menu.hidden = true; }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 160 : last + TRAVEL + 60);
     }
   }
 

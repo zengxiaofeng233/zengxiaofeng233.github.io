@@ -11,7 +11,11 @@ export function createPointer(hero) {
   const state = {
     x: 0, y: 0,        // hero-local px, exactly where the cursor is
     nx: 0, ny: 0,      // the same point normalised over the hero box
-    vx: 0, vy: 0,      // smoothed px-per-frame, for the speed response
+    vx: 0, vy: 0,      // smoothed px-per-frame; published for speed-linked
+                       // effects, currently unconsumed — the brief asks for no
+                       // continuous motion, so nothing reads it yet
+    idle: false,
+    scrollOpen: false,
     inside: false,     // pointer is over the hero at all
     reduced: reduced.matches,
     paused: false,     // menu open: consumers drop to their quiet state
@@ -28,6 +32,7 @@ export function createPointer(hero) {
   const on = { passive: true, signal };
   let rect = hero.getBoundingClientRect();
   let raf = 0;
+  let idleTimer = 0;
   let visible = true;
   let prevX = 0, prevY = 0, primed = false;
 
@@ -63,6 +68,9 @@ export function createPointer(hero) {
     state.nx = rect.width ? state.x / rect.width : 0.5;
     state.ny = rect.height ? state.y / rect.height : 0.5;
     state.ready = true;
+    state.idle = false;
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { state.idle = true; schedule(); }, 1400);
   }
 
   hero.addEventListener('pointermove', event => {
@@ -118,6 +126,7 @@ export function createPointer(hero) {
     measure,
     schedule,
     destroy() {
+      clearTimeout(idleTimer);
       controller.abort();
       resizes.disconnect();
       intersections.disconnect();

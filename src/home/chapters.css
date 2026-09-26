@@ -1,0 +1,92 @@
+/* New scroll chapters; the existing loader and sub-page styles remain separate. */
+#view { position: relative; }
+.site-track { position: absolute; z-index: 4; inset: 0; width: 100%; height: 100%; pointer-events: none; color: #ff4f92; opacity: .085; }
+.site-track path { fill: none; stroke: currentColor; stroke-width: 1.2; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.hero-chapter { position: relative; height: 180svh; min-height: 1224px; }
+.hero-chapter .home-hero { position: sticky; top: 0; }
+.hero-chapter .hero-ambient { z-index: 1; }
+.hero-zone .giant-logo { position: relative; aspect-ratio: 3914 / 1136; overflow: visible; }
+.hero-letter { position: absolute; inset: 0; display: block; overflow: hidden; opacity: clamp(0,calc(1 - var(--open,0) * 1.12),1); }
+.hero-letter-a { transform: translate(calc(var(--open,0) * -58px),calc(var(--open,0) * 34px)); }
+.hero-letter-w { transform: translate(calc(var(--open,0) * -16px),calc(var(--open,0) * -30px)); }
+.hero-letter-t { transform: translate(0,calc(var(--open,0) * -55px)); }
+.hero-letter-c { transform: translate(calc(var(--open,0) * 64px),calc(var(--open,0) * 20px)); }
+.hero-letter-a img { clip-path: polygon(0 0,8.30% 0,30.96% 100%,0 100%); }
+.hero-letter-w img { clip-path: polygon(8.30% 0,32.67% 0,42.46% 43.25%,50.78% 43.25%,50.78% 100%,30.96% 100%); }
+.hero-letter-t img { clip-path: polygon(32.67% 0,78.64% 0,60.79% 78%,60.79% 100%,50.78% 100%,50.78% 43.25%,42.46% 43.25%); }
+.hero-letter-c img { clip-path: polygon(78.64% 0,100% 0,100% 100%,60.79% 100%,60.79% 78%); }
+.hidden-cars-layer { position: absolute; inset: 0; opacity: clamp(0,calc(var(--open,0) * 1.4 - .15),1); pointer-events: none; }
+.hero-chapter .scroll-cue { left: auto; right: 4vw; bottom: 36px; padding: 0; border: 0; opacity: calc(1 - var(--open,0)); }
+.scroll-cue svg, .pit-top svg { display: block; width: 17px; height: 34px; fill: none; stroke: currentColor; stroke-width: 1; }
+.hero-chapter .next-race-slot { left: 32px; bottom: 54px; }
+
+/* A single native vertical scroll interval traverses five full-size cars. */
+.garage-chapter { position: relative; height: 340svh; background: #e8e8e2; }
+.garage-viewport { position: sticky; top: 0; height: 100svh; min-height: 600px; overflow: hidden; isolation: isolate; --speed: 0; }
+.garage-heading { position: absolute; z-index: 2; top: 58px; left: 5vw; right: 5vw; display: flex; justify-content: space-between; align-items: center; }
+.garage-heading h2 { font-size: 11px; font-weight: 600; letter-spacing: .18em; }
+.garage-counter { font-size: 10px; letter-spacing: .12em; color: #6f6f67; }
+.garage-rail { position: absolute; top: 18%; bottom: 10%; left: 0; display: flex; align-items: center; gap: 8vw; width: max-content; padding-inline: 12vw; will-change: transform; }
+.garage-car { flex: 0 0 76vw; width: 76vw; margin: 0; transform-origin: center; position: relative; }
+.garage-vehicle { width: 100%; aspect-ratio: var(--aspect); position: relative; filter: drop-shadow(0 12px 20px rgb(0 0 0 / .08)); }
+.garage-vehicle img { position: absolute; left: calc(var(--img-x)*100%); top: calc(var(--img-y)*100%); width: calc(var(--img-w)*100%); height: auto; }
+.garage-car figcaption { display: flex; justify-content: space-between; margin-top: 45px; font-size: 10px; color: #75756c; }
+.garage-car figcaption span:last-child { color: #ff4f92; font-size: 25px; font-weight: 300; }
+.garage-floor { position: absolute; bottom: 10%; left: 5vw; right: 5vw; height: 1px; background: #babbb3; opacity: .5; }
+.garage-speed { position: absolute; left: 8%; right: 8%; top: 23%; opacity: .13; transform: translateX(calc(var(--speed)*9px)); }
+.garage-speed i { display: block; width: 18vw; height: 1px; margin-block: 14px; background: #ff4f92; transform: scaleX(calc(1 + var(--speed)*.7)); transform-origin: left; }
+.garage-speed i:nth-child(2) { width: 12vw; margin-left: 6vw; }
+.garage-speed i:nth-child(3) { width: 8vw; margin-left: 14vw; }
+
+.brand-statement { position: relative; overflow: hidden; padding: 14vw 5vw 13vw; background: #f5f5f1; --align: 0; }
+.brand-statement h1 { display: flex; flex-direction: column; align-items: flex-start; font-weight: 700; letter-spacing: -.075em; line-height: .89; }
+.brand-word { display: block; font-size: clamp(70px,15.5vw,300px); transform: translateX(calc((1 - var(--align))*var(--direction)*48px)); }
+.brand-word.word-1 { align-self: flex-end; }
+.brand-word.word-2 { color: #8e8e85; margin-left: 10vw; }
+.brand-word.word-3 { margin-top: .16em; font-size: clamp(34px,8.2vw,160px); letter-spacing: -.065em; }
+
+.pit-lane { position: relative; min-height: 100svh; overflow: hidden; background: linear-gradient(180deg,#f5f5f1 0%,#d9d9d2 9%,#73756f 31%,#30322f 55%,#171917 100%); color: #f5f5f1; display: flex; align-items: flex-end; justify-content: center; padding: 200px 5vw 170px; }
+.pit-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.pit-lines path { stroke: #f5f5f1; stroke-width: 1; fill: none; opacity: .13; }
+.pit-brand { width: min(74vw,1450px); position: relative; }
+.pit-brand .home-logo img { filter: invert(1); }
+.pit-footer { position: absolute; bottom: 38px; left: 5vw; right: 5vw; display: flex; align-items: center; justify-content: space-between; gap: 30px; padding-top: 26px; border-top: 1px solid #ffffff35; }
+.pit-footer nav { display: flex; flex-wrap: wrap; gap: 32px; }
+.pit-footer a { font-size: 10px; letter-spacing: .08em; }
+.pit-footer nav a:hover { color: #ff97bc !important; }
+
+@media (max-width: 1000px) {
+  .garage-heading { top: 40px; }
+  .garage-rail { top: 22%; }
+  .pit-footer nav { gap: 20px; }
+}
+@media (max-width: 760px) {
+  .hero-chapter { height: 140svh; min-height: 868px; }
+  .garage-chapter { height: auto; }
+  .garage-viewport { position: relative; height: auto; min-height: 0; padding: 100px 7vw 45px; }
+  .garage-heading { top: 35px; left: 7vw; right: 7vw; }
+  .garage-heading h2 { font-size: 9px; }
+  .garage-counter { display: none; }
+  .garage-rail { position: relative; inset: auto; display: flex; flex-direction: column; width: 100%; gap: 90px; padding: 35px 0 0; transform: none !important; will-change: auto; }
+  .garage-car { flex: none; width: 100%; opacity: 1 !important; transform: none !important; }
+  .garage-car figcaption { margin-top: 22px; font-size: 9px; }
+  .garage-speed, .garage-floor { display: none; }
+  .brand-statement { padding: 110px 5vw 100px; }
+  .brand-word { font-size: 16vw; }
+  .brand-word.word-3 { font-size: 8.4vw; }
+  .pit-lane { min-height: 90svh; padding: 160px 5vw 220px; }
+  .pit-brand { width: 86vw; }
+  .pit-footer nav { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 25px; }
+  .pit-footer a { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-chapter { height: auto; min-height: 0; }
+  .hero-chapter .home-hero { position: relative; }
+  .hero-letter { transform: none !important; }
+  .garage-chapter { height: auto; }
+  .garage-viewport { position: relative; height: auto; min-height: 0; padding: 110px 8vw 80px; }
+  .garage-rail { position: relative; inset: auto; flex-direction: column; width: 100%; gap: 100px; padding: 30px 0 0; transform: none !important; will-change: auto; }
+  .garage-car { flex: none; width: 100%; max-width: 1400px; transform: none !important; opacity: 1 !important; }
+  .garage-speed, .garage-floor, .garage-counter { display: none; }
+  .brand-word { transform: none !important; }
+}

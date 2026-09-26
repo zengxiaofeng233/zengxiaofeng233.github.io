@@ -1,3 +1,4 @@
+@import './chapters.css';
 /* Homepage styles are isolated from the existing loader stylesheet. */
 #loader-stage { position: fixed; inset: 0; z-index: 100; background: #fff; will-change: transform; }
 #loader-stage[hidden], #home[hidden] { display: none; }
@@ -23,9 +24,7 @@ body.home-loading { overflow: hidden; }
 .home-logo img { position: absolute; width: 104.65%; height: auto; left: -1.533%; top: -35.4%; }
 .home-header { position: absolute; z-index: 5; width: 100%; top: 0; left: 0; height: 112px; display: flex; align-items: center; justify-content: center; padding: 0 3.5vw; }
 .home-brand { width: 102px; }
-.header-actions { position: absolute; right: 3.5vw; display: flex; align-items: center; gap: 38px; font-size: 11px; font-weight: 700; letter-spacing: .09em; }
-.entry-link { border-bottom: 1px solid var(--ink); padding: 10px 0; display: flex; align-items: center; gap: 24px; }
-.entry-link span { font-size: 19px; }
+.header-actions { position: absolute; right: 3.5vw; display: flex; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: .09em; }
 .menu-toggle { border: 0; background: none; display: flex; align-items: center; gap: 12px; padding: 12px 0; letter-spacing: .08em; font-size: 11px !important; font-weight: 700 !important; }
 .menu-icon { position: relative; display: block; width: 19px; height: 9px; }
 .menu-icon i { position: absolute; left: 0; right: 0; height: 1px; background: currentColor; transition: translate .26s cubic-bezier(.16,1,.3,1), rotate .26s cubic-bezier(.16,1,.3,1); }
@@ -42,8 +41,8 @@ body.home-loading { overflow: hidden; }
 .menu-speed { position: absolute; top: 0; right: 0; width: 100%; height: 1px; background: linear-gradient(to left, var(--accent) 0 46px, var(--rule) 46px); transform-origin: 100% 50%; scale: 0 1; transition: scale .5s cubic-bezier(.16,1,.3,1); }
 .home-menu.is-open .menu-speed { scale: 1 1; }
 .home-menu ul { display: flex; align-items: center; gap: 34px; margin: 0; padding: 0; list-style: none; }
-.home-menu li { opacity: 0; translate: var(--launch, 56px) 0; transition: opacity .38s cubic-bezier(.16,1,.3,1), translate .42s cubic-bezier(.16,1,.3,1); transition-delay: var(--d, 0ms); }
-.home-menu.is-open li { opacity: 1; translate: 0 0; }
+.home-menu li { opacity: 0; translate: var(--launch, 56px) 0; scale: .94 1; transition: opacity .38s cubic-bezier(.16,1,.3,1), translate .42s cubic-bezier(.16,1,.3,1), scale .42s cubic-bezier(.16,1,.3,1); transition-delay: var(--d, 0ms); }
+.home-menu.is-open li { opacity: 1; translate: 0 0; scale: 1 1; }
 /* The furthest-left entry travels furthest, so the row opens like a grid. */
 .home-menu li:nth-child(1) { --launch: 80px; }
 .home-menu li:nth-child(2) { --launch: 68px; }
@@ -58,7 +57,7 @@ body.home-loading { overflow: hidden; }
 
 /* ---------------------------------------------------------------- hero ---- */
 /* Everything in the hero is derived from --logo-w, so the mark, the brand zone
-   and the car stage stay in step at every breakpoint. */
+   and the magnifier stay in step at every breakpoint. */
 .home-hero {
   position: relative;
   min-height: 100svh;
@@ -68,21 +67,24 @@ body.home-loading { overflow: hidden; }
   background: var(--paper);
   --logo-w: min(73vw, 1600px);
   --logo-h: calc(var(--logo-w) * 1136 / 3914);
-  /* One stage pixel. The car config in data/cars.js is written in stage px at
-     --su = 1, so this single length sizes the whole reveal. */
-  --su: clamp(0.34px, calc(var(--logo-w) / 1400), 1.15px);
   /* The AWTC Overall Zone: the mark's own box plus the margin it is displayed
-     in. The reveal is clipped to this, and to nothing else. */
-  --zone-w: 1.03;
-  --zone-h: 1.22;
+     in. It is the surface, and the only boundary the lens is held to. */
+  --zoneW: calc(var(--logo-w) * 1.03);
+  --zoneH: calc(var(--logo-h) * 1.22);
   --as: 1px;      /* one ambient unit */
   --quiet: 1;     /* ambient activity; dropped while the menu owns the screen */
   --px1: 0px; --py1: 0px; --px2: 0px; --py2: 0px; --px3: 0px; --py3: 0px;
 }
 .home-hero.is-menu-open { --quiet: .7; }
 
-/* Z1 — ambient. Absolutely quiet until the cursor moves or a car changes. */
-.hero-ambient { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: var(--quiet); transition: opacity .35s ease; }
+/* Z1 — the environment layer. Quiet until the cursor moves or the lens opens;
+   it is drawn over the zone so the contours read as air in front of the page
+   while the mark stays black, which is what puts them "behind" it. */
+.hero-ambient { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: var(--quiet); transition: opacity .35s ease; }
+.hero-flow { position: absolute; inset: 0; width: 100%; height: 100%; translate: var(--px1) var(--py1); }
+.hero-flow path { fill: none; stroke-width: 1; }
+.hero-flow path[data-tint="pink"] { stroke: var(--accent); }
+.hero-flow path[data-tint="ink"] { stroke: #b9b8b0; }
 .amb {
   position: absolute;
   left: calc(var(--x) * 1%);
@@ -90,74 +92,81 @@ body.home-loading { overflow: hidden; }
   width: calc(var(--w) * var(--as));
   height: calc(var(--h) * var(--as));
   color: var(--accent);
-  opacity: calc((var(--base) + var(--near-o, 0) * .16 + var(--group-o, 0)) * var(--quiet));
-  translate: calc(var(--px, 0px) + var(--near-x, 0px) + var(--group-x, 0px)) calc(var(--py, 0px) + var(--near-y, 0px));
+  opacity: calc(var(--base) * (1 + var(--near-o, 0) * .2 + var(--rise, 0)) * var(--quiet));
+  translate: calc(var(--px, 0px) + var(--near-x, 0px)) calc(var(--py, 0px) + var(--near-y, 0px));
   rotate: calc(var(--rot) * 1deg + var(--near-r, 0deg));
   scale: var(--near-s, 1);
 }
+.amb[data-depth="1"] { --px: var(--px1); --py: var(--py1); }
+.amb[data-depth="2"] { --px: var(--px2); --py: var(--py2); }
+.amb[data-depth="3"] { --px: var(--px3); --py: var(--py3); }
 .amb[data-near="1"] { will-change: translate, opacity; }
 .amb-art { display: block; width: 100%; height: 100%; }
 .amb-art path, .amb-art polygon { stroke: currentColor; stroke-width: 1; }
 .amb[data-shape="dots"] { background-image: radial-gradient(currentColor 1px, transparent 1.4px); background-size: calc(9 * var(--as)) calc(9 * var(--as)); }
 .amb[data-shape="slash"] { background-image: repeating-linear-gradient(115deg, currentColor 0 1px, transparent 1px calc(7 * var(--as))); }
 .amb[data-shape="line"] { background: currentColor; }
+.amb[data-shape="slice"] { background: currentColor; clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 14px 100%); }
 .amb[data-shape="block"] { background: currentColor; clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%); }
 .amb[data-shape="corner"] { border-top: 1px solid currentColor; border-right: 1px solid currentColor; }
-/* The active programme lifts its own group out of the background. */
-.home-hero[data-active-category="f1"] .amb[data-group="f1"],
-.home-hero[data-active-category="fe"] .amb[data-group="fe"],
-.home-hero[data-active-category="gt3"] .amb[data-group="gt3"] { --group-o: .16; --group-x: -3px; }
+/* Working the lens lifts the whole layer slightly, and settles when it closes. */
+.home-hero[data-lens="on"] .amb { --rise: .15; }
 
-/* Z2/Z3 — the brand zone, and the reveal inside it.
-   The zone is the clip. Because it is a real box, the reveal can cross the black
-   letterforms, the counters inside them and the gaps between them, and still
-   cannot paint one pixel outside the mark's footprint. */
+/* Z2 — the brand zone, which is also the AWTC surface: the mark sits on its own
+   paper here, so anything drawn behind it is genuinely hidden.
+   Z3 — the magnifier, riding over that surface. */
 .hero-zone {
   position: absolute;
   z-index: 2;
   left: 50%;
   top: 50%;
   translate: -50% -50%;
-  width: calc(var(--logo-w) * var(--zone-w));
-  height: calc(var(--logo-h) * var(--zone-h));
+  width: var(--zoneW);
+  height: var(--zoneH);
   display: grid;
   place-items: center;
+  background: var(--paper);
+  overflow: hidden; /* the lens can never leave the zone */
 }
 .giant-logo { width: var(--logo-w); }
-.car-reveal { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .18s ease-out; }
-.car-reveal.is-active { opacity: 1; }
-.car-stage { position: absolute; left: 0; top: 0; width: 0; height: 0; translate: var(--sx, 0px) var(--sy, 0px); }
 
-/* One window per car, each sized to its own proportions — an open-wheeler gets a
-   longer, lower band than a GT. Nothing resizes at runtime: switching cars is a
-   crossfade between two pre-sized windows, so it never touches layout. */
-.car-window {
-  position: absolute;
-  left: 0; top: 0;
-  --rw: calc(var(--revealW) * var(--su) / 2);
-  --rh: calc(var(--revealH) * var(--su) / 2);
-  --sk: calc(var(--rh) * 0.38); /* must track SHEAR in reveal.js */
-  width: calc(var(--rw) * 2 + var(--sk));
-  height: calc(var(--rh) * 2);
-  translate: -50% -50%;
-  background: var(--paper);
-  clip-path: polygon(var(--sk) 0, 100% 0, calc(100% - var(--sk)) 100%, 0 100%);
-  opacity: 0;
-  transition: opacity .18s linear;
+/* A zone-sized fixed scene, revealed through a moving parallelogram. No car
+   or stage translation uses pointer coordinates; only this clip polygon does. */
+@property --lensW { syntax: '<length>'; inherits: false; initial-value: 540px; }
+@property --lensH { syntax: '<length>'; inherits: false; initial-value: 200px; }
+.car-lens {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  --cx: 50%; --cy: 50%; --sk: 34px;
+  clip-path: polygon(calc(var(--cx) - var(--lensW)/2 + var(--sk)) calc(var(--cy) - var(--lensH)/2),calc(var(--cx) + var(--lensW)/2 + var(--sk)) calc(var(--cy) - var(--lensH)/2),calc(var(--cx) + var(--lensW)/2 - var(--sk)) calc(var(--cy) + var(--lensH)/2),calc(var(--cx) - var(--lensW)/2 - var(--sk)) calc(var(--cy) + var(--lensH)/2));
+  background: var(--paper); opacity: 0; pointer-events: none;
+  transition: opacity .2s ease-out, --lensW .25s ease, --lensH .25s ease;
 }
-.car-window.is-current { opacity: 1; }
+.car-lens.is-active { opacity: 1; }
+.lens-stage { position: absolute; inset: 0; transform: scale(1.08); transform-origin: 50% 50%; }
+.racing-strip { position: absolute; inset: 0; }
+.strip-car {
+  position: absolute;
+  left: calc((var(--x) - var(--w) / 2) * 100%);
+  bottom: calc((1 - var(--baseline)) * 100%);
+  width: calc(var(--w) * 100%);
+  aspect-ratio: var(--aspect);
+  z-index: var(--z);
+}
 /* The render carries its own alpha, so the cut-out lands straight on the paper —
    same world as the page, no panel behind it. */
-.car-window img { position: absolute; left: calc(var(--img-x) * 100%); top: calc(var(--img-y) * 100%); width: calc(var(--img-w) * 100%); height: auto; filter: drop-shadow(0 12px 20px rgb(23 23 21 / .1)); }
+.strip-car img {
+  position: absolute;
+  left: calc(var(--img-x) * 100%);
+  top: calc(var(--img-y) * 100%);
+  width: calc(var(--img-w) * 100%);
+  height: auto;
+  filter: drop-shadow(0 12px 20px rgb(23 23 21 / .08));
+}
 
-/* Z4 — which programme the current car belongs to. */
-.hero-readout { position: absolute; z-index: 3; left: 0; right: 0; top: calc(50% + var(--logo-h) * .72); display: flex; justify-content: center; gap: 34px; font-size: 10px; font-weight: 700; letter-spacing: .24em; }
-.hero-readout span { position: relative; color: var(--muted); opacity: .42; transition: opacity .2s, color .2s; }
-.hero-readout span::after { content: ''; position: absolute; left: 0; right: 0; bottom: -10px; height: 1px; background: var(--accent); transform-origin: 0 50%; scale: 0 1; transition: scale .26s cubic-bezier(.16,1,.3,1); }
-.hero-readout span.is-current { color: var(--ink); opacity: 1; }
-.hero-readout span.is-current::after { scale: 1 1; }
-.scroll-cue { position: absolute; z-index: 3; bottom: 34px; left: 3.5vw; right: 3.5vw; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; padding-top: 21px; font-size: 9px; letter-spacing: .16em; }
-.scroll-cue > span:last-child { font-size: 22px; line-height: 1; }
+/* Z6 — reserved for the next-race card; nothing renders in it yet. */
+.next-race-slot { position: absolute; z-index: 6; left: 3.5vw; bottom: 86px; }
+.scroll-cue { position: absolute; z-index: 6; bottom: 30px; left: 3.5vw; right: 3.5vw; border-top: 1px solid var(--rule); padding-top: 18px; display: flex; justify-content: flex-end; }
+.scroll-cue span { font-size: 17px; line-height: 1; color: var(--muted); opacity: .55; }
 
 /* ------------------------------------------------------------ sections ---- */
 .home-section { padding: 68px 6vw 110px; scroll-margin-top: 30px; }
@@ -181,7 +190,7 @@ body.home-loading { overflow: hidden; }
 .program-number { font-size: 11px; align-self: start; padding-top: 39px; color: var(--muted); }
 .program-name h3 { font-size: clamp(27px, 3.2vw, 60px); letter-spacing: -.045em; font-weight: 600; }
 .program-name p { margin-top: 15px !important; color: var(--muted); font-size: 11px; letter-spacing: .08em; }
-/* Same framing as the hero: the render's own alpha puts the car straight on the
+/* Same framing as the strip: the render's own alpha puts the car straight on the
    page, and the crop only sets the baseline its tyres sit on. */
 .program-image { position: relative; aspect-ratio: calc(16 / 9 / var(--crop-band)); }
 .program-image img { position: absolute; top: 0; left: 0; width: 100%; height: auto; transform: translateY(calc(var(--crop-top) * -100%)) scale(var(--figure-scale, 1)); transform-origin: 50% 74%; filter: drop-shadow(0 7px 8px rgb(23 23 21 / .13)); transition: transform .45s ease; }
@@ -202,8 +211,6 @@ body.home-loading { overflow: hidden; }
 .home-footer > span { color: var(--muted); }
 
 /* ---------------------------------------------------- placeholder pages ---- */
-/* The four sub-pages are stubs for now — enough to hold the header, the route
-   and the way back, and nothing that would have to be undone later. */
 .page-shell { min-height: 100svh; padding: 190px 6vw 90px; display: flex; flex-direction: column; }
 .page-title { font-size: clamp(44px, 7vw, 118px); font-weight: 700; letter-spacing: -.055em; line-height: 1; }
 .page-blurb { margin-top: 28px !important; font-size: 15px; line-height: 2; color: #55554e; max-width: 420px; }
@@ -211,11 +218,11 @@ body.home-loading { overflow: hidden; }
 .page-back span { font-size: 17px; }
 
 /* The loader hands over; the hero only settles into place — no second brand
-   animation, nothing bouncy. */
+   animation, nothing bouncy. The lens starts hidden and waits for the cursor. */
 #home.is-entered .giant-logo { animation: hero-arrive .5s ease-out both; }
 #home.is-entered .home-brand { animation: header-arrive .45s .1s ease-out both; }
 #home.is-entered .hero-ambient { animation: hero-fade .55s .12s ease-out backwards; }
-#home.is-entered .hero-readout, #home.is-entered .scroll-cue { animation: hero-fade .45s .16s ease-out both; }
+#home.is-entered .scroll-cue { animation: hero-fade .45s .16s ease-out both; }
 @keyframes hero-arrive { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
 @keyframes header-arrive { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
@@ -226,11 +233,9 @@ body.home-loading { overflow: hidden; }
 @media (max-width: 760px) {
   .home-menu { left: 6vw; right: 6vw; }
   .home-menu ul { flex-direction: column; align-items: flex-end; gap: 16px; }
-  .home-hero { --su: min(0.46px, calc(var(--logo-w) / 760)); --as: .62px; }
-  .amb[data-sm="0"] { display: none; }
+  .home-hero { --as: .62px; }
 }
 @media (max-width: 1000px) {
-  .header-actions { gap: 22px; }
   .home-header { height: 94px; }
   .about-layout { gap: 6vw; }
   .program-row { min-height: 190px; gap: 12px; }
@@ -241,13 +246,14 @@ body.home-loading { overflow: hidden; }
 @media (max-width: 600px) {
   .home-header { height: 84px; padding: 0 6vw; align-items: flex-start; padding-top: 25px; }
   .home-brand { width: 76px; }
-  .header-actions { right: 6vw; top: 69px; left: 6vw; justify-content: space-between; }
-  .entry-link { font-size: 9px; padding: 7px 0; gap: 14px; }
+  .header-actions { right: 6vw; top: 69px; left: auto; }
   .menu-toggle { font-size: 9px !important; }
   .home-menu { top: 118px; }
   .home-hero { height: max(620px, 100svh); --logo-w: 88vw; }
-  .hero-readout { top: calc(50% + var(--logo-h) * .78); gap: 18px; font-size: 8px; letter-spacing: .16em; }
-  .scroll-cue { left: 6vw; right: 6vw; bottom: 28px; font-size: 8px; }
+  /* Shorter lens on a phone, so the glass stays a band rather than a box. */
+  .car-lens { --sk: 22px; }
+  .scroll-cue { left: 6vw; right: 6vw; bottom: 24px; padding-top: 14px; }
+  .scroll-cue span { font-size: 14px; }
   .home-section { padding: 44px 6vw 65px; }
   .section-meta { font-size: 8px; }
   .section-meta > :last-child { display: none; }
@@ -274,4 +280,5 @@ body.home-loading { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   #home *, #home *::before, #home *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  #home .home-menu li { transition: opacity .12s ease, translate .12s ease !important; transition-delay: 0ms !important; --launch: 8px; }
 }

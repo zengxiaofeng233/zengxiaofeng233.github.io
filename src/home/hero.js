@@ -1,35 +1,31 @@
-import { cars, CATEGORIES } from '../data/cars.js';
-import { logo } from './header.js';
+import { cars } from '../data/cars.js';
+import { site } from '../data/home.js';
 
-// The framing vars the programs section shares, so a car is cropped the same way
-// wherever it appears on the page.
 export function carStyle(car) {
   return [`--crop-top:${car.cropTop.toFixed(4)}`, `--crop-band:${car.cropBand.toFixed(4)}`].join(';');
 }
 
-// One window per car, each already sized to its own proportions. Only the window
-// the cursor is nearest to is faded in (see reveal.js); nothing resizes at
-// runtime, so switching cars never touches layout.
-function carWindow(car) {
-  const style = [
-    `--revealW:${car.revealWidth}`, `--revealH:${car.revealHeight}`,
-    `--img-w:${car.imageW.toFixed(5)}`, `--img-x:${car.imageX.toFixed(5)}`, `--img-y:${car.imageY.toFixed(5)}`,
-  ].join(';');
-  return `<div class="car-window" data-car="${car.id}" style="${style}">
-      <img src="${car.src}" alt="" width="2560" height="1440" decoding="async"${car.index === 2 ? ' fetchpriority="high"' : ''}>
-    </div>`;
+export function carImageStyle(car) {
+  return `--aspect:${car.aspect};--img-w:${car.imageW};--img-x:${car.imageX};--img-y:${car.imageY}`;
 }
 
-// Z-order, back to front: paper, ambient, the brand zone (mark + car stage),
-// then the readout. The header sits above all of it, outside this element.
+function stripCar(car) {
+  const style = `--x:${car.x};--w:${car.width};--baseline:${car.baseline};--z:${car.z};${carImageStyle(car)}`;
+  return `<div class="strip-car" data-car="${car.id}" style="${style}"><img src="${car.src}" alt="" width="2560" height="1440" decoding="async"${car.index === 2 ? ' fetchpriority="high"' : ''}></div>`;
+}
+
 export function hero() {
-  return `<section class="home-hero" id="top" aria-label="AWTC 赛车品牌">
-    <div class="hero-ambient" aria-hidden="true"></div>
-    <div class="hero-zone">
-      ${logo('giant-logo')}
-      <div class="car-reveal" aria-hidden="true"><div class="car-stage">${cars.map(carWindow).join('')}</div></div>
+  const strip = `<div class="racing-strip">${cars.map(stripCar).join('')}</div>`;
+  return `<section class="hero-chapter" id="top" aria-label="AWTC 赛车品牌">
+    <div class="home-hero">
+      <div class="hero-ambient" aria-hidden="true"></div>
+      <div class="hero-zone">
+        <div class="hidden-cars-layer" aria-hidden="true">${strip}</div>
+        <div class="giant-logo home-logo" role="img" aria-label="AWTC">${['a','w','t','c'].map(letter => `<span class="hero-letter hero-letter-${letter}"><img src="${site.logo}" alt="" width="4096" height="1608" decoding="async"></span>`).join('')}</div>
+        <div class="car-lens" aria-hidden="true"><div class="lens-stage">${strip}</div></div>
+      </div>
+      <div class="next-race-slot" hidden></div>
+      <a class="scroll-cue" href="#garage" aria-label="探索赛车档案"><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M10 1V35M4 29L10 35L16 29"/></svg></a>
     </div>
-    <p class="hero-readout" aria-hidden="true">${CATEGORIES.map(name => `<span data-program="${name}">${name}</span>`).join('')}</p>
-    <a class="scroll-cue" href="#about" aria-label="向下了解 AWTC"><span>SCROLL TO DISCOVER</span><span aria-hidden="true">↓</span></a>
   </section>`;
 }
