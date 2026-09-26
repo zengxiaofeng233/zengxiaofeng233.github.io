@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AWTC — Motorsport</title>
+    <script>
+      // GitHub Pages has no rewrite rule, so every deep link lands here. Hand the
+      // path to the app and let its router pick the view back up (see
+      // restoreDeepLink in src/router.js).
+      var path = location.pathname + location.search + location.hash;
+      location.replace('/?p=' + encodeURIComponent(path));
+    </script>
+  </head>
+  <body></body>
+</html>

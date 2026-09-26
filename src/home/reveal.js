@@ -1,199 +1,169 @@
-import { cars } from '../data/home.js';
+import { cars, CATEGORY_GROUP } from '../data/cars.js';
 
-const EASE = 0.16;      // per-frame follow factor; the window is small, so stay crisp
-const SETTLE = 0.4;     // px below which the follow loop parks itself
-const PROBE_W = 512;    // alpha probe resolution for the ink test (source is 4096 wide)
+// Per-frame follow factor for the window. Low enough to read as inertia, high
+// enough that the car under the cursor never feels detached from it.
+const EASE = 0.16;
+const SETTLE = 0.3;   // px below which the follow loop parks itself
 
-// The wordmark is the aperture. This module never moves the racing layer: it only
-// publishes the cursor position, and home.css intersects two clips to decide what
-// shows through — a skewed window around that point, and the logo's own alpha.
-// Cars therefore cannot appear outside the letters, whatever the cursor does.
-// The window's size and its clamp both live in CSS, so it stays responsive
-// without this module ever measuring a revealed size.
-export function initReveal(hero) {
-  const layer = hero.querySelector('.racing-reveal');
+// The reveal, rebuilt around one idea: the wordmark is no longer the aperture.
+//
+// Clipping to the letters meant a cursor anywhere but dead-centre on a stroke
+// showed a wheel and a slice of nose. Now the clip is the AWTC Overall Zone —
+// the brand box the mark sits in (see .hero-zone) — so the window can cross the
+// black letterforms, the counters inside them and the gaps between them, and
+// still never escape the mark's own footprint.
+//
+// What shows through is a single car, not a strip: five pre-sized windows ride
+// on one shared stage, and only the window whose car the cursor is nearest to is
+// faded in. Switching is a crossfade, and each window keeps its own proportions,
+// so an open-wheeler gets a longer, lower band than a GT.
+export function initReveal(hero, pointer) {
+  const layer = hero.querySelector('.car-reveal');
+  const zone = hero.querySelector('.hero-zone');
   const mark = hero.querySelector('.giant-logo');
-  const ink = mark.querySelector('img');
-  const montage = hero.querySelector('.racing-montage');
+  const stage = hero.querySelector('.car-stage');
   const readout = hero.querySelector('.hero-readout');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const coarse = matchMedia('(hover: none), (pointer: coarse)');
-  const cells = [...montage.querySelectorAll('.montage-car')];
+  const windows = [...hero.querySelectorAll('.car-window')];
 
-  let heroRect = null;
-  let bounds = { left: 0, top: 0, right: 0, bottom: 0 };
-  let inkBox = { x: 0, y: 0, w: 0, h: 0 };
-  let hotspots = [];
-  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-  let frame = 0, active = false, armed = false, visible = true, shown = '';
+  let zoneBox = { x: 0, y: 0, w: 0, h: 0 };
+  const sizes = new Map();            // car id -> the window's rendered box
+  let targetX = 0, targetY = 0;       // where the cursor is
+  let currentX = 0, currentY = 0;     // where the window actually is
+  let armX = 0, armY = 0;             // the clamped resting spot
+  let car = cars[0];
+  let shownCategory = '';
+  let wasOpen = false;
 
-  // Mirrors the CSS clamp on --mx/--my: the window's centre is held inside the
-  // mark's box, which is also what makes every car's hotspot reachable.
-  const clampX = x => Math.min(Math.max(x, bounds.left), bounds.right);
-  const clampY = y => Math.min(Math.max(y, bounds.top), bounds.bottom);
+  const clamp = (v, lo, hi) => (lo > hi ? (lo + hi) / 2 : Math.min(Math.max(v, lo), hi));
 
-  // A slanted wordmark has real holes in it — the counter of the C, the notch of
-  // the W. Cutting there reveals nothing, so the readout must not claim a car.
-  // Sample the PNG's own alpha rather than trusting the bounding box.
-  const probe = document.createElement('canvas');
-  probe.width = PROBE_W;
-  probe.height = Math.round(PROBE_W * 1608 / 4096);
-  let probeAlpha = null;
-
-  function buildProbe() {
-    if (!ink.complete || !ink.naturalWidth) return;
-    const ctx = probe.getContext('2d', { willReadFrequently: true });
-    ctx.clearRect(0, 0, probe.width, probe.height);
-    ctx.drawImage(ink, 0, 0, probe.width, probe.height);
-    try { probeAlpha = ctx.getImageData(0, 0, probe.width, probe.height).data; }
-    catch { probeAlpha = null; } // Tainted canvas: fall back to the bounding box.
+  // Everything above is measured in hero coordinates, but the stage itself sits
+  // at the zone's top-left corner — so the zone origin comes off again here, at
+  // the one place the position is actually written.
+  function place(x, y) {
+    stage.style.setProperty('--sx', `${(x - zoneBox.x).toFixed(2)}px`);
+    stage.style.setProperty('--sy', `${(y - zoneBox.y).toFixed(2)}px`);
   }
 
-  function overInk(x, y) {
-    if (!probeAlpha) return true;
-    const u = (x - inkBox.x) / inkBox.w;
-    const v = (y - inkBox.y) / inkBox.h;
-    if (u < 0 || u > 1 || v < 0 || v > 1) return false;
-    const cx = Math.round(u * probe.width);
-    const cy = Math.round(v * probe.height);
-    // A one-cell skirt, so thin strokes do not flicker as the cursor crosses them.
-    for (let dy = -1; dy <= 1; dy++) {
-      for (let dx = -1; dx <= 1; dx++) {
-        const px = cx + dx, py = cy + dy;
-        if (px < 0 || py < 0 || px >= probe.width || py >= probe.height) continue;
-        if (probeAlpha[(py * probe.width + px) * 4 + 3] > 40) return true;
-      }
-    }
-    return false;
+  // Keep the whole window inside the zone. Without this the window would hang
+  // over the edge and the clip would halve the car — the exact failure this
+  // rewrite exists to fix.
+  //
+  // The size comes from the element, not from re-deriving --su here: the windows
+  // are media-query dependent (see the 760px block in home.css) and a second copy
+  // of that arithmetic would silently disagree with the first.
+  function boundsFor(spec) {
+    const { w, h } = sizes.get(spec.id) || { w: 0, h: 0 };
+    return {
+      minX: zoneBox.x + w / 2, maxX: zoneBox.x + zoneBox.w - w / 2,
+      minY: zoneBox.y + h / 2, maxY: zoneBox.y + zoneBox.h - h / 2,
+    };
   }
 
-  // Everything here is a read. Writes happen only in render(), so a pointermove
-  // never forces a synchronous layout.
-  function measure() {
-    buildProbe();
-    heroRect = hero.getBoundingClientRect();
-    const inkRect = ink.getBoundingClientRect();
-    const markRect = mark.getBoundingClientRect();
-    const left = markRect.left - heroRect.left;
-    const top = markRect.top - heroRect.top;
-
-    inkBox = { x: inkRect.left - heroRect.left, y: inkRect.top - heroRect.top, w: inkRect.width, h: inkRect.height };
-    layer.style.setProperty('--mask-x', `${inkBox.x}px`);
-    layer.style.setProperty('--mask-y', `${inkBox.y}px`);
-    layer.style.setProperty('--mask-w', `${inkBox.w}px`);
-    layer.style.setProperty('--logo-left', `${left}px`);
-    layer.style.setProperty('--logo-top', `${top}px`);
-    layer.style.setProperty('--logo-right', `${left + markRect.width}px`);
-    layer.style.setProperty('--logo-bottom', `${top + markRect.height}px`);
-    bounds = { left, top, right: left + markRect.width, bottom: top + markRect.height };
-
-    hotspots = cells.map(cell => {
-      const rect = cell.getBoundingClientRect();
-      const car = cars.find(item => item.id === cell.dataset.car);
-      return {
-        category: cell.dataset.category,
-        x: rect.left - heroRect.left + rect.width * car.hotspotX,
-        y: rect.top - heroRect.top + rect.height * car.hotspotY,
-      };
-    });
-
-    // Park the window on the mark, never at the hero's origin — that leftover
-    // corner window is the artefact this replaced.
-    if (!armed || coarse.matches) {
-      targetX = currentX = (bounds.left + bounds.right) / 2;
-      targetY = currentY = (bounds.top + bounds.bottom) / 2;
-      layer.style.setProperty('--cursor-x', `${currentX}px`);
-      layer.style.setProperty('--cursor-y', `${currentY}px`);
-    }
+  function insideZone(s) {
+    return s.x >= zoneBox.x && s.x <= zoneBox.x + zoneBox.w
+        && s.y >= zoneBox.y && s.y <= zoneBox.y + zoneBox.h;
   }
 
-  function updateReadout() {
-    let nearest = '', best = Infinity;
-    // Nothing is "current" until the mark is actually cut open — otherwise the
-    // readout claims a category nobody has reached and the last one sticks.
-    if (active) {
-      // Judge from the cursor as the aperture sees it: the outermost cars sit
-      // past the mark's edges, so a raw cursor position reports a car the window
-      // has not actually reached.
-      const cx = clampX(targetX);
-      const cy = clampY(targetY);
-      for (const spot of hotspots) {
-        const dx = cx - spot.x;
-        const dy = cy - spot.y;
-        const distance = dx * dx + dy * dy;
-        if (distance < best) { best = distance; nearest = spot.category; }
-      }
+  // Judged from the cursor's own position, never from the window: the window has
+  // inertia and would lag the car behind the pointer.
+  function nearestCar(s) {
+    const nx = (s.x - zoneBox.x) / zoneBox.w;
+    const ny = (s.y - zoneBox.y) / zoneBox.h;
+    let best = Infinity, pick = car;
+    for (const item of cars) {
+      const dx = nx - item.hotspotX;
+      const dy = ny - item.hotspotY;
+      const distance = dx * dx + dy * dy;
+      if (distance < best) { best = distance; pick = item; }
     }
-    if (nearest === shown) return;
-    shown = nearest;
-    for (const item of readout.children) {
-      item.classList.toggle('is-current', item.dataset.program === nearest);
+    return pick;
+  }
+
+  function show(next, force = false) {
+    if (next === car && !force) return;
+    car = next;
+    for (const node of windows) node.classList.toggle('is-current', node.dataset.car === car.id);
+    // The readout and the ambient layer both trail the active car, so they only
+    // change when the category does — three of the five cars are GT3.
+    if (car.category === shownCategory) return;
+    shownCategory = car.category;
+    for (const node of readout.children) node.classList.toggle('is-current', node.dataset.program === car.category);
+    // Sticky by design: leaving the mark fades the window but keeps the last
+    // programme lit, so the hero never snaps back to an empty state.
+    hero.dataset.activeCategory = CATEGORY_GROUP[car.category] || '';
+  }
+
+  function measure(heroRect) {
+    const zoneRect = zone.getBoundingClientRect();
+    zoneBox = {
+      x: zoneRect.left - heroRect.left,
+      y: zoneRect.top - heroRect.top,
+      w: zoneRect.width,
+      h: zoneRect.height,
+    };
+    // offsetWidth/Height ignore the -50% centring translate and the clip, so they
+    // give the window's true box — including the shear the parallelogram adds.
+    for (const node of windows) {
+      sizes.set(node.dataset.car, { w: node.offsetWidth, h: node.offsetHeight });
+    }
+
+    if (!wasOpen) {
+      const { minX, maxX, minY, maxY } = boundsFor(car);
+      armX = clamp(zoneBox.x + zoneBox.w / 2, minX, maxX);
+      armY = clamp(zoneBox.y + zoneBox.h / 2, minY, maxY);
+      targetX = currentX = armX;
+      targetY = currentY = armY;
+      place(armX, armY);
     }
   }
 
-  function render() {
-    frame = 0;
-    const ease = reduced.matches ? 1 : EASE;
+  function frame(s) {
+    // Before the first real measurement (the hero is display:none behind the
+    // loader) every box is zero, so there is nothing meaningful to place yet.
+    if (!zoneBox.w) return false;
+
+    const open = s.ready && !s.paused && insideZone(s);
+    layer.classList.toggle('is-active', open);
+
+    if (open && !wasOpen) {
+      // Snap on re-entry: sweeping in from wherever the cursor last left would
+      // race the window across all five cars.
+      targetX = currentX = s.x;
+      targetY = currentY = s.y;
+      // A programme only becomes current once a car is actually on screen, so
+      // the readout never claims a category nobody has reached. Forced, because
+      // the car under the cursor may be the one already armed.
+      show(nearestCar(s), true);
+    }
+    wasOpen = open;
+
+    if (open) {
+      targetX = s.x;
+      targetY = s.y;
+      show(nearestCar(s));
+    }
+
+    const ease = s.reduced ? 1 : EASE;
     currentX += (targetX - currentX) * ease;
     currentY += (targetY - currentY) * ease;
-    layer.style.setProperty('--cursor-x', `${currentX.toFixed(2)}px`);
-    layer.style.setProperty('--cursor-y', `${currentY.toFixed(2)}px`);
-    updateReadout();
-    if (Math.abs(targetX - currentX) > SETTLE || Math.abs(targetY - currentY) > SETTLE) {
-      frame = requestAnimationFrame(render);
-    }
+
+    const { minX, maxX, minY, maxY } = boundsFor(car);
+    place(clamp(currentX, minX, maxX), clamp(currentY, minY, maxY));
+
+    // Park once the window has caught up. The cursor being inside the zone is not
+    // by itself a reason to keep drawing: a stationary pointer would otherwise
+    // hold the loop open at 60fps for as long as it rested on the mark.
+    return Math.abs(targetX - currentX) > SETTLE || Math.abs(targetY - currentY) > SETTLE;
   }
 
-  function schedule() {
-    if (!frame && visible && !document.hidden) frame = requestAnimationFrame(render);
-  }
-
-  function setActive(next) {
-    if (active === next) return;
-    active = next;
-    layer.classList.toggle('is-active', active);
-    if (active) schedule();
-    else { cancelAnimationFrame(frame); frame = 0; updateReadout(); }
-  }
-
-  hero.addEventListener('pointermove', event => {
-    if (!heroRect) return;
-    // Touch only steers the window while the finger is down; a swipe must still
-    // scroll the page.
-    if (event.pointerType === 'touch' && event.buttons === 0) return;
-    const x = event.clientX - heroRect.left;
-    const y = event.clientY - heroRect.top;
-    targetX = x;
-    targetY = y;
-    armed = true;
-    setActive(overInk(x, y) || coarse.matches);
-    if (active) schedule();
-  }, { passive: true });
-
-  hero.addEventListener('pointerleave', () => { if (!coarse.matches) setActive(false); });
-  window.addEventListener('scroll', () => { heroRect = hero.getBoundingClientRect(); }, { passive: true });
+  pointer.onMeasure(measure);
+  pointer.onFrame(frame);
 
   // The mark scales in as the loader hands over, so re-measure once it settles.
-  mark.addEventListener('animationend', measure);
-  window.addEventListener('awtc:home-ready', measure);
-  // The probe needs decoded pixels; the loader normally beats us to it.
-  if (!ink.complete) ink.addEventListener('load', () => { buildProbe(); }, { once: true });
-  new ResizeObserver(measure).observe(hero);
-  reduced.addEventListener('change', schedule);
-  coarse.addEventListener('change', () => { measure(); setActive(coarse.matches); });
+  mark.addEventListener('animationend', () => pointer.measure(), { signal: pointer.signal });
+  window.addEventListener('awtc:home-ready', () => pointer.measure(), { signal: pointer.signal });
 
-  new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting;
-    if (visible) schedule();
-    else { cancelAnimationFrame(frame); frame = 0; }
-  }).observe(hero);
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { cancelAnimationFrame(frame); frame = 0; }
-    else schedule();
-  });
-
-  measure();
-  setActive(coarse.matches);
-  schedule();
+  // Armed with the first car, but nothing is announced and no window is faded in
+  // until the cursor actually opens the reveal.
+  measure(hero.getBoundingClientRect());
 }

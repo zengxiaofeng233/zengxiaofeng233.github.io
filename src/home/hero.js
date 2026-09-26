@@ -1,41 +1,35 @@
-import { cars, montage, site } from '../data/home.js';
+import { cars, CATEGORIES } from '../data/cars.js';
 import { logo } from './header.js';
 
-const CATEGORIES = ['FORMULA 1', 'FORMULA E', 'GT3'];
-const pct = value => `${(value * 100).toFixed(4)}%`;
-
-// Montage geometry lives in data/home.js; the section only republishes it as
-// unitless factors so home.css can derive every length from the logo's width.
-const montageVars = `--montage-w:${montage.width.toFixed(4)};--montage-top:${montage.top.toFixed(4)}`;
-
-// Shared with the programs section so a car is framed the same way everywhere it
-// appears. The renders carry their own alpha, so the crop only trims empty margin
-// and lines the tyre contact patches up on one baseline.
+// The framing vars the programs section shares, so a car is cropped the same way
+// wherever it appears on the page.
 export function carStyle(car) {
-  return [
-    `--car-order:${car.index}`,
-    `--crop-top:${car.cropTop.toFixed(4)}`,
-    `--crop-band:${(car.cropBottom - car.cropTop).toFixed(4)}`,
-    `--car-scale:${car.scale}`,
-    `--car-y:${car.y}px`,
-  ].join(';');
+  return [`--crop-top:${car.cropTop.toFixed(4)}`, `--crop-band:${car.cropBand.toFixed(4)}`].join(';');
 }
 
-function car(car) {
-  const style = `--car-x:${pct(car.x)};--car-w:${pct(montage.carWidth)};` + carStyle(car);
-  return `<div class="montage-car" data-car="${car.id}" data-category="${car.category}" style="${style}">
+// One window per car, each already sized to its own proportions. Only the window
+// the cursor is nearest to is faded in (see reveal.js); nothing resizes at
+// runtime, so switching cars never touches layout.
+function carWindow(car) {
+  const style = [
+    `--revealW:${car.revealWidth}`, `--revealH:${car.revealHeight}`,
+    `--img-w:${car.imageW.toFixed(5)}`, `--img-x:${car.imageX.toFixed(5)}`, `--img-y:${car.imageY.toFixed(5)}`,
+  ].join(';');
+  return `<div class="car-window" data-car="${car.id}" style="${style}">
       <img src="${car.src}" alt="" width="2560" height="1440" decoding="async"${car.index === 2 ? ' fetchpriority="high"' : ''}>
     </div>`;
 }
 
+// Z-order, back to front: paper, ambient, the brand zone (mark + car stage),
+// then the readout. The header sits above all of it, outside this element.
 export function hero() {
-  return `<section class="home-hero" id="top" style="${montageVars}" aria-label="AWTC 赛车品牌">
-    <div class="hero-cover">${logo('giant-logo')}</div>
-    <div class="racing-reveal" aria-hidden="true">
-      <div class="racing-montage">${cars.map(car).join('')}</div>
+  return `<section class="home-hero" id="top" aria-label="AWTC 赛车品牌">
+    <div class="hero-ambient" aria-hidden="true"></div>
+    <div class="hero-zone">
+      ${logo('giant-logo')}
+      <div class="car-reveal" aria-hidden="true"><div class="car-stage">${cars.map(carWindow).join('')}</div></div>
     </div>
     <p class="hero-readout" aria-hidden="true">${CATEGORIES.map(name => `<span data-program="${name}">${name}</span>`).join('')}</p>
-    <div class="hero-caption"><span>${site.season} &nbsp;/&nbsp; ENTRY OPEN</span><span class="reveal-hint"><i aria-hidden="true"></i><span class="desktop-hint">MOVE ACROSS THE MARK</span><span class="touch-hint">DRAG ACROSS THE MARK</span></span></div>
     <a class="scroll-cue" href="#about" aria-label="向下了解 AWTC"><span>SCROLL TO DISCOVER</span><span aria-hidden="true">↓</span></a>
   </section>`;
 }
