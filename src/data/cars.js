@@ -36,11 +36,14 @@ const SPEC = [
   },
   {
     id: 'cyan-gt', category: 'GT3', label: 'CYAN GT',
+    model3d: '/models/cyan-gt.glb', model3dMobile: '/models/cyan-gt-mobile.glb',
     box: { x: 102, y: 430, w: 2379, h: 639 },
     baseline: 0.620, lens: { w: 0.374, h: 0.375 },
   },
   {
     id: 'red-gt', category: 'GT3', label: 'RED GT',
+    model3d: '/models/red-gt.glb', model3dMobile: '/models/red-gt-mobile.glb',
+    viewer: { rotationY: 0 },
     // Tallest of the five — the rear wing reaches well above the roofline.
     box: { x: 81, y: 307, w: 2271, h: 768 },
     baseline: 0.620, lens: { w: 0.374, h: 0.375 },
@@ -63,6 +66,8 @@ export const cars = SPEC.map((spec, index) => {
   const cropBottom = ground + PROGRAM_PAD;
 
   return {
+    model3d: null,
+    model3dMobile: null,
     ...spec,
     src: `/cars/${spec.id}.png`,
     index,
