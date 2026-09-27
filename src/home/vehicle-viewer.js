@@ -59,7 +59,7 @@ export async function createViewer(host, onError) {
   room.dispose(); pmrem.dispose();
   const draco = new DRACOLoader().setDecoderPath(`${import.meta.env.BASE_URL}draco/`);
   const loader = new GLTFLoader().setDRACOLoader(draco);
-  let model = null, radius = 1, active = false, disposed = false, sequence = 0;
+  let model = null, radius = 1, bounds = new THREE.Vector3(), active = false, disposed = false, sequence = 0;
 
   function disposeModel(root) {
     if (!root) return;
@@ -83,9 +83,16 @@ export async function createViewer(host, onError) {
     camera.aspect = width / height;
     const vertical = THREE.MathUtils.degToRad(camera.fov);
     const horizontal = 2 * Math.atan(Math.tan(vertical / 2) * camera.aspect);
-    const distance = radius / Math.sin(Math.min(vertical, horizontal) / 2) * 1.1;
     const direction = camera.position.clone().sub(controls.target).normalize();
     if (!direction.lengthSq()) direction.set(1, .55, 1.4).normalize();
+    const right = new THREE.Vector3().crossVectors(camera.up, direction).normalize();
+    const up = new THREE.Vector3().crossVectors(direction, right).normalize();
+    let distance = 0;
+    for (const x of [-1, 1]) for (const y of [-1, 1]) for (const z of [-1, 1]) {
+      const corner = new THREE.Vector3(x * bounds.x / 2, y * bounds.y / 2, z * bounds.z / 2);
+      distance = Math.max(distance, corner.dot(direction) + Math.max(Math.abs(corner.dot(right)) / Math.tan(horizontal / 2), Math.abs(corner.dot(up)) / Math.tan(vertical / 2)));
+    }
+    distance *= 1.08;
     camera.position.copy(direction.multiplyScalar(distance));
     camera.near = radius * .01; camera.far = distance * 12;
     camera.updateProjectionMatrix();
@@ -118,11 +125,12 @@ export async function createViewer(host, onError) {
       const box = new THREE.Box3().setFromObject(model);
       if (box.isEmpty()) { hide(); throw new Error('Empty vehicle model'); }
       const center = box.getCenter(new THREE.Vector3());
-      radius = box.getSize(new THREE.Vector3()).length() / 2;
+      bounds = box.getSize(new THREE.Vector3());
+      radius = bounds.length() / 2;
       model.position.sub(center);
       scene.add(model);
       controls.target.set(0, 0, 0);
-      camera.position.set(1, .55, 1.4);
+      camera.position.set(1, .12, .06);
       active = true; fit();
       await renderer.compileAsync(scene, camera);
       if (disposed || ticket !== sequence) return null;

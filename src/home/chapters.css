@@ -20,7 +20,7 @@
 .hero-letter-w img { clip-path: polygon(8.30% 0,32.67% 0,42.46% 43.25%,50.78% 43.25%,50.78% 100%,30.96% 100%); }
 .hero-letter-t img { clip-path: polygon(32.67% 0,78.64% 0,60.79% 78%,60.79% 100%,50.78% 100%,50.78% 43.25%,42.46% 43.25%); }
 .hero-letter-c img { clip-path: polygon(78.64% 0,100% 0,100% 100%,60.79% 100%,60.79% 78%); }
-.hidden-cars-layer { position: absolute; inset: 0; opacity: var(--cars-reveal); transform: translateY(calc((1 - var(--cars-reveal)) * 14px)) scale(calc(.96 + var(--cars-reveal) * .04)); pointer-events: none; }
+.hidden-cars-layer { position: absolute; inset: 0; opacity: calc(var(--cars-reveal) * (1 - var(--handoff))); transform: translateY(calc((1 - var(--cars-reveal)) * 14px)) scale(calc(.96 + var(--cars-reveal) * .04)); pointer-events: none; }
 .hero-chapter .scroll-cue { left: auto; right: 4vw; bottom: 36px; padding: 0; border: 0; opacity: calc(1 - var(--compose)); }
 #home.is-entered .hero-chapter .scroll-cue { animation-fill-mode: backwards; }
 .scroll-cue svg, .pit-top svg { display: block; width: 17px; height: 34px; fill: none; stroke: currentColor; stroke-width: 1; }
@@ -30,7 +30,8 @@
 .garage-chapter { position: absolute; inset: 0; opacity: var(--handoff); pointer-events: none; }
 .garage-chapter.is-ready { pointer-events: auto; }
 .garage-viewport { position: relative; height: 100%; overflow: hidden; isolation: isolate; }
-.garage-heading { position: absolute; z-index: 2; top: 14%; left: 5vw; right: 5vw; display: flex; justify-content: space-between; align-items: center; opacity: var(--garage-ui); transform: translateY(calc((1 - var(--garage-ui)) * 12px)); }
+.garage-heading { position: absolute; z-index: 2; top: 14%; left: 5vw; right: 5vw; display: flex; justify-content: space-between; align-items: center; opacity: var(--garage-ui); transform: translateY(calc((1 - var(--garage-ui)) * 12px)); padding-top: 18px; }
+.garage-heading::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, #ff4f92 0 52px, #d4d3cc 52px); transform-origin: left; transform: scaleX(var(--garage-ui)); }
 .garage-heading h2 { font-size: 11px; font-weight: 600; letter-spacing: .18em; }
 .garage-counter { font-size: 10px; letter-spacing: .12em; color: #6f6f67; }
 .garage-rail { position: absolute; top: 29%; bottom: 18%; left: 0; display: flex; align-items: center; gap: 7vw; width: max-content; padding-inline: 10vw; transform: translate3d(var(--rail-x, 0px),calc((1 - var(--handoff)) * 18px),0); }

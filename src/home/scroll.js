@@ -35,11 +35,11 @@ export function initScroll(root, pointer) {
       '--open': p,
       '--breathe':     phase(p,  .00, .16),
       '--compose':     phase(p,  .16, .40),
-      '--split':       reduced.matches ? 0 : phase(p, .40, .64),
-      '--cars-reveal': phase(p,  .36, .62),
-      '--ink-exit':    phase(p,  .60, .76),
-      '--handoff':     phase(p,  .63,  1),
-      '--garage-ui':   phase(p,  .82,  1),
+      '--split':       reduced.matches ? 0 : phase(p, .38, .56),
+      '--ink-exit':    phase(p,  .50, .62),
+      '--cars-reveal': phase(p,  .64, .78),
+      '--handoff':     phase(p,  .75,  1),
+      '--garage-ui':   phase(p,  .85,  1),
     };
     for (const [name, value] of Object.entries(values)) stage.style.setProperty(name, value.toFixed(4));
     const ready = p >= .999;
