@@ -16,7 +16,7 @@ function stripCar(car) {
 
 export function hero() {
   const strip = `<div class="racing-strip">${cars.map(stripCar).join('')}</div>`;
-  return `<section class="hero-chapter" id="top" aria-label="AWTC 赛车品牌">
+  return `<section class="hero-chapter" id="top" aria-label="AWTC">
     <div class="home-hero">
       <div class="hero-ambient" aria-hidden="true"></div>
       <div class="hero-zone">
