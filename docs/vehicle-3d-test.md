@@ -4,9 +4,9 @@
 
 ## 结果与限制
 
-接入、交互与错误回退测试通过；**RED GT 桌面版和移动版的视觉验收未通过**：车身和轮胎表面存在明显破碎、灰色面片和材质显示异常。相同 Viewer 中 CYAN GT 外观正常。目前不能仅凭这些结果确定 RED GT 问题发生在原始导出、材质分配还是解码渲染环节；本次未修改 GLB，也未用运行时材质替换掩盖问题。请在解决或接受该问题后再合并发布。
+接入、交互与错误回退测试通过。RED GT 已替换为用户修复后的 `_web/car-web.glb` 和 `_web/car-web-mobile.glb`，并按新模型方向将 rotationY 设为 0。Chrome 桌面和手机模拟截图复核：此前车身、轮胎表面破碎与灰色面片问题未再出现，模型完整入镜。GLB 原样复制，未做材质替换或重新导出。
 
-截图：[RED GT](vehicle-3d/red-desktop.png)、[CYAN GT](vehicle-3d/cyan-desktop.png)。
+截图：[RED GT 桌面](vehicle-3d/red-desktop.png)、[RED GT 手机模拟](vehicle-3d/red-mobile.png)、[CYAN GT](vehicle-3d/cyan-desktop.png)。
 
 GitHub Pages 线上与实体手机尚未验证。测试分支推送不会触发当前仅监听 main 的 Pages 工作流。
 
@@ -18,10 +18,12 @@ Windows、本机 Chrome（Playwright headless，channel=chrome），Vite product
 
 | 模型 | 字节 | 首次下载 ms | Ready ms | render.triangles | render.calls |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| RED GT desktop | 2,880,524 | 38 | 1,809 | 139,959 | 9 |
-| RED GT mobile | 2,034,532 | 30 | 458 | 73,710 | 9 |
+| RED GT desktop | 16,832,488 | 216 | 2,425 | 160,676 | 9 |
+| RED GT mobile | 9,863,008 | 142 | 809 | 98,800 | 9 |
 | CYAN GT desktop | 13,299,432 | 168 | 2,381 | 163,776 | 9 |
 | CYAN GT mobile | 8,127,492 | 78 | 617 | 96,188 | 9 |
+
+RED GT 替换后体积从约 2.88/2.03 MB 增至 16.83/9.86 MB（桌面/移动），公网首次下载成本相应增加。RED 数据已重新测量；CYAN 保留上一轮采样。
 
 运行时可在 console 的 `[AWTC vehicle]` 记录中查看同口径数据；`.vehicle-canvas` 的 `data-metrics` 也保存最近一次成功结果。
 
@@ -30,7 +32,7 @@ Windows、本机 Chrome（Playwright headless，channel=chrome），Vite product
 - 首页初始没有 GLB、Three、Viewer 或 GLTFLoader 请求。
 - RED / CYAN 点击加载对应桌面或移动模型；yellow / pink / blue 点击没有模型请求或详情打开。
 - 再次打开 RED，模型请求数量保持 2 → 2；应用缓存原始字节，不重复下载。
-- 加载有状态提示；ready 后 PNG / canvas 320ms crossfade。两辆车的整体包围范围均进入视口；RED 表面异常另列。
+- 加载有状态提示；ready 后 PNG / canvas 320ms crossfade。两辆车的整体包围范围均进入视口。
 - 鼠标拖动、滚轮、模拟触摸拖动与双指 pinch 均改变实际渲染画面。
 - 返回保留索引（CYAN=2、RED=3）、scrollY 和原始 overflow；关闭后页面能继续滚动。
 - 模拟 GLB 404、无效 GLB、Three 模块下载失败及 WebGL context loss：显示 `3D PREVIEW UNAVAILABLE`，保留 PNG，可返回。
@@ -59,7 +61,7 @@ Hero、Lens、Ambient、Hero→Garage transition、Menu、Header、Router、Load
 
 | 文件 | SHA-256 |
 | --- | --- |
-| red-gt.glb | 45c35031dcca3e866497385d722af623ef98944537741703ed1d22b370115ce3 |
-| red-gt-mobile.glb | a50b895b1669af46792e07837a497e47c3fef015cfc95c03820985d76119bb5a |
+| red-gt.glb | 8edd84346f47ca1ad4e389bc137f411dc46c7e6cd3c65ec2381cf1d8dede501a |
+| red-gt-mobile.glb | 3f4febe44d129a423f5e3fec02a08ce7c500a75ecaada0bf05af9b418a834467 |
 | cyan-gt.glb | b9313a9a370315b8e212c67e1ee82f26c77d3056ba2199f265262e38e604ef2d |
 | cyan-gt-mobile.glb | 9f9c0cd0cdcb6134a715d96374bce4f2cba0b3d328dceb13cda69442e0c88176 |
