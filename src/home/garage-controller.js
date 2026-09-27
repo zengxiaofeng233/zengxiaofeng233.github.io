@@ -1,3 +1,6 @@
+import { cars } from '../data/cars.js';
+import { createVehicleDetail } from './vehicle-detail.js';
+
 const THRESHOLD = 90;
 const DURATION = 620;
 
@@ -10,6 +13,8 @@ export function initGarage(garage) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const controller = new AbortController();
   const signal = controller.signal;
+  const detail = createVehicleDetail(garage);
+  let suppressClickUntil = 0;
   let index = 0, accumulated = 0, lastWheel = 0, lockUntil = 0;
   let endTimer = 0, raf = 0, touch = null;
   let offsets = [];
@@ -21,7 +26,7 @@ export function initGarage(garage) {
     rail.style.setProperty('--rail-x', `${-(offsets[index] || 0)}px`);
   }
   const schedule = () => { if (!raf) raf = requestAnimationFrame(measure); };
-  const ready = () => garage.classList.contains('is-ready') && !garage.inert;
+  const ready = () => garage.classList.contains('is-ready') && !garage.inert && !detail.isOpen;
   const currentHit = target => target instanceof Element && (vehicles[index].contains(target)
     || (garage.classList.contains('is-changing') && target === interaction));
 
@@ -99,11 +104,19 @@ export function initGarage(garage) {
     if (!touch || event.pointerId !== touch.id) return;
     const dx = event.clientX - touch.x, dy = event.clientY - touch.y;
     if (!touch.horizontal && Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) { touch = null; return; }
-    if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.3) touch.horizontal = true;
+    if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.3) { touch.horizontal = true; suppressClickUntil = performance.now() + 800; }
     if (touch.horizontal && Math.abs(dx) >= 48) { change(dx < 0 ? 1 : -1); touch = null; }
   }, { passive: true, signal });
   for (const type of ['pointerup', 'pointercancel']) window.addEventListener(type, () => { touch = null; }, { passive: true, signal });
+  function openDetail(event) {
+    if (!ready() || !currentHit(event.target) || garage.classList.contains('is-changing') || performance.now() < suppressClickUntil || !cars[index].model3d) return;
+    event.preventDefault();
+    garage.classList.remove('is-hovered');
+    detail.open(cars[index], vehicles[index]);
+  }
+  garage.addEventListener('click', openDetail, { signal });
   garage.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') { openDetail(event); return; }
     if (!currentHit(event.target) || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
     event.preventDefault();
     change(event.key === 'ArrowRight' ? 1 : -1);
@@ -113,5 +126,5 @@ export function initGarage(garage) {
   observer.observe(garage);
   reduced.addEventListener('change', schedule, { signal });
   measure();
-  return { destroy() { controller.abort(); observer.disconnect(); cancelAnimationFrame(raf); clearTimeout(endTimer); } };
+  return { destroy() { detail.destroy(); controller.abort(); observer.disconnect(); cancelAnimationFrame(raf); clearTimeout(endTimer); } };
 }
