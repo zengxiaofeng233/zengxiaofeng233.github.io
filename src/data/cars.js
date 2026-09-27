@@ -23,6 +23,22 @@ const WIDTH = 0.34;
 const STEP = 0.145;
 const FIRST = 0.21;
 
+// 车辆档案编辑区。空字符串表示尚未确认，请勿填入推测的正式数据。
+// drivers: [{ name: '' }]；raceHistory: [{ year: '', nameZh: '', nameEn: '' }]。
+// has3D 必须同时有 model3d 路径才会显示按钮。索引可单独编辑。
+// 专属背景为生成的氛围图；backgroundSrc 留空时自动使用浅底。
+const ARCHIVES = {
+  'yellow-gt': { displayName: 'Porsche 911 GT3 R (992) LinQinyin', number: '23', className: 'GT3', archiveIndex: '01', archiveTotal: '05', has3D: false, has2D: true, backgroundType: 'none', backgroundSrc: '', raceHistory: [{nameZh: 'N/A'}], drivers: [{ name: '林沁音 LinQinyin' }] },
+  'pink-formula': { displayName: 'Fantasy League Team AWTC', number: 'N/A', className: 'Formula', archiveIndex: '02', archiveTotal: '05', has3D: false, has2D: true, backgroundType: 'none', backgroundSrc: '', raceHistory: [{ year: '2026', nameZh: 'FL联赛', nameEn: 'Fantasy League 2026' }], drivers: [{ name: 'MokoRock' }, { name: 'DINIH' }, { name: 'TKT' }, { name: 'Jay_Kimi' }, { name: 'Aya' }] },
+  'cyan-gt': {
+    displayName: 'VERNE RACING AWTC', number: '11', className: 'GT3', archiveIndex: '03', archiveTotal: '05',
+    has3D: true, has2D: true, backgroundType: 'daytona', backgroundSrc: '/backgrounds/daytona.png',
+    raceHistory: [{ year: '2026', nameZh: 'FL 戴通纳24小时特别赛', nameEn: 'Fantasy League DAYTONA 24H SPECIAL EVENT' }], drivers: [{ name: 'KidoTsubasa' }, { name: 'Shuki' }, { name: 'MokoRock' }, { name: 'TKT' }, { name: 'Mikeond' }, { name: 'Tanhoiza' }],
+  },
+  'red-gt': { displayName: 'ERA AWTC White Line', number: '199', className: 'GT3', archiveIndex: '04', archiveTotal: '05', has3D: true, has2D: true, backgroundType: 'nurburgring', backgroundSrc: '/backgrounds/nurburgring.png', raceHistory: [{ year: '2026', nameZh: '嗨跑赛车 24 小时虚拟耐力赛（CHN24）', nameEn: 'Hi-Pole Racing 24-Hour Virtual Endurance Race (CHN24)' }], drivers: [{ name: 'KidoTsubasa' }, { name: 'Shuki' }] },
+  'blue-formula': { displayName: '', number: '', className: '', archiveIndex: '05', archiveTotal: '05', has3D: false, has2D: true, backgroundType: 'none', backgroundSrc: '', raceHistory: [{ year: '2026', nameZh: 'AWTC电动方程式锦标赛', nameEn: 'AWTC Formula E Championship' }], drivers: [{name:'N/a'}] },
+};
+
 const SPEC = [
   {
     id: 'yellow-gt', category: 'GT3', label: 'YELLOW / WHITE GT',
@@ -69,6 +85,7 @@ export const cars = SPEC.map((spec, index) => {
     model3d: null,
     model3dMobile: null,
     ...spec,
+    ...ARCHIVES[spec.id],
     src: `/cars/${spec.id}.png`,
     index,
     x: FIRST + index * STEP,

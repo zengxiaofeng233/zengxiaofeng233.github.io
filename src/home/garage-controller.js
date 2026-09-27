@@ -109,7 +109,7 @@ export function initGarage(garage) {
   }, { passive: true, signal });
   for (const type of ['pointerup', 'pointercancel']) window.addEventListener(type, () => { touch = null; }, { passive: true, signal });
   function openDetail(event) {
-    if (!ready() || !currentHit(event.target) || garage.classList.contains('is-changing') || performance.now() < suppressClickUntil || !cars[index].model3d) return;
+    if (!ready() || !currentHit(event.target) || garage.classList.contains('is-changing') || performance.now() < suppressClickUntil) return;
     event.preventDefault();
     garage.classList.remove('is-hovered');
     detail.open(cars[index], vehicles[index]);
