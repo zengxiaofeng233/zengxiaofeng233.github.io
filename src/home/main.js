@@ -13,6 +13,7 @@ import { transitionToHome } from './loading.js';
 import { placeholder, notFound } from '../pages/placeholder.js';
 import { createRouter, restoreDeepLink } from '../router.js';
 import { pageFor } from '../data/nav.js';
+import { calendar } from '../pages/calendar.js';
 
 const home = document.querySelector('#home');
 
@@ -52,6 +53,7 @@ function render(path) {
   markCurrentPage(home, path);
 
   if (!page) { view.innerHTML = notFound(); return; }
+  if (page.id === 'calendar') { view.innerHTML = calendar(); return; }
   if (page.id !== 'home') { view.innerHTML = placeholder(page); return; }
 
   view.innerHTML = `${siteTrack()}<div class="opening-sequence"><span id="garage" class="garage-anchor" aria-hidden="true"></span><div class="opening-stage">${hero()}${racingGarage()}</div></div>${sections()}`;

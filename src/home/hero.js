@@ -19,6 +19,7 @@ export function hero() {
   return `<section class="hero-chapter" id="top" aria-label="AWTC">
     <div class="home-hero">
       <div class="hero-ambient" aria-hidden="true"></div>
+      <div class="hero-motion-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       <div class="hero-zone">
         <div class="hidden-cars-layer" aria-hidden="true">${strip}</div>
         <div class="giant-logo home-logo" role="img" aria-label="AWTC">${['a','w','t','c'].map(letter => `<span class="hero-letter hero-letter-${letter}"><img src="${site.logo}" alt="" width="4096" height="1608" decoding="async"></span>`).join('')}</div>

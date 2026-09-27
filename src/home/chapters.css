@@ -21,6 +21,16 @@
 .hero-letter-t img { clip-path: polygon(32.67% 0,78.64% 0,60.79% 78%,60.79% 100%,50.78% 100%,50.78% 43.25%,42.46% 43.25%); }
 .hero-letter-c img { clip-path: polygon(78.64% 0,100% 0,100% 100%,60.79% 100%,60.79% 78%); }
 .hidden-cars-layer { position: absolute; inset: 0; opacity: calc(var(--cars-reveal) * (1 - var(--handoff))); transform: translateY(calc((1 - var(--cars-reveal)) * 14px)) scale(calc(.96 + var(--cars-reveal) * .04)); pointer-events: none; }
+/* Speed-line overlay — five horizontal streaks that loop on the hero */
+.hero-motion-lines { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: calc((1 - var(--handoff)) * (1 - var(--compose) * .6)); }
+.hero-motion-lines i { display: block; position: absolute; left: -60%; width: 55%; height: 1px; background: linear-gradient(to right, transparent 0%, #ff4f92 40%, #ff4f92 70%, transparent 100%); animation: speed-streak 2.8s cubic-bezier(.4,0,.6,1) infinite; }
+.hero-motion-lines i:nth-child(1) { top: 28%; opacity: .13; animation-delay: 0s;    animation-duration: 2.6s; width: 48%; }
+.hero-motion-lines i:nth-child(2) { top: 44%; opacity: .09; animation-delay: .7s;   animation-duration: 3.1s; width: 62%; }
+.hero-motion-lines i:nth-child(3) { top: 55%; opacity: .15; animation-delay: 1.4s;  animation-duration: 2.4s; width: 40%; }
+.hero-motion-lines i:nth-child(4) { top: 67%; opacity: .07; animation-delay: 2.1s;  animation-duration: 3.4s; width: 55%; }
+.hero-motion-lines i:nth-child(5) { top: 36%; opacity: .10; animation-delay: 1.05s; animation-duration: 2.9s; width: 34%; }
+@keyframes speed-streak { from { transform: translateX(0); } to { transform: translateX(calc(100vw + 120%)); } }
+
 .hero-chapter .scroll-cue { left: auto; right: 4vw; bottom: 36px; padding: 0; border: 0; opacity: calc(1 - var(--compose)); }
 #home.is-entered .hero-chapter .scroll-cue { animation-fill-mode: backwards; }
 .scroll-cue svg, .pit-top svg { display: block; width: 17px; height: 34px; fill: none; stroke: currentColor; stroke-width: 1; }
@@ -35,14 +45,18 @@
 .garage-heading h2 { font-size: 11px; font-weight: 600; letter-spacing: .18em; }
 .garage-counter { font-size: 10px; letter-spacing: .12em; color: #6f6f67; }
 .garage-rail { position: absolute; top: 29%; bottom: 18%; left: 0; display: flex; align-items: center; gap: 7vw; width: max-content; padding-inline: 10vw; transform: translate3d(var(--rail-x, 0px),calc((1 - var(--handoff)) * 18px),0); }
-.garage-car { flex: 0 0 72vw; width: 72vw; margin: 0; transform-origin: center; position: relative; opacity: calc(.6 * var(--garage-ui)); transform: scale(.97); pointer-events: none; }
+.garage-car { --ground-offset: 10%; flex: 0 0 72vw; width: 72vw; height: 100%; margin: 0; position: relative; opacity: calc(.6 * var(--garage-ui)); pointer-events: none; }
 .is-ready .garage-car { transition: transform 620ms cubic-bezier(.22,.65,.28,1), opacity 620ms ease; }
-.garage-car.is-current { opacity: 1; transform: scale(1); }
+.garage-car.is-current { opacity: 1; }
+/* Share a contact plane across image aspect ratios. Scale the car, not its caption. */
+.garage-car > .garage-vehicle { position: absolute; bottom: var(--ground-offset); transform-origin: center bottom; }
+.garage-car:not(.is-current) > .garage-vehicle { transform: scale(.97); }
+.is-ready .garage-car > .garage-vehicle { transition: transform 620ms cubic-bezier(.22,.65,.28,1), filter .28s ease; }
 .garage-vehicle { width: 100%; aspect-ratio: var(--aspect); position: relative; filter: drop-shadow(0 12px 20px rgb(0 0 0 / .08)); transition: transform .28s ease, filter .28s ease; touch-action: pan-y pinch-zoom; }
 .is-ready .is-current .garage-vehicle { pointer-events: auto; }
 .garage-vehicle:focus-visible { outline: 1px solid #ff4f92; outline-offset: 12px; }
 .garage-vehicle img { position: absolute; left: calc(var(--img-x)*100%); top: calc(var(--img-y)*100%); width: calc(var(--img-w)*100%); height: auto; pointer-events: none; user-select: none; }
-.garage-car figcaption { display: flex; justify-content: space-between; margin-top: 36px; font-size: 10px; color: #75756c; opacity: var(--garage-ui); }
+.garage-car figcaption { position: absolute; top: calc(100% - var(--ground-offset)); left: 0; right: 0; display: flex; justify-content: space-between; margin-top: 36px; font-size: 10px; color: #75756c; opacity: var(--garage-ui); }
 .garage-car figcaption span:last-child { color: #ff4f92; font-size: 25px; font-weight: 300; }
 .garage-floor { position: absolute; bottom: 18%; left: 5vw; right: 5vw; height: 1px; background: #ff4f92; opacity: calc(.28 * var(--garage-ui)); transform: scaleX(calc(.85 + var(--garage-ui) * .15)); transform-origin: left; }
 .garage-speed { position: absolute; left: 8%; right: 8%; top: 25%; opacity: calc(.18 * var(--garage-ui)); }
@@ -55,7 +69,7 @@
 .is-ready.is-changing .garage-interaction-zone { pointer-events: auto; }
 .is-hovered .garage-cursor, .garage-chapter:focus-within .garage-cursor { opacity: .7; }
 .is-hovered .is-current .garage-vehicle { transform: scale(1.01); filter: drop-shadow(0 16px 22px rgb(0 0 0 / .13)); }
-.is-hovered .is-current + .garage-car { transform: translateX(-1vw) scale(.97); }
+.is-hovered .is-current + .garage-car { transform: translateX(-1vw); }
 .is-changing .garage-rail { will-change: transform; transition: transform 620ms cubic-bezier(.22,.65,.28,1); }
 .is-changing .garage-speed, .is-changing .garage-counter { animation: garage-shift 620ms ease-out; }
 .is-changing .garage-floor { animation: floor-shift 620ms ease-out; }
@@ -88,7 +102,7 @@
   .garage-heading { top: 19%; left: 7vw; right: 7vw; }
   .garage-heading h2 { font-size: 9px; }
   .garage-rail { top: 31%; bottom: 27%; gap: 6vw; padding-inline: 7vw; }
-  .garage-car { flex-basis: 78vw; width: 78vw; }
+  .garage-car { --ground-offset: 40%; flex-basis: 78vw; width: 78vw; }
   .garage-car figcaption { margin-top: 22px; font-size: 9px; }
   .garage-floor { bottom: 30%; left: 7vw; right: 7vw; }
   .garage-speed { top: 30%; }
@@ -109,5 +123,6 @@
   .hidden-cars-layer { transform: none; }
   .garage-rail { transform: translate3d(var(--rail-x,0px),0,0); }
   .garage-car, .is-hovered .is-current .garage-vehicle, .is-hovered .is-current + .garage-car { transform: none; }
+  .garage-car:not(.is-current) > .garage-vehicle { transform: none; }
   .brand-word { transform: none !important; }
 }
