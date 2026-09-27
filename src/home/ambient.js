@@ -11,7 +11,7 @@ const fmt = (value, suffix) => `${Math.abs(value) < 0.005 ? '0.00' : value.toFix
 
 function flowSvg() {
   const paths = flowLines.map(line =>
-    `<path d="${line.d}" data-tint="${line.tint}" stroke-opacity="${line.opacity}" transform="translate(0 ${line.offset || 0})" vector-effect="non-scaling-stroke" fill="none"></path>`,
+    `<path d="${line.d}" pathLength="1" data-tint="${line.tint}" stroke-opacity="${line.opacity}" transform="translate(0 ${line.offset || 0})" vector-effect="non-scaling-stroke" fill="none"></path>`,
   ).join('');
   return `<svg class="hero-flow" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${paths}</svg>`;
 }

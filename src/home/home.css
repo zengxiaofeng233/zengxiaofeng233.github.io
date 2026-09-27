@@ -65,10 +65,9 @@ body.home-loading { overflow: hidden; }
   overflow: hidden;
   isolation: isolate;
   background: var(--paper);
-  --logo-w: min(73vw, 1600px);
+  --logo-w: min(76vw, 1600px);
   --logo-h: calc(var(--logo-w) * 1136 / 3914);
-  /* The AWTC Overall Zone: the mark's own box plus the margin it is displayed
-     in. It is the surface, and the only boundary the lens is held to. */
+  /* The scanner crosses letter gaps inside the overall brand zone. */
   --zoneW: calc(var(--logo-w) * 1.03);
   --zoneH: calc(var(--logo-h) * 1.22);
   --as: 1px;      /* one ambient unit */
@@ -81,8 +80,8 @@ body.home-loading { overflow: hidden; }
    it is drawn over the zone so the contours read as air in front of the page
    while the mark stays black, which is what puts them "behind" it. */
 .hero-ambient { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: var(--quiet); transition: opacity .35s ease; }
-.hero-flow { position: absolute; inset: 0; width: 100%; height: 100%; translate: var(--px1) var(--py1); }
-.hero-flow path { fill: none; stroke-width: 1; }
+.hero-flow { position: absolute; inset: 0; width: 100%; height: 100%; translate: calc(var(--px1) + var(--compose,0) * 12px) var(--py1); }
+.hero-flow path { fill: none; stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: calc((1 - var(--open,0)) * .12); }
 .hero-flow path[data-tint="pink"] { stroke: var(--accent); }
 .hero-flow path[data-tint="ink"] { stroke: #b9b8b0; }
 .amb {
@@ -109,6 +108,10 @@ body.home-loading { overflow: hidden; }
 .amb[data-shape="slice"] { background: currentColor; clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 14px 100%); }
 .amb[data-shape="block"] { background: currentColor; clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%); }
 .amb[data-shape="corner"] { border-top: 1px solid currentColor; border-right: 1px solid currentColor; }
+.amb[data-shape="dots"] { animation: dot-breathe 6s ease-in-out infinite alternate; }
+.amb[data-shape="triangle"] { translate: calc(var(--px,0px) + var(--near-x,0px)) calc(var(--py,0px) + var(--near-y,0px) + var(--compose,0) * 6px); }
+.amb[data-shape="slash"] { translate: calc(var(--px,0px) + var(--near-x,0px) + var(--compose,0) * 8px) calc(var(--py,0px) + var(--near-y,0px)); }
+@keyframes dot-breathe { from { filter: opacity(.75); } to { filter: opacity(1); } }
 /* Working the lens lifts the whole layer slightly, and settles when it closes. */
 .home-hero[data-lens="on"] .amb { --rise: .15; }
 
@@ -119,29 +122,25 @@ body.home-loading { overflow: hidden; }
   position: absolute;
   z-index: 2;
   left: 50%;
-  top: 50%;
+  top: 54%;
   translate: -50% -50%;
   width: var(--zoneW);
   height: var(--zoneH);
   display: grid;
   place-items: center;
-  background: var(--paper);
-  overflow: hidden; /* the lens can never leave the zone */
+  background: transparent;
+  overflow: hidden; /* constrain the scene to the brand zone, not letter ink */
 }
 .giant-logo { width: var(--logo-w); }
 
 /* A zone-sized fixed scene, revealed through a moving parallelogram. No car
    or stage translation uses pointer coordinates; only this clip polygon does. */
-@property --lensW { syntax: '<length>'; inherits: false; initial-value: 540px; }
-@property --lensH { syntax: '<length>'; inherits: false; initial-value: 200px; }
 .car-lens {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  --cx: 50%; --cy: 50%; --sk: 34px;
+  --cx: 50%; --cy: 50%; --sk: 24px; --lensW: 40%; --lensH: 60%;
   clip-path: polygon(calc(var(--cx) - var(--lensW)/2 + var(--sk)) calc(var(--cy) - var(--lensH)/2),calc(var(--cx) + var(--lensW)/2 + var(--sk)) calc(var(--cy) - var(--lensH)/2),calc(var(--cx) + var(--lensW)/2 - var(--sk)) calc(var(--cy) + var(--lensH)/2),calc(var(--cx) - var(--lensW)/2 - var(--sk)) calc(var(--cy) + var(--lensH)/2));
-  background: var(--paper); opacity: 0; pointer-events: none;
-  transition: opacity .2s ease-out, --lensW .25s ease, --lensH .25s ease;
+  background: var(--paper); opacity: var(--lens-opacity, 0); pointer-events: none;
 }
-.car-lens.is-active { opacity: 1; }
 .lens-stage { position: absolute; inset: 0; transform: scale(1.08); transform-origin: 50% 50%; }
 .racing-strip { position: absolute; inset: 0; }
 .strip-car {
@@ -251,7 +250,7 @@ body.home-loading { overflow: hidden; }
   .home-menu { top: 118px; }
   .home-hero { height: max(620px, 100svh); --logo-w: 88vw; }
   /* Shorter lens on a phone, so the glass stays a band rather than a box. */
-  .car-lens { --sk: 22px; }
+  .car-lens { --sk: 10px; }
   .scroll-cue { left: 6vw; right: 6vw; bottom: 24px; padding-top: 14px; }
   .scroll-cue span { font-size: 14px; }
   .home-section { padding: 44px 6vw 65px; }
@@ -279,6 +278,8 @@ body.home-loading { overflow: hidden; }
   .page-shell { padding: 150px 6vw 70px; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .hero-flow { translate: none; }
+  .amb[data-shape="triangle"], .amb[data-shape="slash"] { translate: none; }
   #home *, #home *::before, #home *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   #home .home-menu li { transition: opacity .12s ease, translate .12s ease !important; transition-delay: 0ms !important; --launch: 8px; }
 }

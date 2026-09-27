@@ -10,8 +10,8 @@ export const site = {
   about: '从方程式到 GT，AWTC 将对赛车的热爱带到每一次出发。这里记录我们的赛车项目，也连接下一段赛道旅程。',
 };
 
-// The giant wordmark is a graphic, not a mask: the lens is held to the brand zone
-// around it (see .hero-zone in home.css), never to the letterforms. The PNG ships
+// The scanner reveals full silhouettes across letter gaps within the brand zone;
+// the wordmark does not mask the cars. The PNG ships
 // with transparent margin, and the ink inside it is 3914x1136 starting at (60,
 // 402) of a 4096x1608 file — that ratio is what lets .home-logo crop the margin
 // away and gives the element box exactly the mark's own footprint.

@@ -1,5 +1,7 @@
 import { header, initHeader, markCurrentPage } from './header.js';
 import { hero } from './hero.js';
+import { racingGarage } from './garage.js';
+import { initGarage } from './garage-controller.js';
 import { sections } from './sections.js';
 import { siteTrack } from './track.js';
 import { initScroll } from './scroll.js';
@@ -23,6 +25,7 @@ let pointer = null;
 let heroEl = null;
 let nextRace = null;
 let scroll = null;
+let garage = null;
 
 initHeader(home, open => {
   heroEl?.classList.toggle('is-menu-open', open);
@@ -37,10 +40,12 @@ function render(path) {
   pointer?.destroy();
   nextRace?.destroy();
   scroll?.destroy();
+  garage?.destroy();
   pointer = null;
   heroEl = null;
   nextRace = null;
   scroll = null;
+  garage = null;
 
   const page = pageFor(path);
   document.title = page?.title ? `${page.title} — AWTC` : 'AWTC — Motorsport';
@@ -49,13 +54,14 @@ function render(path) {
   if (!page) { view.innerHTML = notFound(); return; }
   if (page.id !== 'home') { view.innerHTML = placeholder(page); return; }
 
-  view.innerHTML = `${siteTrack()}${hero()}${sections()}`;
+  view.innerHTML = `${siteTrack()}<div class="opening-sequence"><span id="garage" class="garage-anchor" aria-hidden="true"></span><div class="opening-stage">${hero()}${racingGarage()}</div></div>${sections()}`;
   heroEl = view.querySelector('.home-hero');
   pointer = createPointer(heroEl);
   mountAmbient(heroEl, pointer);
   initReveal(heroEl, pointer);
   nextRace = mountNextRaceSlot(heroEl);
   scroll = initScroll(view, pointer);
+  garage = initGarage(view.querySelector('.garage-chapter'));
 }
 
 const router = createRouter(render);

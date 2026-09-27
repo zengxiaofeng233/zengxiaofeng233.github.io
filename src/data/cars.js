@@ -17,9 +17,8 @@ export const SOURCE = { width: 2560, height: 1440 };
 
 // Strip geometry, as fractions of the brand zone.
 //
-// A close, layered poster composition: larger silhouettes overlap instead of
-// shrinking into five separate slots. Edge clearance includes the fixed 1.08
-// lens enlargement, so the first nose and last tail stay inside the zone.
+// Keep the original overlapping atlas and edge clearance for the fixed 1.08
+// enlargement. The scanner moves over it without moving any vehicle.
 const WIDTH = 0.34;
 const STEP = 0.145;
 const FIRST = 0.21;

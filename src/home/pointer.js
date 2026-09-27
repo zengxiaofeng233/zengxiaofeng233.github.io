@@ -35,11 +35,13 @@ export function createPointer(hero) {
   let idleTimer = 0;
   let visible = true;
   let prevX = 0, prevY = 0, primed = false;
+  let rectDirty = false;
 
   const schedule = () => { if (!raf && visible && !document.hidden) raf = requestAnimationFrame(tick); };
 
   function tick() {
     raf = 0;
+    if (rectDirty) { rect = hero.getBoundingClientRect(); rectDirty = false; }
     if (primed) {
       // Exponential smoothing keeps the speed response from flickering on the
       // single-pixel jitter a real mouse produces.
@@ -99,7 +101,7 @@ export function createPointer(hero) {
 
   // Hero-local coordinates do not move when the page scrolls, but the box we
   // subtract clientX/Y from does — the cheap resync is enough here.
-  window.addEventListener('scroll', () => { rect = hero.getBoundingClientRect(); }, on);
+  window.addEventListener('scroll', () => { rectDirty = true; schedule(); }, on);
 
   reduced.addEventListener('change', () => {
     state.reduced = reduced.matches;
