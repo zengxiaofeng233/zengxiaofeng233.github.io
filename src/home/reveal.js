@@ -10,6 +10,7 @@ export function initReveal(hero, pointer) {
   const logo = hero.querySelector('.giant-logo');
   const lens = hero.querySelector('.car-lens');
   let box = { x: 0, w: 0 }, lensWidth = 0;
+  let logoBounds = { left: 0, top: 0, right: 0, bottom: 0 };
   let currentX = 0, opacity = 0, seen = false, tracking = false;
   let returnAt = 0, returnX = 0, returnOpacity = 0, lastTime = 0, restTarget = .55;
 
@@ -18,6 +19,9 @@ export function initReveal(hero, pointer) {
     const w = zone.offsetWidth, h = zone.offsetHeight;
     box = { x: zone.offsetLeft - w / 2, w };
     const logoH = logo.offsetHeight;
+    const left = box.x + logo.offsetLeft;
+    const logoTop = zone.offsetTop - h / 2 + logo.offsetTop;
+    logoBounds = { left, top: logoTop, right: left + logo.offsetWidth, bottom: logoTop + logoH };
     const top = Math.min(...cars.map(car => car.baseline * h - w * car.width / car.aspect));
     const bottom = Math.max(...cars.map(car => car.baseline * h));
     const bandRatio = ((top + bottom) / 2 - logo.offsetTop) / (logoH || 1);
@@ -35,7 +39,10 @@ export function initReveal(hero, pointer) {
     const now = performance.now();
     const dt = Math.min(48, lastTime ? now - lastTime : 16.67);
     lastTime = now;
-    const live = s.ready && s.inside && !s.idle && !s.paused && !s.scrollOpen;
+    // Y only gates entry into the logo rectangle; it never positions the lens.
+    const insideLogo = s.inside && s.x >= logoBounds.left && s.x <= logoBounds.right
+      && s.y >= logoBounds.top && s.y <= logoBounds.bottom;
+    const live = s.ready && insideLogo && !s.idle && !s.paused && !s.scrollOpen;
     const targetX = live ? clamp(s.x - box.x, lensWidth / 2, box.w - lensWidth / 2) : box.w / 2;
     if (live) {
       seen = true;
@@ -44,7 +51,7 @@ export function initReveal(hero, pointer) {
       currentX += (targetX - currentX) * ease;
       opacity += (1 - opacity) * ease;
     } else if (seen) {
-      const restOpacity = s.paused || s.scrollOpen ? 0 : .55;
+      const restOpacity = !insideLogo || s.paused || s.scrollOpen ? 0 : .55;
       if (tracking || !returnAt || restOpacity !== restTarget) {
         returnAt = now;
         returnX = currentX;
