@@ -33,12 +33,13 @@ export function initScroll(root, pointer) {
     const p = clamp((scrollY - metrics.top) / metrics.range);
     const values = {
       '--open': p,
-      '--compose': phase(p, .18, .40),
-      '--split': reduced.matches ? 0 : phase(p, .40, .65),
-      '--cars-reveal': phase(p, .40, .65),
-      '--ink-exit': phase(p, .65, .82),
-      '--handoff': phase(p, .65, 1),
-      '--garage-ui': phase(p, .82, 1),
+      '--breathe':     phase(p,  .00, .16),
+      '--compose':     phase(p,  .16, .40),
+      '--split':       reduced.matches ? 0 : phase(p, .40, .64),
+      '--cars-reveal': phase(p,  .36, .62),
+      '--ink-exit':    phase(p,  .60, .76),
+      '--handoff':     phase(p,  .63,  1),
+      '--garage-ui':   phase(p,  .82,  1),
     };
     for (const [name, value] of Object.entries(values)) stage.style.setProperty(name, value.toFixed(4));
     const ready = p >= .999;
