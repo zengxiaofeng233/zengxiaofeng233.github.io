@@ -1,0 +1,18 @@
+/* Self-hosted type. Google's CDN is unreliable from mainland China, so every
+   face ships with the site. Only the weights the stylesheets use are pulled in,
+   and the Latin faces take their Latin subset alone — CJK falls through to Noto
+   Sans SC, whose unicode-range slices mean a page only downloads the glyphs it
+   actually renders. */
+@import '@fontsource/barlow-condensed/latin-500.css';
+@import '@fontsource/barlow-condensed/latin-600.css';
+@import '@fontsource/barlow-condensed/latin-700.css';
+@import '@fontsource/barlow-condensed/latin-800.css';
+@import '@fontsource/barlow-condensed/latin-700-italic.css';
+@import '@fontsource/barlow-condensed/latin-800-italic.css';
+@import '@fontsource/space-grotesk/latin-300.css';
+@import '@fontsource/space-grotesk/latin-400.css';
+@import '@fontsource/space-grotesk/latin-500.css';
+@import '@fontsource/space-grotesk/latin-600.css';
+@import '@fontsource/noto-sans-sc/400.css';
+@import '@fontsource/noto-sans-sc/500.css';
+@import '@fontsource/noto-sans-sc/700.css';

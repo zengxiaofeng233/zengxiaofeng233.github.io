@@ -11,11 +11,14 @@ export function restoreDeepLink() {
   if (target) history.replaceState(null, '', target);
 }
 
-export function createRouter(render) {
+export function createRouter(render, onNavigate) {
+  // Navigation is handed to `onNavigate` when one is supplied, so the view
+  // layer can stage the swap (cover it, then render). Without it the swap is
+  // immediate, which keeps the router usable on its own.
   function go(path) {
     history.pushState(null, '', path);
-    render(path);
-    window.scrollTo(0, 0);
+    if (onNavigate) onNavigate(path, () => { render(path); window.scrollTo(0, 0); });
+    else { render(path); window.scrollTo(0, 0); }
   }
 
   document.addEventListener('click', event => {
@@ -41,8 +44,9 @@ export function createRouter(render) {
   });
 
   window.addEventListener('popstate', () => {
-    render(currentPath());
-    window.scrollTo(0, 0);
+    const path = currentPath();
+    if (onNavigate) onNavigate(path, () => { render(path); window.scrollTo(0, 0); });
+    else { render(path); window.scrollTo(0, 0); }
   });
 
   return { start: () => render(currentPath()) };

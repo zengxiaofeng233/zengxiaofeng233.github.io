@@ -12,6 +12,7 @@ import { mountNextRaceSlot } from './next-race.js';
 import { transitionToHome } from './loading.js';
 import { placeholder, notFound } from '../pages/placeholder.js';
 import { createRouter, restoreDeepLink } from '../router.js';
+import { createTransition } from './transition.js';
 import { pageFor } from '../data/nav.js';
 import { calendar } from '../pages/calendar.js';
 
@@ -66,7 +67,15 @@ function render(path) {
   garage = initGarage(view.querySelector('.garage-chapter'));
 }
 
-const router = createRouter(render);
+const transition = createTransition(home);
+
+const router = createRouter(render, (path, swap) => {
+  const page = pageFor(path);
+  void transition.run(swap, {
+    title: page?.title ?? (path === '/' ? 'HOME' : '404'),
+    meta: page?.blurb ?? (path === '/' ? '主页面' : '页面不存在'),
+  });
+});
 restoreDeepLink();
 router.start();
 void transitionToHome(home);

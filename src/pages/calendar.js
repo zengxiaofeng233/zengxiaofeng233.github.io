@@ -8,9 +8,9 @@ export function calendar() {
       <h1>AWTC S6 <span>赛历</span></h1>
       <p class="calendar-subtitle">AWTC SEASON 6 CALENDAR</p>
     </header>
-    ${calendarGroups.map(group => `<section class="calendar-group" aria-labelledby="calendar-${group.id}">
+    ${calendarGroups.map((group, g) => `<section class="calendar-group" style="--i:${g}" aria-labelledby="calendar-${group.id}">
       <h2 class="calendar-group-title" id="calendar-${group.id}">${group.title}</h2>
-      <div class="calendar-grid">${group.rounds.map(item => `<article class="calendar-card" aria-labelledby="calendar-round-${item.round}">
+      <div class="calendar-grid">${group.rounds.map((item, r) => `<article class="calendar-card" style="--i:${r}" aria-labelledby="calendar-round-${item.round}">
         <p class="calendar-round">ROUND ${String(item.round).padStart(2, '0')}</p>
         <h3 id="calendar-round-${item.round}">${item.cn}</h3>
         <p class="calendar-english" lang="en">${item.en}</p>

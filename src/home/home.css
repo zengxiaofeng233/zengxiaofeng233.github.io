@@ -1,4 +1,6 @@
 @import './chapters.css';
+@import './motion.css';
+@import './transition.css';
 /* Homepage styles are isolated from the existing loader stylesheet. */
 #loader-stage { position: fixed; inset: 0; z-index: 100; background: #fff; will-change: transform; }
 #loader-stage[hidden], #home[hidden] { display: none; }
@@ -9,10 +11,19 @@ body.home-loading { overflow: hidden; }
   --muted: #77776e;
   --rule: #d4d3cc;
   --accent: #ff4f92;
+  /* Two faces, split by role. A condensed grotesque carries display type the way
+     a race poster does — tall, tight and dense; a technical grotesque carries
+     every label and paragraph, where its tabular figures and open apertures do
+     the work. Neither Latin face covers CJK, so Noto Sans SC sits behind both. */
+  --font-display: 'Barlow Condensed', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-ui: 'Space Grotesk', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
   color: var(--ink);
   background: var(--paper);
-  font-family: Arial, 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+  font-family: var(--font-ui);
+  font-kerning: normal;
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 #home a { color: inherit; text-decoration: none; }
 #home button { font: inherit; color: inherit; }
@@ -24,8 +35,8 @@ body.home-loading { overflow: hidden; }
 .home-logo img { position: absolute; width: 104.65%; height: auto; left: -1.533%; top: -35.4%; }
 .home-header { position: absolute; z-index: 5; width: 100%; top: 0; left: 0; height: 112px; display: flex; align-items: center; justify-content: center; padding: 0 3.5vw; }
 .home-brand { width: 102px; }
-.header-actions { position: absolute; right: 3.5vw; display: flex; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: .09em; }
-.menu-toggle { border: 0; background: none; display: flex; align-items: center; gap: 12px; padding: 12px 0; letter-spacing: .08em; font-size: 11px !important; font-weight: 700 !important; }
+.header-actions { position: absolute; right: 3.5vw; display: flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: .16em; }
+.menu-toggle { border: 0; background: none; display: flex; align-items: center; gap: 12px; padding: 12px 0; letter-spacing: .16em; font-size: 11px !important; font-weight: 500 !important; }
 .menu-icon { position: relative; display: block; width: 19px; height: 9px; }
 .menu-icon i { position: absolute; left: 0; right: 0; height: 1px; background: currentColor; transition: translate .26s cubic-bezier(.16,1,.3,1), rotate .26s cubic-bezier(.16,1,.3,1); }
 .menu-icon i:first-child { top: 0; }
@@ -49,7 +60,7 @@ body.home-loading { overflow: hidden; }
 .home-menu li:nth-child(3) { --launch: 56px; }
 .home-menu li:nth-child(4) { --launch: 46px; }
 .home-menu li:nth-child(5) { --launch: 38px; }
-.home-menu a { position: relative; display: block; padding: 5px 0; font-size: 11px; font-weight: 700; letter-spacing: .1em; white-space: nowrap; opacity: .5; transition: opacity .2s ease, translate .24s cubic-bezier(.16,1,.3,1); }
+.home-menu a { position: relative; display: block; padding: 5px 0; font-size: 11px; font-weight: 500; letter-spacing: .16em; white-space: nowrap; opacity: .5; transition: opacity .2s ease, translate .24s cubic-bezier(.16,1,.3,1); }
 .home-menu a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent); transform-origin: 0 50%; scale: 0 1; transition: scale .26s cubic-bezier(.16,1,.3,1); }
 .home-menu a:hover { opacity: 1; translate: -3px 0; }
 .home-menu a:hover::after, .home-menu a[aria-current="page"]::after { scale: 1 1; }
@@ -81,7 +92,10 @@ body.home-loading { overflow: hidden; }
    while the mark stays black, which is what puts them "behind" it. */
 .hero-ambient { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: var(--quiet); transition: opacity .35s ease; }
 .hero-flow { position: absolute; inset: 0; width: 100%; height: 100%; translate: calc(var(--px1) + var(--compose,0) * 12px) var(--py1); }
-.hero-flow path { fill: none; stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: calc((1 - var(--open,0)) * .12); }
+/* --draw is the entry draw-in (0 → 1, see motion.css); --open still finishes the
+   last 12% as the page scrolls. The gap in "1 2" is longer than the path, so an
+   offset above 1 hides the stroke instead of wrapping into the next dash. */
+.hero-flow path { fill: none; stroke-width: 1; stroke-dasharray: 1 2; stroke-dashoffset: calc(1 - var(--draw, 1) + (1 - var(--open,0)) * .12); }
 .hero-flow path[data-tint="pink"] { stroke: var(--accent); }
 .hero-flow path[data-tint="ink"] { stroke: #b9b8b0; }
 .amb {
@@ -169,26 +183,26 @@ body.home-loading { overflow: hidden; }
 
 /* ------------------------------------------------------------ sections ---- */
 .home-section { padding: 68px 6vw 110px; scroll-margin-top: 30px; }
-.section-meta { display: flex; justify-content: space-between; gap: 24px; font-size: 10px; font-weight: 600; letter-spacing: .1em; }
+.section-meta { display: flex; justify-content: space-between; gap: 24px; font-size: 10px; font-weight: 500; letter-spacing: .18em; }
 .section-meta > :last-child { color: var(--muted); }
 .about-section { background: #ebebe5; }
 .about-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 8vw; align-items: end; margin-top: 108px; }
-.about-layout h1 { font-size: clamp(64px, 7.8vw, 150px); font-weight: 700; line-height: .96; letter-spacing: -.065em; }
+.about-layout h1 { font-family: var(--font-display); font-size: clamp(64px, 7.8vw, 150px); font-weight: 600; line-height: .96; letter-spacing: -.02em; }
 .about-layout h1 em { font-style: normal; color: #7b7b72; }
 .about-copy { max-width: 380px; padding-bottom: 5px; }
-.slash-mark { display: block; font-size: 42px; font-weight: 900; letter-spacing: -.16em; margin-bottom: 38px; }
+.slash-mark { display: block; font-family: var(--font-display); font-size: 42px; font-weight: 700; letter-spacing: -.16em; margin-bottom: 38px; }
 .about-copy p { font-size: 15px; line-height: 2; color: #55554e; }
-.text-link { display: inline-flex; gap: 60px; border-bottom: 1px solid #8c8c82; padding-bottom: 12px; margin-top: 32px; font-size: 12px; }
+.text-link { display: inline-flex; gap: 60px; border-bottom: 1px solid #8c8c82; padding-bottom: 12px; margin-top: 32px; font-size: 12px; letter-spacing: .04em; }
 .text-link span { font-size: 18px; }
 .programs-section { padding-top: 70px; }
-.section-heading { font-size: clamp(52px, 6vw, 108px); line-height: 1; letter-spacing: -.055em; margin-top: 70px !important; font-weight: 700; }
+.section-heading { font-family: var(--font-display); font-size: clamp(52px, 6vw, 108px); line-height: 1; letter-spacing: -.02em; margin-top: 70px !important; font-weight: 600; }
 .heading-dot { color: var(--accent); }
 .program-list { margin-top: 68px; }
 .program-row { min-height: 224px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 7% 1fr 32% 4%; align-items: center; gap: 20px; }
 .program-row:last-child { border-bottom: 1px solid var(--rule); }
-.program-number { font-size: 11px; align-self: start; padding-top: 39px; color: var(--muted); }
-.program-name h3 { font-size: clamp(27px, 3.2vw, 60px); letter-spacing: -.045em; font-weight: 600; }
-.program-name p { margin-top: 15px !important; color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+.program-number { font-family: var(--font-display); font-size: 12px; align-self: start; padding-top: 39px; color: var(--muted); letter-spacing: .06em; }
+.program-name h3 { font-family: var(--font-display); font-size: clamp(27px, 3.2vw, 60px); letter-spacing: -.015em; font-weight: 600; }
+.program-name p { margin-top: 15px !important; color: var(--muted); font-size: 11px; letter-spacing: .14em; font-weight: 400; }
 /* Same framing as the strip: the render's own alpha puts the car straight on the
    page, and the crop only sets the baseline its tyres sit on. */
 .program-image { position: relative; aspect-ratio: calc(16 / 9 / var(--crop-band)); }
@@ -198,22 +212,22 @@ body.home-loading { overflow: hidden; }
 
 .season-section { padding-bottom: 88px; border-top: 1px solid var(--rule); }
 .season-layout { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-top: 100px; }
-.season-overline { font-size: 10px; letter-spacing: .16em; color: var(--muted); margin-bottom: 20px !important; }
-.season-layout h2 { font-size: clamp(58px, 8.9vw, 170px); font-weight: 500; letter-spacing: -.065em; line-height: 1; white-space: nowrap; }
+.season-overline { font-size: 10px; letter-spacing: .2em; color: var(--muted); margin-bottom: 20px !important; font-weight: 500; }
+.season-layout h2 { font-family: var(--font-display); font-size: clamp(58px, 8.9vw, 170px); font-weight: 600; letter-spacing: -.02em; line-height: 1; white-space: nowrap; }
 .season-layout h2 em { font-style: normal; color: var(--accent); }
-.season-entry { display: flex; align-items: center; gap: 55px; padding: 25px 0 15px; border-bottom: 1px solid #8c8c82; font-size: 13px; font-weight: 600; letter-spacing: .04em; white-space: nowrap; }
-.season-entry small { display: block; font-size: 10px; font-weight: 400; color: var(--muted); margin-top: 10px; letter-spacing: .06em; }
+.season-entry { display: flex; align-items: center; gap: 55px; padding: 25px 0 15px; border-bottom: 1px solid #8c8c82; font-size: 13px; font-weight: 500; letter-spacing: .08em; white-space: nowrap; }
+.season-entry small { display: block; font-size: 10px; font-weight: 400; color: var(--muted); margin-top: 10px; letter-spacing: .12em; }
 .entry-arrow { font-size: 42px; font-weight: 300; color: var(--accent); transition: transform .2s; }
 .season-entry:hover .entry-arrow { transform: translate(3px,-3px); }
-.home-footer { padding: 42px 6vw; display: flex; align-items: center; justify-content: space-between; gap: 25px; font-size: 9px; letter-spacing: .1em; }
+.home-footer { padding: 42px 6vw; display: flex; align-items: center; justify-content: space-between; gap: 25px; font-size: 9px; letter-spacing: .16em; }
 .home-footer .home-logo { width: 85px; }
 .home-footer > span { color: var(--muted); }
 
 /* ---------------------------------------------------- placeholder pages ---- */
 .page-shell { min-height: 100svh; padding: 190px 6vw 90px; display: flex; flex-direction: column; }
-.page-title { font-size: clamp(44px, 7vw, 118px); font-weight: 700; letter-spacing: -.055em; line-height: 1; }
+.page-title { font-family: var(--font-display); font-size: clamp(44px, 7vw, 118px); font-weight: 600; letter-spacing: -.02em; line-height: 1; }
 .page-blurb { margin-top: 28px !important; font-size: 15px; line-height: 2; color: #55554e; max-width: 420px; }
-.page-back { margin-top: auto; display: inline-flex; gap: 40px; align-self: flex-start; border-bottom: 1px solid #8c8c82; padding-bottom: 12px; font-size: 12px; }
+.page-back { margin-top: auto; display: inline-flex; gap: 40px; align-self: flex-start; border-bottom: 1px solid #8c8c82; padding-bottom: 12px; font-size: 12px; letter-spacing: .04em; }
 .page-back span { font-size: 17px; }
 
 /* The loader hands over; the hero only settles into place — no second brand

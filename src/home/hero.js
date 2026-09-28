@@ -26,7 +26,7 @@ export function hero() {
         <div class="car-lens" aria-hidden="true"><div class="lens-stage">${strip}</div></div>
       </div>
       <div class="next-race-slot" hidden></div>
-      <a class="scroll-cue" href="#garage" aria-label="探索赛车档案"><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M10 1V35M4 29L10 35L16 29"/></svg></a>
+      <a class="scroll-cue" href="#garage" aria-label="探索赛车档案"><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M10 1V35M4 29L10 35L16 29" pathLength="1"/></svg></a>
     </div>
   </section>`;
 }

@@ -31,8 +31,11 @@ export const ARCS = {
 // Drawn as one stretched SVG so a line can sweep the full width in a single
 // path. `viewBox` maps 0..100 across the hero and 0..100 down it.
 const trajectory = 'M-8 35H12Q18 35 18 27V21Q18 13 25 13H69Q79 13 79 26V33Q79 41 88 41H108M-8 57H17Q24 57 24 67V71Q24 82 34 82H70Q80 82 80 69V64Q80 57 91 57H108';
+// The two strong contours are solid and draw themselves in; the two faint ones
+// are dashed like a kerb and creep along the same trajectory.
 export const flowLines = [0, 1.4, 2.8, 4.2].map((offset, index) => ({
   id: `flow-${index}`, d: trajectory, offset, tint: 'pink', opacity: [.28, .18, .11, .08][index],
+  kind: index < 2 ? 'solid' : 'kerb',
 }));
 export const ambientItems = [
   // -- large: composition -----------------------------------------------------

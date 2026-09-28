@@ -9,27 +9,35 @@ const REST = 0.02;        // below this the layer is considered settled
 // zero is written as zero.
 const fmt = (value, suffix) => `${Math.abs(value) < 0.005 ? '0.00' : value.toFixed(2)}${suffix}`;
 
+// Each contour is drawn in once, staggered, then the two strongest carry a
+// "runner": a short bright dash that laps the same trajectory like a car on
+// track. `--i` feeds the stagger; the runner's own delay keeps the two apart.
 function flowSvg() {
-  const paths = flowLines.map(line =>
-    `<path d="${line.d}" pathLength="1" data-tint="${line.tint}" stroke-opacity="${line.opacity}" transform="translate(0 ${line.offset || 0})" vector-effect="non-scaling-stroke" fill="none"></path>`,
+  const attrs = (line, i) => `d="${line.d}" pathLength="1" transform="translate(0 ${line.offset || 0})" vector-effect="non-scaling-stroke" fill="none" style="--i:${i}"`;
+  const paths = flowLines.map((line, i) =>
+    `<path class="flow-line" ${attrs(line, i)} data-tint="${line.tint}" data-kind="${line.kind}" stroke-opacity="${line.opacity}"></path>`,
   ).join('');
-  return `<svg class="hero-flow" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${paths}</svg>`;
+  const runners = flowLines.filter(line => line.kind === 'solid').map((line, i) =>
+    `<path class="flow-runner" ${attrs(line, i)}></path>`,
+  ).join('');
+  return `<svg class="hero-flow" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${paths}${runners}</svg>`;
 }
 
+// pathLength normalises every stroke to 1, so one draw-in keyframe fits all.
 function art(item) {
   if (item.shape === 'arc') {
-    return `<svg class="amb-art" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="${ARCS[item.variant]}" vector-effect="non-scaling-stroke" fill="none"></path></svg>`;
+    return `<svg class="amb-art" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="${ARCS[item.variant]}" pathLength="1" vector-effect="non-scaling-stroke" fill="none"></path></svg>`;
   }
   if (item.shape === 'triangle') {
-    return '<svg class="amb-art" viewBox="0 0 30 26" preserveAspectRatio="none" aria-hidden="true"><polygon points="1,25 15,1 29,25" vector-effect="non-scaling-stroke" fill="none"></polygon></svg>';
+    return '<svg class="amb-art" viewBox="0 0 30 26" preserveAspectRatio="none" aria-hidden="true"><polygon points="1,25 15,1 29,25" pathLength="1" vector-effect="non-scaling-stroke" fill="none"></polygon></svg>';
   }
   return '';
 }
 
-function markup(item) {
+function markup(item, index) {
   const vars = [
     `--x:${item.x}`, `--y:${item.y}`, `--w:${item.w}`, `--h:${item.h}`,
-    `--rot:${item.rot}`, `--base:${item.opacity}`,
+    `--rot:${item.rot}`, `--base:${item.opacity}`, `--i:${index}`,
     ...(item.near ? [`--push:${item.near.push}`, `--spin:${item.near.spin}`] : []),
   ].join(';');
   return `<i class="amb" data-tier="${item.tier}" data-depth="${TIER_DEPTH[item.tier]}" data-shape="${item.shape}"${item.near ? ' data-near="1"' : ''} style="${vars}">${art(item)}</i>`;
@@ -91,6 +99,7 @@ export function mountAmbient(hero, pointer) {
       const want = live ? Math.max(0, 1 - Math.hypot(s.x - target.cx, s.y - target.cy) / target.reach) : 0;
       target.value += (want - target.value) * (s.reduced ? 1 : NEAR_EASE);
       if (Math.abs(want - target.value) > REST) busy = true;
+      else target.value = want;
 
       const v = target.value;
       if (v < 0.002) {

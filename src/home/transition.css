@@ -1,0 +1,47 @@
+/* The route wipe: a paper panel with a pink leading edge, plus the destination
+   label riding on it. Panels are oversized so their skewed edges stay outside
+   the viewport once landed — only the leading edge is ever on screen. */
+.route-wipe { position: fixed; inset: 0; z-index: 95; pointer-events: none; visibility: hidden; }
+
+.route-wipe .wipe-panel,
+.route-wipe .wipe-edge {
+  position: absolute;
+  top: -14vh;
+  height: 128vh;
+  transform: translateX(var(--park, 130vw)) skewX(-9deg);
+}
+.route-wipe .wipe-panel { left: 0; width: 132vw; background: var(--paper, #f5f5f1); }
+.route-wipe .wipe-edge { left: -3.2vw; width: 3.2vw; background: var(--accent, #ff4f92); box-shadow: 0 0 34px rgb(255 79 146 / .45); }
+
+.route-wipe.is-running { visibility: visible; }
+.route-wipe.is-running .wipe-panel,
+.route-wipe.is-running .wipe-edge { animation: wipe-cover var(--cover, 300ms) cubic-bezier(.76,0,.24,1) forwards; }
+.route-wipe.is-leaving .wipe-panel,
+.route-wipe.is-leaving .wipe-edge { animation: wipe-leave var(--exit, 460ms) cubic-bezier(.76,0,.24,1) forwards; }
+/* The edge runs a beat ahead of its panel, so the pink reads as the leading
+   edge of the move rather than a stripe painted on the page. */
+.route-wipe .wipe-edge { --lag: -40ms; }
+@keyframes wipe-cover {
+  from { transform: translateX(130vw) skewX(-9deg); }
+  to { transform: translateX(-14vw) skewX(-9deg); }
+}
+@keyframes wipe-leave {
+  from { transform: translateX(-14vw) skewX(-9deg); }
+  to { transform: translateX(-150vw) skewX(-9deg); }
+}
+.route-wipe.is-running .wipe-edge,
+.route-wipe.is-leaving .wipe-edge { animation-delay: var(--lag); }
+
+/* The destination, set in the display face, sitting on the panel as it lands
+   and travelling with it as it goes. */
+.wipe-label { position: absolute; top: 50%; left: 8vw; translate: 0 -50%; display: flex; align-items: baseline; gap: 18px; font-family: var(--font-display, sans-serif); opacity: 0; }
+.wipe-label b { font-size: clamp(38px, 5vw, 88px); font-weight: 600; letter-spacing: -.015em; line-height: 1; }
+.wipe-label span { font-size: 11px; font-weight: 500; letter-spacing: .2em; color: #77776e; }
+.route-wipe.is-running .wipe-label { animation: label-in 260ms 120ms cubic-bezier(.16,1,.3,1) both; }
+.route-wipe.is-leaving .wipe-label { animation: label-out 200ms ease-in both; }
+@keyframes label-in { from { opacity: 0; translate: 22px -50%; } to { opacity: 1; translate: 0 -50%; } }
+@keyframes label-out { from { opacity: 1; } to { opacity: 0; translate: -40px -50%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .route-wipe { display: none; }
+}
