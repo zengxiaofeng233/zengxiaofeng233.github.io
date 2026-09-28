@@ -33,9 +33,9 @@ const ARCHIVES = {
   'cyan-gt': {
     displayName: 'VERNE RACING AWTC', number: '11', className: 'GT3', archiveIndex: '03', archiveTotal: '05',
     has3D: true, has2D: true, backgroundType: 'daytona', backgroundSrc: '/backgrounds/daytona.png',
-    raceHistory: [{ year: '2026', nameZh: 'FL 戴通纳24小时特别赛', nameEn: 'Fantasy League DAYTONA 24H SPECIAL EVENT' }], drivers: [{ name: 'Vanilla' }, { name: 'ShukiShuki' }, { name: 'Chocolate' }, { name: 'TKT' }, { name: 'Grazie_Sebastian' }, { name: 'Tanho1za' }],
+    raceHistory: [{ year: '2026', nameZh: 'FL 戴通纳24小时特别赛', nameEn: 'Fantasy League DAYTONA 24H SPECIAL EVENT' }], drivers: [{ name: 'KidoTsubasa' }, { name: 'Shuki' }, { name: 'MokoRock' }, { name: 'TKT' }, { name: 'Mikeond' }, { name: 'Tanhoiza' }],
   },
-  'red-gt': { displayName: 'ERA AWTC White Line', number: '199', className: 'GT3', archiveIndex: '04', archiveTotal: '05', has3D: true, has2D: true, backgroundType: 'nurburgring', backgroundSrc: '/backgrounds/nurburgring.png', raceHistory: [{ year: '2026', nameZh: '嗨跑赛车 24 小时虚拟耐力赛（CHN24）', nameEn: 'Hi-Pole Racing 24-Hour Virtual Endurance Race (CHN24)' }], drivers: [{ name: 'Vanilla' }, { name: 'MARCOHARERU' }, { name: 'Agortta' }, { name: 'razie_Sebastian' }] },
+  'red-gt': { displayName: 'ERA AWTC White Line', number: '199', className: 'GT3', archiveIndex: '04', archiveTotal: '05', has3D: true, has2D: true, backgroundType: 'nurburgring', backgroundSrc: '/backgrounds/nurburgring.png', raceHistory: [{ year: '2026', nameZh: '嗨跑赛车 24 小时虚拟耐力赛（CHN24）', nameEn: 'Hi-Pole Racing 24-Hour Virtual Endurance Race (CHN24)' }], drivers: [{ name: 'KidoTsubasa' }, { name: 'Shuki' }] },
   'blue-formula': { displayName: 'FormulaE AWTC', number: '91', className: 'FormulaE', archiveIndex: '05', archiveTotal: '05', has3D: false, has2D: true, backgroundType: 'none', backgroundSrc: '', raceHistory: [{ year: '2026', nameZh: 'AWTC电动方程式锦标赛', nameEn: 'AWTC Formula E Championship' }], drivers: [{name:'N/a'}] },
 };
 
