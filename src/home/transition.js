@@ -11,8 +11,15 @@
 // and it would also freeze the hero's pointer loop for the length of the swap.
 // A plain element is a fraction of the cost and behaves the same everywhere.
 
+// ENTER and EXIT set the wipe's pace; HOLD is the read.
+//
+// The hold has to outlast the destination label's own entrance — it enters on a
+// 120ms delay over 260ms (see .wipe-label in transition.css) and so lands at
+// 380ms, well after the panel stops moving at ENTER. A hold shorter than that
+// leaves the label legible for a few frames only, which is what made the
+// transition feel like a flicker rather than a page being announced.
 const ENTER = 300;   // wipe covers the screen
-const HOLD = 110;    // view is swapped, unseen, in this window
+const HOLD = 620;    // panel at rest: the view is swapped and the label is read
 const EXIT = 460;    // wipe leaves, new view settling underneath
 
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
