@@ -35,6 +35,24 @@ body.home-loading { overflow: hidden; }
 .home-logo img { position: absolute; width: 104.65%; height: auto; left: -1.533%; top: -35.4%; }
 .home-header { position: absolute; z-index: 5; width: 100%; top: 0; left: 0; height: 112px; display: flex; align-items: center; justify-content: center; padding: 0 3.5vw; }
 .home-brand { width: 102px; }
+/* Match the PNG crop exactly; reveal only its opaque lettering in pink. */
+.home-brand .home-logo::after {
+  content: '';
+  position: absolute;
+  width: 104.65%;
+  aspect-ratio: 4096 / 1608;
+  left: -1.533%;
+  top: -35.4%;
+  background: var(--accent);
+  -webkit-mask: url('/awtc.png') center / contain no-repeat;
+  mask: url('/awtc.png') center / contain no-repeat;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path .6s ease-in-out;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .home-brand:hover .home-logo::after { clip-path: inset(0 0 0 0); }
+}
 .header-actions { position: absolute; right: 3.5vw; display: flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: .16em; }
 .menu-toggle { border: 0; background: none; display: flex; align-items: center; gap: 12px; padding: 12px 0; letter-spacing: .16em; font-size: 11px !important; font-weight: 500 !important; }
 .menu-icon { position: relative; display: block; width: 19px; height: 9px; }

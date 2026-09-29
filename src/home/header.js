@@ -83,8 +83,11 @@ export function initHeader(root, onToggle) {
 }
 
 // The router marks the current entry so the menu can hold an active state.
+// The footer nav carries the same links, so it is marked from the same pass —
+// on a sub-page the footer is the only navigation in reach once the header has
+// scrolled away, and it should say where you are.
 export function markCurrentPage(root, path) {
-  for (const link of root.querySelectorAll('.home-menu a')) {
+  for (const link of root.querySelectorAll('.home-menu a, .pit-footer nav a')) {
     const here = link.getAttribute('href') === path;
     if (here) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
