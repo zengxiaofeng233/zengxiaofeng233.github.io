@@ -3,6 +3,13 @@ import { navItems } from '../data/nav.js';
 export function pitLane() {
   return `<footer class="pit-lane" id="footer">
     <svg class="pit-lines" viewBox="0 0 1600 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M630 -50L-80 1050M970 -50L1680 1050M670 -50L210 1050M930 -50L1390 1050" pathLength="1"/></svg>
+    <section class="pit-partner" aria-labelledby="pit-partner-title">
+      <h2 id="pit-partner-title">OUR PARTNER <span>合作伙伴</span></h2>
+      <div class="pit-partner-marks" role="group" aria-label="赞助商品牌标识">
+        <img src="/partners/sponsor-mark.png" alt="PLAN C · C计划" width="979" height="531" decoding="async">
+        <img src="/partners/hakusen.png" alt="白线 HAKUSEN" width="889" height="414" decoding="async">
+      </div>
+    </section>
     <div class="pit-footer"><nav aria-label="页脚导航">${navItems.map(item=>`<a href="${item.href}">${item.label}</a>`).join('')}</nav><button class="pit-top" type="button" aria-label="返回顶部"><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M10 39V4M4 10L10 4L16 10"/></svg></button></div>
   </footer>`;
 }

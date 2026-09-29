@@ -7,7 +7,7 @@
 
 export const registerPage = { id: 'register', href: '/register', title: 'SEASON 6', blurb: '报名通道即将开放。' };
 
-export const navItems = [
+const allNavItems = [
   { id: 'home', href: '/', label: 'HOME' },
   { id: 'calendar', href: '/calendar', label: 'CALENDAR', title: 'CALENDAR', blurb: '赛季分站与赛历。' },
   { id: 'drivers', href: '/drivers-teams', label: 'DRIVERS & TEAMS', title: 'DRIVERS & TEAMS', blurb: '车手与车队名单。' },
@@ -15,7 +15,9 @@ export const navItems = [
   { id: 'history', href: '/history', label: 'HISTORY', title: 'HISTORY / AWAY EVENTS', blurb: '历史赛事与外站记录。' },
 ];
 
-const pages = [...navItems, registerPage];
+// Keep these routes available while their navigation entries are hidden.
+export const navItems = allNavItems.filter(item => !['partners', 'history'].includes(item.id));
+const pages = [...allNavItems, registerPage];
 
 // '' and '/index.html' both mean the homepage — GitHub Pages serves the latter
 // for a directory request.
