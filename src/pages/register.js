@@ -51,7 +51,10 @@ export function register() {
     </section>
     <section class="registration-action" aria-labelledby="registration-ready">
       <div><p class="registration-eyebrow">READY TO RACE?</p><h2 id="registration-ready">准备好，加入发车阵列。</h2><p>阅读完以上要求并备齐资料后，前往腾讯文档填写报名表。</p></div>
-      <a class="registration-button" href="https://docs.qq.com/form/page/DRk1OTVVPeUdGcVhF" target="_blank" rel="noopener noreferrer">前往报名 <span aria-hidden="true">↗</span><small>腾讯文档 · 新窗口打开</small></a>
+      <div class="registration-buttons">
+        <a class="registration-button" href="https://docs.qq.com/form/page/DRk1OTVVPeUdGcVhF" target="_blank" rel="noopener noreferrer">前往报名 <span aria-hidden="true">↗</span><small>腾讯文档 · 新窗口打开</small></a>
+        <a class="registration-button registration-group-button" href="https://qm.qq.com/cgi-bin/qm/qr?k=6wjK0APitLw16fivFSyxfzm2zFUsVqw0&amp;jump_from=webapi&amp;authKey=vUK+M+yI4FS6mImSL6XTDbcGB5tWQe1+CKFNfyFqLN376bax9jzLgApa0Q5oL5lw" target="_blank" rel="noopener noreferrer" title="AWTC锦标赛">加入QQ群 <span aria-hidden="true">↗</span><small>AWTC锦标赛 · 新窗口打开</small></a>
+      </div>
     </section>
   </article>`;
 }
