@@ -98,6 +98,10 @@
 .pit-footer nav { display: flex; flex-wrap: wrap; gap: 32px; }
 .pit-footer a { letter-spacing: .08em; }
 .pit-footer nav a:hover, .pit-footer nav a[aria-current="page"] { color: #ff97bc !important; }
+.pit-social { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.pit-social a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; transition: color .2s ease; }
+.pit-social svg { display: block; width: 24px; height: 24px; fill: currentColor; }
+.pit-social a:hover, .pit-social a:focus-visible { color: #ff97bc !important; }
 /* The way back to the top. A button, so it needs the reset the links get for
    free: no chrome of its own, and the same size as the nav beside it. The size
    comes from .pit-footer rather than a rule here, because #home button sets
@@ -128,7 +132,9 @@
   .brand-word.word-3 { font-size: 8.4vw; }
   .pit-brand { width: 86vw; }
   .pit-footer nav { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 25px; }
-  .pit-footer { font-size: 9px; }
+  .pit-footer { display: grid; grid-template-columns: 1fr auto; gap: 20px; font-size: 9px; }
+  .pit-social { grid-column: 1; grid-row: 2; margin-left: 0; }
+  .pit-top { grid-column: 2; grid-row: 1 / 3; }
 }
 @media (prefers-reduced-motion: reduce) {
   .opening-sequence { height: calc(var(--stage-h) + 65svh); }
