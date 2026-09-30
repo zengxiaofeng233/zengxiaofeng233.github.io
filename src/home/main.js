@@ -13,7 +13,9 @@ import { placeholder, notFound } from '../pages/placeholder.js';
 import { createRouter, restoreDeepLink } from '../router.js';
 import { createTransition } from './transition.js';
 import { pageFor } from '../data/nav.js';
-import { calendar } from '../pages/calendar.js';
+import { register } from '../pages/register.js';
+import { calendar, initCalendarCountdown } from '../pages/calendar.js';
+import { driversTeams } from '../pages/drivers-teams.js';
 import { pitLane, initFooter } from './footer.js';
 
 const home = document.querySelector('#home');
@@ -29,6 +31,7 @@ const view = home.querySelector('#view');
 let pointer = null;
 let heroEl = null;
 let nextRace = null;
+let calendarCountdown = null;
 let scroll = null;
 let garage = null;
 
@@ -46,11 +49,13 @@ function render(path) {
   // taken down explicitly before the next view is built.
   pointer?.destroy();
   nextRace?.destroy();
+  calendarCountdown?.destroy();
   scroll?.destroy();
   garage?.destroy();
   pointer = null;
   heroEl = null;
   nextRace = null;
+  calendarCountdown = null;
   scroll = null;
   garage = null;
 
@@ -59,7 +64,13 @@ function render(path) {
   markCurrentPage(home, path);
 
   if (!page) { view.innerHTML = notFound(); return; }
-  if (page.id === 'calendar') { view.innerHTML = calendar(); return; }
+  if (page.id === 'register') { view.innerHTML = register(); return; }
+  if (page.id === 'calendar') {
+    view.innerHTML = calendar();
+    calendarCountdown = initCalendarCountdown(view);
+    return;
+  }
+  if (page.id === 'drivers') { view.innerHTML = driversTeams(); return; }
   if (page.id !== 'home') { view.innerHTML = placeholder(page); return; }
 
   view.innerHTML = `${siteTrack()}<div class="opening-sequence"><span id="garage" class="garage-anchor" aria-hidden="true"></span><div class="opening-stage">${hero()}${racingGarage()}</div></div>`;

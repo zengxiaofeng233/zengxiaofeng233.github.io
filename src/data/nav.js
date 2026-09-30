@@ -5,7 +5,7 @@
 // menu navigates somewhere real instead of 404ing on GitHub Pages. Replace the
 // `blurb` (or the view itself, see src/pages/) once each page is designed.
 
-export const registerPage = { id: 'register', href: '/register', label: 'REGISTER', title: 'REGISTER / 赛事报名', blurb: '报名通道即将开放。' };
+export const registerPage = { id: 'register', href: '/register', label: 'REGISTER', title: 'REGISTER / 赛事报名', blurb: '阅读注册须知，准备资料，前往报名。' };
 
 const allNavItems = [
   { id: 'home', href: '/', label: 'HOME' },

@@ -1,0 +1,56 @@
+.drivers-page { min-height: 100svh; padding: 190px 6vw 110px; background: var(--paper); }
+.drivers-heading { margin-bottom: 60px; }
+.drivers-eyebrow { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: 10px; letter-spacing: .18em; }
+.drivers-eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--accent); }
+.drivers-heading h1 { margin: 28px 0 22px; font-family: var(--font-display); font-size: clamp(40px, 7.5vw, 112px); font-weight: 600; letter-spacing: -.02em; line-height: 1; }
+.drivers-heading h1 span { color: var(--accent); }
+.drivers-subtitle { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 22px; border-bottom: 1px solid var(--rule); font-size: 13px; }
+.drivers-subtitle > p:last-child { color: var(--muted); font-size: 12px; }
+.drivers-subtitle span { margin: 0 12px; color: var(--accent); }
+.roster-section-title { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; font-size: 18px; }
+.roster-section-title small { color: var(--muted); font-family: var(--font-display); font-size: 12px; letter-spacing: .12em; font-weight: 500; }
+.roster-section-title::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+.teams-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start; }
+.team-card { min-width: 0; overflow: hidden; border: 1px solid #303035; border-radius: 12px; background: #17171c; color: #fff; }
+.team-card-heading { position: relative; isolation: isolate; min-height: 208px; padding: 25px 28px; overflow: hidden; color: var(--team-ink); background: var(--team-color); background-image: linear-gradient(115deg, rgba(0,0,0,.13), transparent 65%), linear-gradient(0deg, rgba(255,255,255,.08), transparent 65%); }
+.team-card-heading::before { content: ''; position: absolute; inset: 40% 0 0; z-index: -1; background: radial-gradient(circle, currentColor .65px, transparent 1px) 0 0 / 4px 4px; opacity: .17; mask-image: linear-gradient(90deg, #000, transparent 85%); }
+.team-card-heading::after { content: ''; position: absolute; left: 0; right: 0; bottom: 24px; height: 29px; background: currentColor; opacity: .04; z-index: -1; }
+.team-card-meta { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: .12em; }
+.team-card-heading h3 { position: relative; max-width: 90%; margin: 22px 0 34px; font-family: var(--font-display); font-size: clamp(26px, 2.65vw, 42px); font-weight: 600; line-height: 1.08; overflow-wrap: anywhere; }
+.team-short-name { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: .15em; }
+.team-monogram { position: absolute; right: 15px; bottom: -12px; z-index: -1; font-family: var(--font-display); font-size: 104px; font-weight: 700; line-height: 1; letter-spacing: -.04em; opacity: .09; }
+.team-card-roster { padding: 10px 25px 18px; }
+.roster-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; text-align: left; }
+.roster-table th, .roster-table td { padding: 14px 8px; border-bottom: 1px solid #ffffff16; overflow-wrap: anywhere; vertical-align: middle; }
+.roster-table thead th { color: #a4a4ad; font-size: 10px; font-weight: 500; letter-spacing: .1em; }
+.roster-table th:first-child { width: 40%; padding-left: 0; }
+.roster-table th:nth-child(2) { width: 40%; }
+.roster-table th:last-child, .roster-table td:last-child { width: 20%; text-align: right; padding-right: 0; }
+.roster-table tbody th { font-weight: 500; }
+.roster-table td[lang] { font-family: var(--font-display); font-size: 17px; color: #d4d4dc; line-height: 1.25; }
+.roster-table tr:last-child th, .roster-table tr:last-child td { border-bottom: 0; }
+.roster-leader { display: inline-block; margin-left: 8px; padding: 2px 5px; border: 1px solid #b5b5bf; border-radius: 3px; color: #e4e4eb; font-size: 9px; white-space: nowrap; vertical-align: middle; }
+.roster-level { display: inline-block; padding: 5px 8px; border-radius: 3px; background: var(--level-color); color: var(--level-ink); font-size: 11px; font-weight: 600; white-space: nowrap; line-height: 1.2; }
+.free-drivers { margin-top: 65px; }
+.free-roster { padding: 12px 28px 22px; border-radius: 12px; background: #17171c; color: #fff; border-top: 3px solid #FDEBFF; }
+@media (max-width: 850px) {
+  .teams-grid { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .team-card-heading h3 { font-size: 36px; }
+}
+@media (max-width: 600px) {
+  .drivers-page { padding: 155px 6vw 65px; }
+  .drivers-heading { margin-bottom: 38px; }
+  .drivers-heading h1 { font-size: clamp(32px, 8.5vw, 50px); }
+  .drivers-subtitle { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .team-card-heading { min-height: 190px; padding: 22px 20px; }
+  .team-card-heading h3 { max-width: 100%; font-size: 32px; }
+  .team-card-roster, .free-roster { padding: 8px 15px 15px; }
+  .roster-table { font-size: 12px; }
+  .roster-table th, .roster-table td { padding: 13px 5px; }
+  .roster-table td[lang] { font-size: 15px; }
+  .roster-level { padding: 5px 6px; font-size: 10px; }
+  .roster-leader { margin-left: 4px; font-size: 8px; }
+  .roster-section-title { gap: 12px; font-size: 16px; }
+  .roster-section-title small { font-size: 10px; letter-spacing: .06em; }
+  .free-drivers { margin-top: 44px; }
+}

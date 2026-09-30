@@ -7,7 +7,7 @@ export { cars };
 export const site = {
   logo: '/awtc.png',
   entryUrl: '/register',
-  about: '从方程式到 GT，AWTC 将对赛车的热爱带到每一次出发。这里记录我们的赛车项目，也连接下一段赛道旅程。',
+  about: 'ciallo~',
 };
 
 // The scanner reveals full silhouettes across letter gaps within the brand zone;

@@ -1,0 +1,45 @@
+.registration-page { min-height: 100svh; padding: 190px 6vw 110px; background: var(--paper); }
+.registration-heading, .registration-section, .registration-action { max-width: 1280px; margin-inline: auto; }
+.registration-eyebrow { color: var(--muted); font-size: 11px; letter-spacing: .18em; }
+.registration-heading h1 { margin-top: 28px !important; font-family: var(--font-display); font-size: clamp(52px, 7vw, 104px); font-weight: 600; line-height: 1.1; }
+.registration-heading h1 span { display: inline-block; color: var(--accent); font-family: var(--font-ui); font-size: .62em; letter-spacing: .02em; }
+.registration-intro { margin-top: 30px !important; font-size: clamp(21px, 2.5vw, 32px); font-weight: 600; }
+.registration-lead { max-width: 660px; margin-top: 14px !important; color: #62625c; font-size: 14px; line-height: 1.9; }
+.registration-steps { display: flex; flex-wrap: wrap; gap: 16px 38px; margin-top: 36px; padding-bottom: 24px; font-size: 12px; letter-spacing: .08em; }
+.registration-steps span::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 10px; background: var(--accent); }
+.registration-section { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(0, 2fr); gap: 50px; padding-block: 48px; border-top: 1px solid var(--rule); }
+.registration-section-heading > span { color: var(--muted); font-family: var(--font-display); font-size: 13px; letter-spacing: .15em; }
+.registration-section-heading h2 { margin-top: 12px !important; font-size: clamp(22px, 2.4vw, 30px); font-weight: 600; }
+.registration-copy { font-size: 14px; line-height: 1.95; overflow-wrap: break-word; }
+.registration-copy p + p { margin-top: 12px !important; }
+.registration-copy h3 { font-size: 15px; font-weight: 600; line-height: 1.7; margin-bottom: 9px !important; }
+.registration-copy > h3:not(:first-child) { margin-top: 28px !important; }
+.registration-copy ul { margin: 10px 0 0; padding-left: 20px; }
+.registration-copy li + li { margin-top: 8px; }
+.registration-copy li::marker { color: var(--accent); }
+.registration-callout { margin-top: 24px !important; padding: 20px 24px; border-left: 3px solid var(--accent); background: #ede9e8; }
+.registration-checklist { list-style: none; margin: 20px 0 0; padding: 0; }
+.registration-checklist li { display: flex; gap: 22px; padding-block: 18px; border-top: 1px solid var(--rule); margin: 0 !important; }
+.registration-checklist li > span { flex: 0 0 24px; font-family: var(--font-display); font-size: 21px; color: #9a3c62; }
+.registration-checklist h3 { margin: 0 !important; }
+.registration-checklist p { margin-top: 7px !important; color: #62625c; }
+.registration-game-path { padding-top: 20px; border-top: 1px solid var(--rule); color: #62625c; font-size: 12px; }
+.registration-action { display: flex; align-items: center; justify-content: space-between; gap: 36px; margin-top: 20px; padding: 42px; background: var(--ink); color: var(--paper); border-radius: 12px; }
+.registration-action .registration-eyebrow { color: #ee9bbf; }
+.registration-action h2 { margin-top: 14px !important; font-size: clamp(22px, 2.6vw, 34px); line-height: 1.5; }
+.registration-action h2 + p { max-width: 520px; margin-top: 14px !important; color: #cbc9c5; font-size: 13px; line-height: 1.9; }
+#home .registration-button { display: grid; grid-template-columns: 1fr auto; gap: 8px 36px; flex-shrink: 0; padding: 21px 26px; background: var(--accent); color: var(--ink); border-radius: 4px; font-size: 19px; font-weight: 600; transition: background-color .2s ease; }
+.registration-button small { grid-column: 1 / -1; font-size: 10px; font-weight: 400; letter-spacing: .05em; }
+#home .registration-button:hover { background: #ff80b0; }
+@media (max-width: 700px) {
+  .registration-page { padding: 155px 6vw 65px; }
+  .registration-heading h1 { font-size: clamp(46px, 11vw, 70px); }
+  .registration-heading h1 span { display: block; margin-top: 10px; }
+  .registration-section { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-block: 32px; }
+  .registration-steps { gap: 14px 18px; font-size: 10px; }
+  .registration-copy { font-size: 13px; }
+  .registration-callout { padding: 18px; }
+  .registration-action { flex-direction: column; align-items: stretch; padding: 26px; gap: 26px; }
+  .registration-checklist li { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { #home .registration-button { transition: none; } }

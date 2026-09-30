@@ -194,8 +194,29 @@ body.home-loading { overflow: hidden; }
   filter: drop-shadow(0 12px 20px rgb(23 23 21 / .08));
 }
 
-/* Z6 — reserved for the next-race card; nothing renders in it yet. */
+/* Z6 — calendar-driven next race, kept within the existing reserved corner. */
 .next-race-slot { position: absolute; z-index: 6; left: 3.5vw; bottom: 86px; }
+.next-race { display: flex; align-items: center; gap: 18px; border-top: 1px solid var(--accent); padding-top: 12px; }
+.next-race-map { width: 112px; flex: 0 0 112px; }
+.next-race-map img { display: block; width: 100%; height: 88px; object-fit: contain; }
+.next-race-info { min-width: 0; }
+.next-race-eyebrow { display: flex; gap: 10px; align-items: center; color: var(--accent); font-size: 9px; letter-spacing: .1em; }
+.next-race-eyebrow span { color: var(--muted); font-size: 8px; letter-spacing: .03em; }
+#home .next-race-name { margin: 5px 0; font-size: 18px; font-weight: 500; }
+.next-race-time { display: block; font-size: 12px; }
+#home .next-race-zone { margin-top: 3px; font-size: 9px; color: var(--muted); }
+#home .next-race-countdown { margin-top: 8px; font-size: 15px; letter-spacing: .02em; white-space: nowrap; }
+.next-race-ended { border-top: 1px solid var(--accent); padding-top: 12px; font-size: 16px; }
+@media (max-width: 600px) {
+  .hero-chapter .next-race-slot { left: 6vw; bottom: 64px; max-width: 88vw; }
+  .next-race { gap: 12px; }
+  .next-race-map { width: 76px; flex-basis: 76px; }
+  .next-race-map img { height: 70px; }
+  .next-race-eyebrow { gap: 6px; font-size: 8px; }
+  .next-race-eyebrow span { font-size: 7px; }
+  #home .next-race-name { font-size: 16px; }
+  #home .next-race-countdown { font-size: 13px; }
+}
 .scroll-cue { position: absolute; z-index: 6; bottom: 30px; left: 3.5vw; right: 3.5vw; border-top: 1px solid var(--rule); padding-top: 18px; display: flex; justify-content: flex-end; }
 .scroll-cue span { font-size: 17px; line-height: 1; color: var(--muted); opacity: .55; }
 

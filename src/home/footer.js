@@ -6,8 +6,8 @@ export function pitLane() {
     <section class="pit-partner" aria-labelledby="pit-partner-title">
       <h2 id="pit-partner-title">OUR PARTNER <span>合作伙伴</span></h2>
       <div class="pit-partner-marks" role="group" aria-label="赞助商品牌标识">
-        <img src="/sponsor-logos/sponsor-mark.png" alt="PLAN C · C计划" width="979" height="531" decoding="async">
-        <img src="/sponsor-logos/hakusen.png" alt="白线 HAKUSEN" width="889" height="414" decoding="async">
+        <a href="https://space.bilibili.com/417986370?spm_id_from=333.337.search-card.all.click"><img src="/sponsor-logos/sponsor-mark.png" alt="PLAN C · C计划" width="979" height="531" decoding="async"></a>
+        <a href="https://store.steampowered.com/app/3814510/_/"><img src="/sponsor-logos/hakusen.png" alt="白线 HAKUSEN" width="889" height="414" decoding="async"></a>
       </div>
     </section>
     <div class="pit-footer"><nav aria-label="页脚导航">${navItems.map(item=>`<a href="${item.href}">${item.label}</a>`).join('')}</nav><button class="pit-top" type="button" aria-label="返回顶部"><svg viewBox="0 0 20 40" aria-hidden="true"><path d="M10 39V4M4 10L10 4L16 10"/></svg></button></div>
