@@ -244,6 +244,7 @@ body.home-loading { overflow: hidden; }
 /* ---------------------------------------------------- placeholder pages ---- */
 .page-shell { min-height: 100svh; padding: 190px 6vw 90px; display: flex; flex-direction: column; }
 .page-title { font-family: var(--font-display); font-size: clamp(44px, 7vw, 118px); font-weight: 600; letter-spacing: -.02em; line-height: 1; }
+.register-page .page-title { word-break: keep-all; }
 .page-blurb { margin-top: 28px !important; font-size: 15px; line-height: 2; color: #55554e; max-width: 420px; }
 .page-back { margin-top: auto; display: inline-flex; gap: 40px; align-self: flex-start; border-bottom: 1px solid #8c8c82; padding-bottom: 12px; font-size: 12px; letter-spacing: .04em; }
 .page-back span { font-size: 17px; }
